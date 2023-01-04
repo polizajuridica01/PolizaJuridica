@@ -1,0 +1,462 @@
+﻿@model IEnumerable<PolizaJuridica.Data.Investigacion>
+
+@{
+    ViewData["Title"] = "Investigación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+ 
+    
+    <div class="row" >        
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="red">
+                    <i class="material-icons">perm_identity</i>
+                </div>
+                <div class="card-content">
+                    @if (@ViewBag.TipoRegimen == "1")
+                    {
+                        <h4 class="card-title">Seguimiento de Solicitud Persona Física con número: @ViewBag.SolicitudId</h4>
+                    }
+                    @if (@ViewBag.TipoRegimen == "2")
+                    {
+                        <h4 class="card-title">Seguimiento de Solicitud Persona Moral con número: @ViewBag.SolicitudId</h4>
+                    }
+                    <div>
+                        <div class="card">
+                            <div class="card-header card-header-tabs" data-background-color="red">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <span class="nav-tabs-title">Datos:</span>
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="">
+                                                @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = ViewBag.Id, origen = 2 })
+                                            </li>
+                                            @if (@ViewBag.TipoRegimen == "1")
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Persona Física", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Personas que Ocuparán el Inmueble", "Index", "PersonasOcupanInms", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                                </li>
+                                                @if (ViewBag.fiador == true)
+                                                {
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Física)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                    </li>
+
+                                                }
+                                                <li class="active">
+                                                    <a href="#1" data-toggle="tab">
+                                                        <i class="material-icons">bug_report</i>
+                                                        Investigación
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = ViewBag.Id })
+                                                </li>
+                                            }
+                                            @if (@ViewBag.TipoRegimen == "2")
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Persona Moral", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                                </li>
+                                                @if (ViewBag.fiador == true)
+                                                {
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Física)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                    </li>
+
+                                                }
+                                                <li class="active">
+                                                    <a href="#1" data-toggle="tab">
+                                                        <i class="material-icons">bug_report</i>
+                                                        Investigación
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = ViewBag.Id })
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="tab-content">
+                                    <!--Inicio de Secccion 1-->
+                                    <div class="tab-pane active" id="2">
+                                        <!--INICIO Seccion dentro del tab-->
+                                        <div class="row" id="loader-1">
+                                            <div class="loader-wrapper">
+                                                <div id="loader"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row" id="todo">
+                                            <!--Seccion de contenedor-->
+                                            @foreach (var item in Model)
+                                            {
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="card card-pricing card-raised">
+                                                        <div class="content">
+                                                            <h1 class="category">Listado de Investigación: @Html.DisplayFor(modelItem => item.Nombre)</h1>
+                                                            <div class="row">
+                                                                <div class="material-datatables">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="card-header card-header-icon" data-background-color="red">
+                                                                                    <i class="material-icons">perm_identity</i>
+                                                                                </div>
+                                                                                <div class="card-content">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-9">
+                                                                                            <table class="table">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>
+                                                                                                            Fecha Inicial
+                                                                                                        </th>
+                                                                                                        <th>
+                                                                                                            Fecha Final
+                                                                                                        </th>
+                                                                                                        <th>
+                                                                                                            Criterio
+                                                                                                        </th>
+                                                                                                        <th>
+                                                                                                            Nombre
+                                                                                                        </th>
+                                                                                                        <th>
+                                                                                                            Entidad
+                                                                                                        </th>
+                                                                                                        <th>
+                                                                                                            Detalle
+                                                                                                        </th>
+                                                                                                        @if (item.Cantidad != null)
+                                                                                                        {
+                                                                                                            <th>
+                                                                                                                Cantidad
+                                                                                                            </th>
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                    <th>
+                                                                                                        Buscar
+                                                                                                    </th>
+                                                                                                        }                                                                                                        
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            @Html.DisplayFor(modelItem => item.FechaInicial)
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            @Html.DisplayFor(modelItem => item.FechaFinal)
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            @Html.DisplayFor(modelItem => item.Criterio)
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            @Html.DisplayFor(modelItem => item.Nombre)
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            @Html.DisplayFor(modelItem => item.Entidad)
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            @Html.DisplayFor(modelItem => item.Detalle)
+                                                                                                        </td>
+                                                                                                        @if (item.Cantidad > 0)
+                                                                                                        {
+                                                                                                    <td>
+                                                                                                        @Html.DisplayFor(modelItem => item.Cantidad)
+                                                                                                    </td>
+                                                                                                        }
+                                                                                                        @if (item.Cantidad == 0)
+                                                                                                        {
+                                                                                                            <td>
+                                                                                                                Sin coincidencias
+                                                                                                            </td>
+                                                                                                        }
+                                                                                                        @if (item.Cantidad == null)
+                                                                                                        {
+                                                                                                            <td>
+                                                                                                                <a asp-action="Investigar" asp-route-id="@item.InvestigacionId" class="btn btn-primary" onclick="change()">Investigar</a>
+                                                                                                            </td>
+                                                                                                        }
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                            @if (item.DetalleInvestigacion.Count > 0)
+                                                                                            {
+                                                                                                @foreach (var d in item.DetalleInvestigacion)
+                                                                                                {
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-xs-12 col-sm-12">
+                                                                                                            <table class="table">
+                                                                                                                <thead>
+                                                                                                                    <tr>
+                                                                                                                        <th>
+                                                                                                                            Entidad
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Tribunal
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Tipo
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Fuente
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Fecha
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Fuero
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Actor
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Juzgado
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Demandado
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Expediente
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Cuircuitd Id
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Juzgado Id
+                                                                                                                        </th>
+                                                                                                                    </tr>
+                                                                                                                </thead>
+                                                                                                                <tbody>
+                                                                                                                    <tr>
+                                                                                                                        <td>
+                                                                                                                            @d.Entidad
+                                                                                                                        </td>
+                                                                                                                        <td>
+                                                                                                                            @d.Tribunal
+                                                                                                                        </td>
+                                                                                                                        <th>
+                                                                                                                            @d.Tipo
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            @d.Fuente
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            @d.Fuero
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            @d.Actor
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            @d.Juzgado
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            @d.Demandado
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            @d.Expediente
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            @d.Circuitoid
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            @d.Juzgadoid
+                                                                                                                        </th>
+                                                                                                                        <td>
+                                                                                                                            <a asp-controller="Acuerdos" asp-action="Index" asp-route-id="@d.Id" class="btn btn-primary">Acuerdos</a>
+                                                                                                                        </td>
+                                                                                                                    </tr>
+                                                                                                                </tbody>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!--Fin de Seccion 1-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- end row -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- end col-md-12  fin de contenedor-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Fin de Seccion 1-->
+        </div>
+    </div>
+
+<!-- end row -->
+
+
+
+
+@section Scripts   {
+
+    <script type="text/javascript">
+        var objeto = @Html.Raw(Json.Serialize(@ViewBag.Error));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var o in obj) {
+
+                    switch (obj[o].tipo) {
+                        case 1://Error
+                        Mensaje(obj[o].mensaje, "danger");
+                        break;
+                        case 2://ErrorAtributos
+                        MensajeCampos(obj[o].mensaje);
+                        break;
+                        case 3://Exitoso
+                        Mensaje(obj[o].mensaje, "success");
+                        break;
+                        case 4://Informativo
+                        Mensaje(obj[o].mensaje, "info");
+                        break;
+                    }
+
+                }
+            }
+        }
+
+    function Mensaje(mensaje, tipo) {
+    $.notify({
+            icon: "add_alert",
+        message: mensaje
+
+    }, {
+            type: tipo,
+            timer: 10000,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    }
+    function MensajeCampos(id) {
+           id = '#' + id;
+            $(id).addClass('has-error');
+        }
+        //Inicio datatablesContratos
+            $('#datatablesContratos').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "Todo"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+
+            var table = $('#datatablesContratos').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+
+        
+
+        function change() {
+            $('#loader-1').show();
+            $('#todo').hide();
+        }
+        function Ocultar() {
+            $('#loader-1').hide();
+            $('#todo').show();
+        }
+        Ocultar();
+    </script>
+}
+
+

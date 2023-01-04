@@ -1,0 +1,186 @@
+﻿@model PolizaJuridica.Data.RefArrendamiento
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                @if (@ViewBag.TipoRegimen == "1")
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Fisica</h4>
+                }
+                @if (@ViewBag.TipoRegimen == "2")
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Moral</h4>
+                }
+                <div>
+                    <div class="card">
+                        <div class="card-header card-header-tabs" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Datos:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="">
+                                            @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = Model.FisicaMoralId, origen = '2' })
+                                        </li>
+                                        @if (@ViewBag.TipoRegimen == "1")
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Fisica", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Referencias de Arrendamiento
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Personas Ocup. Inmueble", "Index", "PersonasOcupanInms", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            @if (ViewBag.Fiador == true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Fisíca)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+
+                                            }
+                                        }
+                                        @if (@ViewBag.TipoRegimen == "2")
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Moral", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Referencias de Arrendamiento
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            @if (ViewBag.Fiador == true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Fisíca)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+                                            }
+                                        }
+                                        @if ("Procesos" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value || "Control y Calidad" == User.FindFirst("Area").Value)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Investigación", "Index", "Investigacions", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                            </li>
+                                        }
+                                        <li class="">
+                                            @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = ViewBag.Id })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("Generar Solicitudes", "Index", "GenerarSolicitudes", new { id = ViewBag.Id })
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content">
+                                <!--Inicio de Secccion 1-->
+                                <div class="tab-pane active" id="2">
+                                    <!--INICIO Seccion dentro del tab-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 class="card-title">Referencia de Arrendamiento (Datos del actual Arrendador)</h4>
+                                            <form asp-action="Edit">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <div class="form-group" hidden>
+                                                    <input asp-for="RefArrendamientoId" class="form-control" />
+                                                    <span asp-validation-for="RefArrendamientoId" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre(s)</label>
+                                                    <input asp-for="RefArrenNombres" class="form-control" />
+                                                    <span asp-validation-for="RefArrenNombres" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Apellido Paterno</label>
+                                                    <input asp-for="RefArrenApePaterno" class="form-control" />
+                                                    <span asp-validation-for="RefArrenApePaterno" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Apellido Materno</label>
+                                                    <input asp-for="RefArrenApeMaterno" class="form-control" />
+                                                    <span asp-validation-for="RefArrenApeMaterno" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Teléfono</label>
+                                                    <input asp-for="RefArrenTelefono" class="form-control" />
+                                                    <span asp-validation-for="RefArrenTelefono" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Domicilio</label>
+                                                    <input asp-for="RefArrenDomicilio" class="form-control" />
+                                                    <span asp-validation-for="RefArrenDomicilio" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Monto</label>
+                                                    <input asp-for="RefArrenMonto" class="form-control" />
+                                                    <span asp-validation-for="RefArrenMonto" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Motivo de Cambio</label>
+                                                    <input asp-for="RefArrenMotivoCambio" class="form-control" />
+                                                    <span asp-validation-for="RefArrenMotivoCambio" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group" hidden>
+                                                    <label asp-for="FisicaMoralId" class="control-label"></label>
+                                                    <input asp-for="FisicaMoralId" class="form-control" value="@ViewBag.Id" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <a asp-controller="FisicaMorals" asp-action="Edit" asp-route-id="@ViewBag.Id" class="btn btn-default pull-left">Atrás</a>
+                                                    <a asp-controller="ReferenciaPersonals" asp-action="Index" asp-route-id="@ViewBag.Id" class="btn btn-primary pull-right">Siguiente</a>
+                                                    <input type="submit" value="Guardar" class="btn btn-primary pull-right" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- end col-md-12 -->
+                                    </div>
+                                    <!--FIN Seccion dentro del tab-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin de Seccion 1-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,69 @@
+﻿@model PolizaJuridica.Data.Representacion
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Representacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RepresentacionNombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RepresentacionNombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonoOficina)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TelefonoOficina)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OficinaEmisora)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OficinaEmisora)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Porcentaje)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Porcentaje)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PorcentajeAsesor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PorcentajeAsesor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PorcentajeEjecutivo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PorcentajeEjecutivo)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="RepresentacionId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+</body>
+</html>

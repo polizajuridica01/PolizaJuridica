@@ -1,0 +1,58 @@
+﻿@model IEnumerable<PolizaJuridica.Data.CentroCostos>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Centro de Costos</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tipo de Póliza
+            </th>
+            <th>
+                Costo de la Póliza
+            </th>
+            <th>
+                Monto Renta Inicial
+            </th>
+            <th>
+                Monto Renta Final
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CentroCostosTipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CentroCostosMonto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CentroCostosRentaInicial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CentroCostosRentaFinal)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CentroCostosId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CentroCostosId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CentroCostosId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

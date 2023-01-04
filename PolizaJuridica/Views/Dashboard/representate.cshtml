@@ -1,0 +1,121 @@
+﻿@using PolizaJuridica.ViewModels;
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <h3>@ViewBag.FiltroFecha</h3>
+            </div>
+            <div class="row">
+                @using (Html.BeginForm())
+                {
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label">Fecha Inicio </label>
+                            <input name="FechaInicio" class="form-control" type="date">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label">Fecha Fin </label>
+                            <input name="FechaFin" class="form-control" type="date">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="submit" class='btn btn-fill btn-primary btn-wd' value="Filtrar">
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="red">
+                            <i class="material-icons">equalizer</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Solicitudes</p>
+                            <h3 class="card-title">@ViewBag.Solicitudes</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">update</i> Estatus del día de hoy
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="green">
+                            <i class="material-icons">equalizer</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Pólizas</p>
+                            <h3 class="card-title">@ViewBag.Poliza</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">update</i> Estatus del día de hoy
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="red">
+                            <i class="material-icons">equalizer</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Monto Global de Venta</p>
+                            <h3 class="card-title">@ViewBag.MontoTotalVentas</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">update</i> Estatus del día de hoy
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>            
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="table-responsive table-sales">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Id
+                                    </td>
+                                    <td>
+                                        Nombre
+                                    </td>
+                                    <td>
+                                        Cantidad de Pólizas
+                                    </td>
+                                </tr>
+                                @foreach (var r in ViewData["RepreCantCosto"] as IList<RepresentantesCPCViewModel>)
+                                {
+                                    <tr>
+                                        <td>
+                                            @r.RepresentanteId
+                                        </td>
+                                        <td>
+                                            @r.Nombre
+                                        </td>
+                                        <td>
+                                            @r.CantidadPoliza
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

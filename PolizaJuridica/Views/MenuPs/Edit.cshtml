@@ -1,0 +1,59 @@
+﻿@model PolizaJuridica.Data.MenuP
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>MenuP</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Controlador" class="control-label"></label>
+                <input asp-for="Controlador" class="form-control" />
+                <span asp-validation-for="Controlador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pantalla" class="control-label"></label>
+                <input asp-for="Pantalla" class="form-control" />
+                <span asp-validation-for="Pantalla" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MenuPpadreId" class="control-label"></label>
+                <select asp-for="MenuPpadreId" class="form-control" asp-items="ViewBag.MenuPPadreId">
+                    <option value="0">Sin padre</option>
+                </select>
+                <span asp-validation-for="MenuPpadreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AreaId" class="control-label"></label>
+                <select asp-for="AreaId" class="form-control" asp-items="ViewBag.AreaId"></select>
+                <span asp-validation-for="AreaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

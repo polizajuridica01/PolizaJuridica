@@ -1,0 +1,211 @@
+﻿@model PolizaJuridica.Data.Usuarios
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Crear Usuario</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="red">
+                    <i class="material-icons">contacts</i>
+                </div>
+                <div class="card-content">
+                    <h4 class="card-title">Crear Usuario</h4>
+                    <form asp-action="Create">
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Email</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsurioEmailError">
+                                    <input asp-for="UsurioEmail" class="form-control" type="email" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Nombre (s)</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioNombreError">
+                                    <input asp-for="UsuarioNombre" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Apellido Paterno</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioApellidoPaternoError">
+                                    <input asp-for="UsuarioApellidoPaterno" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Apellido Materno</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioApellidoMaternoError">
+                                    <input asp-for="UsuarioApellidoMaterno" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Teléfono</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioTelefonoError">
+                                    <input asp-for="UsuarioTelefono" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Celular</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioCelularError">
+                                    <input asp-for="UsuarioCelular" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Inmobiliaria</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioInmobiliariaError">
+                                    <input asp-for="UsuarioInmobiliaria" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        @if ("Administración" == User.FindFirst("Area").Value)
+                        {
+                            <div class="row">
+                                <label class="col-md-3 label-on-left">Contraseña</label>
+                                <div class="col-md-9">
+                                    <div class="form-group label-floating is-empty" id="UsuarioContraseniaError">
+                                        <input asp-for="UsuarioContrasenia" class="form-control" type="password" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label"> Área </label>
+                                    <select asp-for="AreaId" class="form-control" asp-items="ViewBag.AreaId">
+                                        <option> (Seleccionar Área) </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="checkbox form-horizontal-checkbox">
+                                    <label>
+                                        <input type="checkbox" asp-for="IsResponsanle"> Es Responsable de la Representación
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label">Representación</label>
+                                    <select asp-for="RepresentacionId" class="form-control" asp-items="ViewBag.RepresentacionId">
+                                        <option> (Seleccionar Representación) </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label">Usuario Padre</label>
+                                    <select asp-for="UsuarioPadreId" class="form-control" asp-items="ViewBag.UsuariosPadre">
+                                        <option> (Seleccionar Usuario) </option>
+                                    </select>
+                                </div>
+                            </div>
+                        }
+                        @if ("Representante" == User.FindFirst("Area").Value)
+                        {
+                            <div class="form-group" hidden>
+                                <input asp-for="AreaId" class="form-control" value="2" />
+                            </div>
+                            <div class="form-group" hidden>
+                                <input asp-for="RepresentacionId" class="form-control" value="@ViewBag.UsuarioRepresentacionId" />
+                            </div>
+                            <div class="form-group" hidden>
+                                <input asp-for="UsuarioPadreId" class="form-control" value="@(User.FindFirst("Id").Value)" />
+                            </div>
+                            <div class="form-group" hidden>
+                                <label class="control-label"> Contraseña</label>
+                                <input asp-for="UsuarioContrasenia" class="form-control" type="password" value="123456" />
+                                <span asp-validation-for="UsuarioContrasenia" class="text-danger"></span>
+                            </div>
+
+
+                        }
+                        <div class="row">
+                            <label class="col-md-3"></label>
+                            <div class="col-md-9">
+                                <div class="form-group form-button">
+                                    <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        var objeto = @Html.Raw(Json.Serialize(@ViewBag.Error));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);            
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var i in obj) {
+
+                    switch (obj[i].tipo) {
+                        case 1://Error
+                        Mensaje(obj[i].mensaje, "danger");
+                        break;
+                        case 2://ErrorAtributos
+                        MensajeCampos(obj[i].mensaje);
+                        break;
+                        case 3://Exitoso
+                        Mensaje(obj[i].mensaje, "success");
+                        break;
+                        case 4://Informativo
+                        Mensaje(obj[i].mensaje, "info");
+                        break;
+                    }
+                    
+                }
+            }
+        }
+
+    function Mensaje(mensaje, tipo) {
+    $.notify({
+            icon: "add_alert",
+        message: mensaje
+
+    }, {
+            type: tipo,
+            timer: 10000,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    }
+       function MensajeCampos(id) {
+           id = '#' + id;
+            $(id).addClass('has-error');
+       }
+
+       var checkbox = $('.footer-checkbox');
+
+
+    </script>
+}

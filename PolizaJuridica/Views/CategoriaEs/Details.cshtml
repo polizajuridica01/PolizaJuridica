@@ -1,0 +1,47 @@
+﻿@model PolizaJuridica.Data.CategoriaEs
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>CategoriaEs</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Poliza)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Poliza)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoEs)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TipoEs)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaEspadre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaEspadre.Descripcion)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CategoriaEsid">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

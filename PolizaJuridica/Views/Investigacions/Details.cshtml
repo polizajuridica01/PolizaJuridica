@@ -1,0 +1,61 @@
+﻿@model PolizaJuridica.Data.Investigacion
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Investigacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Criterio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Criterio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicial)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicial)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFinal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Entidad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Entidad)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Detalle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FisicaMoral)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FisicaMoral.FisicaMoralId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.InvestigacionId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

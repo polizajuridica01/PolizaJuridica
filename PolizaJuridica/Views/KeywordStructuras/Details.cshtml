@@ -1,0 +1,41 @@
+﻿@model PolizaJuridica.Data.KeywordStructura
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>KeywordStructura</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Estructura)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Estructura)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comentarios)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comentarios)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Orden)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Orden)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

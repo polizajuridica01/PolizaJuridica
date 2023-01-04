@@ -1,0 +1,57 @@
+﻿@model PolizaJuridica.Data.UsuariosSoluciones
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>UsuariosSoluciones</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Observacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProcesoSoluciones)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProcesoSoluciones.Descripcion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Soluciones)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Soluciones.SolucionesId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuarios)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usuarios.UsuariosId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.UsuariosSolulucionesId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

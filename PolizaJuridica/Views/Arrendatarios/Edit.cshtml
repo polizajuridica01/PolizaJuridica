@@ -1,0 +1,596 @@
+﻿@model PolizaJuridica.Data.Arrendatario
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Solicitud de Arrendatario</h4>
+                <div>
+                    <form asp-action="Edit">
+                        <div class="card">
+                            <div class="card-header card-header-tabs" data-background-color="red">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <span class="nav-tabs-title">Datos:</span>
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="active">
+
+                                                @if (@ViewBag.TipoRegimen == 1)
+                                                {
+                                                    <a href="#1" data-toggle="tab">
+                                                        <i class="material-icons">bug_report</i>
+                                                        Persona Fisica
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                }
+                                                @if (@ViewBag.TipoRegimen == 2)
+                                                {
+                                                    <a href="#1" data-toggle="tab">
+                                                        <i class="material-icons">bug_report</i>
+                                                        Persona Moral
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                }
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                @if (@ViewBag.TipoRegimen == 1)
+                                {
+                                    <div class="tab-content">
+                                        <!--Inicio de Secccion 1-->
+                                        <div class="tab-pane active" id="1">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="NombreError">
+                                                        <label class="control-label"><star>*</star>Nombre(s)</label>
+                                                        <input asp-for="Nombre" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="ApePatError">
+                                                        <label class="control-label"><star>*</star>Apellido Paterno </label>
+                                                        <input asp-for="ApePaterno" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="ApeMat">
+                                                        <label class="control-label">Apellido Materno</label>
+                                                        <input asp-for="ApeMaterno" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="RFCError">
+                                                        <label class="control-label">RFC</label>
+                                                        <input asp-for="Rfc" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="NacionallidadError">
+                                                        <label class="control-label"><star>*</star>Nacionalidad</label>
+                                                        <input asp-for="Nacionalidad" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="CondMigratoriaError">
+                                                        <label class="control-label">Condición Migratoria </label>
+                                                        <input asp-for="CondMigratoria" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="EstadoCivilError">
+                                                        <label class="control-label">Estado Civil</label>
+                                                        <input asp-for="EstadoCivil" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="ConvenioECError">
+                                                        <label class="control-label">Convenio</label>
+                                                        <input asp-for="ConvenioEc" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="TipoIdentificacionError">
+                                                        <label class="control-label">Tipo de identificación</label>
+                                                        <input asp-for="TipoIdentificacion" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="NumeroIdentificacionError">
+                                                        <label class="control-label">Número de Identificación </label>
+                                                        <input asp-for="NumeroIdentificacion" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group label-floating" id="DomicilioError">
+                                                        <label class="control-label"><star>*</star>Domicilio</label>
+                                                        <input asp-for="Domicilio" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating" id="ColoniaError">
+                                                        <label class="control-label"><star>*</star>Colonia</label>
+                                                        <input asp-for="Colonia" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating" id="DelegacionMunicipioError">
+                                                        <label class="control-label"><star>*</star>Alcaldía/Municipio</label>
+                                                        <input asp-for="DelegacionMunicipio" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating" id="CodigoPostalError">
+                                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                                        <input asp-for="CodigoPostal" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating" id="EstadoError">
+                                                        <label class="control-label"><star>*</star>Estado</label>
+                                                        <input asp-for="Estado" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="TelefonoError">
+                                                        <label class="control-label">Teléfono</label>
+                                                        <input asp-for="Telefono" type="text" class="form-control" value="@(ViewBag.Telefono)">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="CelularError">
+                                                        <label class="control-label"><star>*</star>Celular</label>
+                                                        <input asp-for="Celular" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="EmailError">
+                                                        <label class="control-label"><star>*</star>Email</label>
+                                                        <input asp-for="Email" type="email" class="form-control" value="@(ViewBag.Email)">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="ProfesionError">
+                                                        <label class="control-label">Profesión</label>
+                                                        <input asp-for="Profesion" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="IngresoMensualError">
+                                                        <label class="control-label">Ingreso Mensual</label>
+                                                        <input asp-for="IngresoMensual" type="number" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="TrabajoError">
+                                                        <label class="control-label">Empresa donde trabaja</label>
+                                                        <input asp-for="Trabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Antigüedad </label>
+                                                        <input asp-for="Antiguedad" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Puesto</label>
+                                                        <input asp-for="Puesto" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Teléfono</label>
+                                                        <input asp-for="TelefonoTrabajo" type="number" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Horario</label>
+                                                        <input asp-for="Horario" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Giro</label>
+                                                        <input asp-for="GiroTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Sitio WEB</label>
+                                                        <input asp-for="WebTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Domicilio del trabajo</label>
+                                                        <input asp-for="DomicilioTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Colonia</label>
+                                                        <input asp-for="ColoniaTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Alcaldía/Municipio</label>
+                                                        <input asp-for="DelegMuniTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Código Postal</label>
+                                                        <input asp-for="CodigoPostalTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Estado</label>
+                                                        <input asp-for="EstadoTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Jefe</label>
+                                                        <input asp-for="JefeTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Puesto</label>
+                                                        <input asp-for="PuestoJefe" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Email</label>
+                                                        <input asp-for="EmailJefe" type="email" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        Requiere de comprobante fiscal para el arrendamiento.
+                                                        <input asp-for="Factura" />
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4" hidden>
+                                                <div class="form-group label-floating">
+                                                    <input asp-for="FisicaMoralId" type="number" class="form-control" value="@ViewBag.Id">
+                                                    <input asp-for="ArrendatarioId" type="number" class="form-control" value="@ViewBag.ArrendatarioId">
+                                                    <input asp-for="TipoRegimenFiscal" type="number" class="form-control" value="@ViewBag.TipoRegimen">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (@ViewBag.TipoRegimen == 2)
+                                {
+                                    <div class="tab-content">
+                                        <!--Inicio de Secccion 1-->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating" id="RazonSocialError">
+                                                    <label class="control-label"><star>*</star>Razón Social</label>
+                                                    <input asp-for="RazonSocial" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating" id="RFCError">
+                                                    <label class="control-label"><star>*</star>RFC</label>
+                                                    <input asp-for="Rfc" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating" id="NombreError">
+                                                    <label class="control-label"><star>*</star>Nombre(s) Representante Legal</label>
+                                                    <input asp-for="Nombre" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating" id="ApePatError">
+                                                    <label class="control-label"><star>*</star>Apellido Paterno Representante Legal </label>
+                                                    <input asp-for="ApePaterno" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating" id="ApeMatError">
+                                                    <label class="control-label"><star>*</star>Apellido Materno Representate Legal</label>
+                                                    <input asp-for="ApeMaterno" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating" id="TipoIdentificacionError">
+                                                    <label class="control-label">Tipo de identificación</label>
+                                                    <input asp-for="TipoIdentificacion" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating" id="NumeroIdentificacionError">
+                                                    <label class="control-label">Número de Identificación </label>
+                                                    <input asp-for="NumeroIdentificacion" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Teléfono</label>
+                                                    <input asp-for="Telefono" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Giro de la Empresa</label>
+                                                    <input asp-for="GiroTrabajo" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-floating" id="DomicilioError">
+                                                    <label class="control-label"><star>*</star>Domicilio Empresa</label>
+                                                    <input asp-for="Domicilio" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group label-floating" id="ColoniaError">
+                                                    <label class="control-label"><star>*</star>Colonia</label>
+                                                    <input asp-for="Colonia" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group label-floating" id="DelegacionMunicipioError">
+                                                    <label class="control-label"><star>*</star>Alcaldía ó Municipio</label>
+                                                    <input asp-for="DelegacionMunicipio" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group label-floating" id="CodigoPostalError">
+                                                    <label class="control-label"><star>*</star>Código Postal</label>
+                                                    <input asp-for="CodigoPostal" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group label-floating" id="EstadoError">
+                                                    <label class="control-label"><star>*</star>Estado</label>
+                                                    <input asp-for="Estado" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating" id="NacionallidadError">
+                                                    <label class="control-label"><star>*</star>Nacionalidad</label>
+                                                    <input asp-for="Nacionalidad" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Condición Migratoria</label>
+                                                    <input asp-for="CondMigratoria" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating" id="ActaConstitutivaError">
+                                                    <label class="control-label"><star>*</star>Acta Constitutiva No.</label>
+                                                    <input asp-for="ActaConstitutiva" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating" id="PoderRepresentanteNoError">
+                                                    <label class="control-label"><star>*</star>Podel Rep. Legal No.</label>
+                                                    <input asp-for="PoderRepresentanteNo" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating" id="DomicilioRepresentanteLegalError">
+                                                    <label class="control-label"><star>*</star>Domicilio Particular del Representante Legal</label>
+                                                    <input asp-for="DomicilioRepresentanteLegal" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating" id="ColoniaRLError">
+                                                    <label class="control-label"><star>*</star>Colonia</label>
+                                                    <input asp-for="ColoniaRl" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating" id="DeleMuniError">
+                                                    <label class="control-label"><star>*</star>Alcaldía ó Municipio</label>
+                                                    <input asp-for="DeleMuni" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating" id="CodigoPostalTrabajoError">
+                                                    <label class="control-label"><star>*</star>Código Postal</label>
+                                                    <input asp-for="CodigoPostalTrabajo" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating" id="EstadoRLError">
+                                                    <label class="control-label"><star>*</star>Estado</label>
+                                                    <input asp-for="EstadoRl" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating" id="TelefonoRLError">
+                                                    <label class="control-label"><star>*</star>Celular </label>
+                                                    <input asp-for="TelefonoRl" type="text" class="form-control" value="@(ViewBag.Telefono)">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating" id="EmailRLError">
+                                                    <label class="control-label"><star>*</star>Email</label>
+                                                    <input asp-for="EmailRl" type="email" class="form-control" value="@(ViewBag.Email)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Jefe Inmediato</label>
+                                                    <input asp-for="JefeTrabajo" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Puesto</label>
+                                                    <input asp-for="Puesto" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Teléfono</label>
+                                                    <input asp-for="TelefonoTrabajo" type="number" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Página WEB</label>
+                                                    <input asp-for="WebTrabajo" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Horario de la empresa</label>
+                                                    <input asp-for="HorarioRl" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Ingreso mensual de la empresa</label>
+                                                    <input asp-for="IngresoMensualRl" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Sindicato Afiliado</label>
+                                                    <input asp-for="SindicadoRl" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" hidden>
+                                            <div class="form-group label-floating">
+                                                <input asp-for="FisicaMoralId" type="number" class="form-control" value="@ViewBag.Id">
+                                                <input asp-for="ArrendatarioId" type="number" class="form-control" value="@ViewBag.ArrendatarioId">
+                                                <input asp-for="TipoRegimenFiscal" type="number" class="form-control" value="@ViewBag.TipoRegimen">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                            <!--Fin de Seccion 4-->
+                        </div>
+                        <button asp-controller="arrendatarios" asp-action="Index" asp-route-Id="@ViewBag.Id" class="btn btn-danger pull-left">Regresar</button>
+                        <input type='submit' class='btn btn-primary btn-fill btn-wd pull-right' name='Guardar' value='Guardar' />
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script type="text/javascript">
+$(document).ready(function() {
+                    var objeto = @Html.Raw(Json.Serialize(@ViewBag.Error));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var o in obj) {
+
+                    switch (obj[o].tipo) {
+                        case 1://Error
+                        Mensaje(obj[o].mensaje, "danger");
+                        break;
+                        case 2://ErrorAtributos
+                        MensajeCampos(obj[o].mensaje);
+                        break;
+                        case 3://Exitoso
+                        Mensaje(obj[o].mensaje, "success");
+                        break;
+                        case 4://Informativo
+                        Mensaje(obj[o].mensaje, "info");
+                        break;
+                    }
+
+                }
+            }
+        }
+
+    function Mensaje(mensaje, tipo) {
+    $.notify({
+            icon: "add_alert",
+        message: mensaje
+
+    }, {
+            type: tipo,
+            timer: 10000,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    }
+       function MensajeCampos(id) {
+           id = '#' + id;
+            $(id).addClass('has-error');
+        }
+        });</script>
+}

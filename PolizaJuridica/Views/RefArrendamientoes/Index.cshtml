@@ -1,0 +1,612 @@
+﻿@model IEnumerable<PolizaJuridica.Data.RefArrendamiento>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                @if (@ViewBag.TipoRegimen == "1")
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Fisica</h4>
+                }
+                @if (@ViewBag.TipoRegimen == "2")
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Moral</h4>
+                }
+                <div>
+                    <div class="card">
+                        <div class="card-header card-header-tabs" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Datos:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="">
+                                            @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = ViewBag.Id, origen = 2 })
+                                        </li>
+                                        @if (@ViewBag.TipoRegimen == "1")
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Fisica", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Referencias de Arrendamiento
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Personas Ocuparán Inmueble", "Index", "PersonasOcupanInms", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            @if (@ViewBag.Fiador == true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Fisíca)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+                                            }
+                                                <li class="">
+                                                    @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                                </li>
+                                            }
+                                            @if (@ViewBag.TipoRegimen == "2")
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Persona Moral", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="active">
+                                                    <a href="#1" data-toggle="tab">
+                                                        <i class="material-icons">bug_report</i>
+                                                        Referencias de Arrendamiento
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                                </li>
+                                                @if (@ViewBag.Fiador == true)
+                                                {
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Fisíca)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                    </li>
+                                                }
+                                                <li class="">
+                                                    @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                                </li>
+
+                                            }
+                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content">
+                                <!--Inicio de Secccion 1-->
+                                <div class="tab-pane active" id="2">
+                                    <!--INICIO Seccion dentro del tab-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 class="card-title">Listado de Referencia de Arrendamiento</h4>
+                                            <div class="toolbar">
+                                                <a href="" data-toggle="modal" data-target="#Create" class="pull-right">Nuevo Referencia</a>
+                                            </div>
+                                            <div class="material-datatables">
+                                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Nombre(s)
+                                                            </th>
+                                                            <th>
+                                                                Apellido Paterno
+                                                            </th>
+                                                            <th>
+                                                                Apellido Materno
+                                                            </th>
+                                                            <th>
+                                                                Telefono
+                                                            </th>
+                                                            <th>
+                                                                Domicilio
+                                                            </th>
+                                                            <th>
+                                                                Monto
+                                                            </th>
+                                                            <th class="disabled-sorting text-right">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.RefArrenNombres)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.RefArrenApePaterno)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.RefArrenApeMaterno)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.RefArrenTelefono)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.RefArrenDomicilio)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.RefArrenMonto)
+                                                                </td>
+                                                                <td>
+                                                                    <a href="" data-toggle="modal" data-target="#Delete" class="pull-right" onclick="getDataAjax('@item.RefArrendamientoId','RefArrendamientoes/EditAjax')"><i class="material-icons">close</i></a>
+                                                                    <a href="" data-toggle="modal" data-target="#Edit" class="pull-right" onclick="getDataAjaxEdit('@item.RefArrendamientoId','RefArrendamientoes/EditAjax')"><i class="material-icons">edit</i></a>
+
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end col-md-12 -->
+                                    </div>
+                                    <!--FIN Seccion dentro del tab-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin de Seccion 1-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+
+            var table = $('#datatables').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+        });
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+        var item;
+        var RefArrenNombres;
+        var RefArrenApePaterno;
+        var RefArrenApeMaterno;
+        var RefArrenTelefono;
+        var RefArrenDomicilio;
+        var RefArrenMonto;
+        var RefArrenMotivoCambio;
+        var FisicaMoralId;
+        var RefArrendamientoId;
+        var id;
+        /*Agregamos un registro*/
+        function setDataAddRefArren(action) {
+
+            RefArrendamientoId = $('input[name=RefArrendamientoId')[0].value;
+            RefArrenNombres = $('input[name=RefArrenNombres')[0].value;
+            RefArrenApePaterno = $('input[name=RefArrenApePaterno')[0].value;
+            RefArrenApeMaterno = $('input[name=RefArrenApeMaterno')[0].value;
+            RefArrenTelefono = $('input[name=RefArrenTelefono')[0].value;
+            RefArrenDomicilio = $('input[name=RefArrenDomicilio')[0].value;
+            RefArrenMonto = $('input[name=RefArrenMonto')[0].value;
+            RefArrenMotivoCambio = $('input[name=RefArrenMotivoCambio')[0].value;
+            FisicaMoralId = $('input[name=FisicaMoralId')[0].value;
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    RefArrendamientoId, RefArrenNombres, RefArrenApePaterno, RefArrenApeMaterno, RefArrenTelefono, RefArrenDomicilio, RefArrenMonto, RefArrenMotivoCambio, FisicaMoralId
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        window.location.reload(true);
+                    }
+                }
+            });
+        }
+
+        function getDataAjax(id, action) {
+            limpiar();
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    //console.log(response);
+                    onSuccess(response);
+                }
+            });
+        }
+        function onSuccess(response) {
+            item = response;
+            $.each(item, function (idex, valor) {
+                $('input[name=refArrendamientoId').val(valor.refArrendamientoId);
+                $('input[name=RefArrenNombres').val(valor.refArrenNombres);
+                $('input[name=RefArrenApePaterno').val(valor.refArrenApePaterno);
+                $('input[name=RefArrenApeMaterno').val(valor.refArrenApeMaterno);
+                $('input[name=RefArrenTelefono').val(valor.refArrenTelefono);
+                $('input[name=RefArrenDomicilio').val(valor.refArrenDomicilio);
+                $('input[name=RefArrenMonto').val(valor.refArrenMonto);
+                $('input[name=RefArrenMotivoCambio').val(valor.refArrenMotivoCambio);
+                $('input[name=fisicaMoralId').val(valor.fisicaMoralId);
+            });
+        }
+        function getDataAjaxEdit(id, action) {
+            limpiar();
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    //console.log(response);
+                    onSuccessEdit(response);
+                }
+            });
+        }
+        function onSuccessEdit(response) {
+            item = response;
+            $.each(item, function (idex, valor) {
+                $('input[name=Id').val(valor.refArrendamientoId);
+                $('input[name=Nombres').val(valor.refArrenNombres);
+                $('input[name=ApePaterno').val(valor.refArrenApePaterno);
+                $('input[name=ApeMaterno').val(valor.refArrenApeMaterno);
+                $('input[name=Telefono').val(valor.refArrenTelefono);
+                $('input[name=Domicilio').val(valor.refArrenDomicilio);
+                $('input[name=Monto').val(valor.refArrenMonto);
+                $('input[name=MotivoCambio').val(valor.refArrenMotivoCambio);
+                $('input[name=FisicaMoralId').val(valor.fisicaMoralId);
+            });
+        }
+        /*Modificamos usuario*/
+        function setDataRefArren(action) {
+
+            RefArrendamientoId = $('input[name=Id')[0].value;
+            RefArrenNombres = $('input[name=Nombres')[0].value;
+            RefArrenApePaterno = $('input[name=ApePaterno')[0].value;
+            RefArrenApeMaterno = $('input[name=ApeMaterno')[0].value;
+            RefArrenTelefono = $('input[name=Telefono')[0].value;
+            RefArrenDomicilio = $('input[name=Domicilio')[0].value;
+            RefArrenMonto = $('input[name=Monto')[0].value;
+            RefArrenMotivoCambio = $('input[name=MotivoCambio')[0].value;
+            FisicaMoralId = $('input[name=FisicaMoralId')[0].value;
+
+            /*$.each(item, function (idex, valor) {
+                valor.RefArrendamientoId = RefArrendamientoId;
+                valor.refArrenNombres = RefArrenNombres;
+                valor.refArrenApePaterno = RefArrenApePaterno;
+                valor.refArrenApeMaterno = RefArrenApeMaterno;
+                valor.refArrenTelefono = RefArrenTelefono;
+                valor.refArrenDomicilio = RefArrenDomicilio;
+                valor.refArrenMonto = RefArrenMonto;
+                valor.refArrenMotivoCambio = RefArrenMotivoCambio;
+                valor.FisicaMoralId = FisicaMoralId;
+
+            });*/
+            //alert(RefArrendamientoId);
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    RefArrendamientoId, RefArrenNombres, RefArrenApePaterno, RefArrenApeMaterno, RefArrenTelefono, RefArrenDomicilio, RefArrenMonto, RefArrenMotivoCambio, FisicaMoralId
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        window.location.reload(true);
+                    }
+                }
+            });
+        }
+        /*Eliminamos*/
+        function setDataDeleteRefArren(action) {
+            id = $('input[name=refArrendamientoId')[0].value;
+            //alert(id);
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        swal({
+                            title: 'Eliminado!',
+                            text: 'El registro se ha eliminado',
+                            type: 'success',
+                            confirmButtonClass: "btn btn-success",
+                            buttonsStyling: false
+                        })
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        }, 2000);
+                    }
+                }
+            });
+        }
+        function MensajeError() {
+            swal({
+                title: '¿Estas Seguro?',
+                text: "Se eliminara de forma permanente",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Si, Eliminarlo!',
+                buttonsStyling: false
+            }).then(function () {
+                setDataDeleteRefArren('RefArrendamientoes/DeleteConfirmed');
+            });
+
+
+        }
+        /*fin de eliminar*/
+
+        /*Limpiamos*/
+        function limpiar() {
+             item = "";
+             RefArrenNombres = "";
+             RefArrenApePaterno = "";
+             RefArrenApeMaterno = "";
+             RefArrenTelefono = "";
+             RefArrenDomicilio = "";
+             RefArrenMonto = "";
+             RefArrenMotivoCambio = "";
+             FisicaMoralId = "";
+             RefArrendamientoId = "";
+             id = "";
+
+        }
+
+
+    </script>
+}
+<!--Seccion de Modal-->
+<!-- Modal -->
+<!--Create-->
+<div class="modal fade" id="Create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Crear Referencia de Arrendamiento</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <label for="RefArrenNombres" class="control-label">Nombre</label>
+                        <input for="RefArrendamientoId" name="RefArrendamientoId" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenNombres" class="control-label">Nombre</label>
+                        <input for="RefArrenNombres" name="RefArrenNombres" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenApePaterno" class="control-label">Apellido Paterno</label>
+                        <input for="RefArrenApePaterno" name="RefArrenApePaterno" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenApeMaterno" class="control-label">Apellido Materno</label>
+                        <input for="RefArrenApeMaterno" name="RefArrenApeMaterno" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenTelefono" class="control-label">Telefono</label>
+                        <input for="RefArrenTelefono" name="RefArrenTelefono" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenDomicilio" class="control-label">Domicilio</label>
+                        <input for="RefArrenDomicilio" name="RefArrenDomicilio" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenMonto" class="control-label">Monto</label>
+                        <input for="RefArrenMonto" name="RefArrenMonto" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenMotivoCambio" class="control-label">Motivo de Cambio</label>
+                        <input for="RefArrenMotivoCambio" name="RefArrenMotivoCambio" class="form-control" />
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="FisicaMoralId" class="control-label"></label>
+                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.id" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataAddRefArren('RefArrendamientoes/Insertar')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Create-->
+<!--Edit-->
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar Referencia de Arrendamiento</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+
+                        <input for="Id" name="Id" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Nombre</label>
+                        <input for="Nombres" name="Nombres" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Apellido Paterno</label>
+                        <input for="ApePaterno" name="ApePaterno" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Apellido Materno</label>
+                        <input for="ApeMaterno" name="ApeMaterno" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Telefono</label>
+                        <input for="Telefono" name="Telefono" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Domicilio</label>
+                        <input for="Domicilio" name="Domicilio" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Monto</label>
+                        <input for="Monto" name="Monto" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Motivo de Cambio</label>
+                        <input for="MotivoCambio" name="MotivoCambio" class="form-control" />
+                    </div>
+                    <div class="form-group" hidden>
+                        <label class="control-label"></label>
+                        <input for="FisicaMoralId" name="FisicaMoralId" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataRefArren('RefArrendamientoes/EditRefArrenAjax')">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Edit-->
+<!--Delete-->
+<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Eliminar
+                    Referencia de Arrendamiento
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <label for="RefArrenNombres" class="control-label">Nombre</label>
+                        <input for="refArrendamientoId" name="refArrendamientoId" class="form-control" disabled />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenNombres" class="control-label">Nombre</label>
+                        <input for="RefArrenNombres" name="RefArrenNombres" class="form-control" disabled />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenApePaterno" class="control-label">Apellido Paterno</label>
+                        <input for="RefArrenApePaterno" name="RefArrenApePaterno" class="form-control" disabled />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenApeMaterno" class="control-label">Apellido Materno</label>
+                        <input for="RefArrenApeMaterno" name="RefArrenApeMaterno" class="form-control" disabled />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenTelefono" class="control-label">Telefono</label>
+                        <input for="RefArrenTelefono" name="RefArrenTelefono" class="form-control" disabled />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenDomicilio" class="control-label">Domicilio</label>
+                        <input for="RefArrenDomicilio" name="RefArrenDomicilio" class="form-control" disabled />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenMonto" class="control-label">Monto</label>
+                        <input for="RefArrenMonto" name="RefArrenMonto" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="RefArrenMotivoCambio" class="control-label">Motivo de Cambio</label>
+                        <input for="RefArrenMotivoCambio" name="RefArrenMotivoCambio" class="form-control" disabled />
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="FisicaMoralId" class="control-label"></label>
+                        <input for="FisicaMoralId" name="FisicaMoralId" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="MensajeError()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Delete-->

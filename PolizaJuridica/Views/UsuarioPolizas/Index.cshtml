@@ -1,0 +1,304 @@
+﻿@model IEnumerable<PolizaJuridica.Data.UsuarioPoliza>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="red">
+            <i class="material-icons">perm_identity</i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">
+                Listado del proceso de la Póliza
+            </h4>
+            <div>
+                <div class="card">
+                    <div class="card-header card-header-tabs" data-background-color="red">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <span class="nav-tabs-title">Datos:</span>
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="">
+                                        @Html.ActionLink("Pólizas", "Index", "Polizas")
+                                    </li>
+                                    <li class="">
+                                        @Html.ActionLink("Detalle Póliza", "Index", "DetallePolizas", new { id = ViewBag.Id })
+                                    </li>
+                                    <li class="active">
+                                        <a href="#1" data-toggle="tab">
+                                            <i class="material-icons">bug_report</i>
+                                            Estatus
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="tab-content">
+                            <!--Inicio de Secccion 1-->
+                            <div class="tab-pane active" id="2">
+                                <!--INICIO Seccion dentro del tab-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4 class="card-title">Listado de Procesos sobre la Póliza</h4>
+                                        <div class="material-datatables">
+                                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Usuario
+                                                        </th>
+                                                        <th>
+                                                            Estatus
+                                                        </th>
+                                                        <th>
+                                                            Fecha
+                                                        </th>
+                                                        <th>
+                                                            Motivo
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Usuarios.UsuarioNomCompleto)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.TipoProcesoPo.Descripcion)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Fecha)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Observacion)
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- end col-md-12 -->
+                                </div>
+                                <!--FIN Seccion dentro del tab-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin de Seccion 1-->
+                </div>
+                <div class="form-group">
+                    <a data-toggle="modal" data-target="#CancelarProceso" class="btn btn-danger pull-left">Cancelar Proceso</a>
+                    @if ("Administración" == User.FindFirst("Area").Value)
+                    {
+                        <a data-toggle="modal" data-target="#CambiarProceso" class="btn btn-success pull-right">Cambiar Proceso</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success pull-right" onclick="MensajeTerminarProceso()">Terminar Proceso</a>
+                    }
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Cancelar Proceso-->
+<div class="modal fade" id="CancelarProceso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">¿Estás seguro de Cancelar la Solicitud?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group label-floating" id="ObservacionError">
+                    <label class="control-label"><star>*</star>Motivo</label>
+                    <input name="Observacion" class="form-control" type="text" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="CancelarProceso('UsuarioPolizas/CancelarProceso')">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Cancelar proceso-->
+<!--Cambiar Proceso-->
+<div class="modal fade" id="CambiarProceso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">¿Estás seguro de cambiar el estatus de la Solicitud?</h4>
+            </div>
+
+            <div class="modal-body">
+                <label>
+                    <div class="form-group">
+                        <select id="TipoProcesoId" name="TipoProcesoId" class="btn btn-primary btn-round" asp-items="ViewBag.TipoProcesoId">
+                            <option> (Seleccionar Proceso) </option>
+                        </select>
+                    </div>
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary pull-rigth" onclick="CambiarProcesoC('UsuarioPolizas/CambiarProceso')">Cambiar Proceso</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Administrador proceso-->
+@section Scripts
+    {
+    <script type="text/javascript">
+        var Observacion = '';
+        var TipoProcesoId;
+        function MensajeTerminarProceso() {
+            swal({
+                title: '¿Estas Seguro de concluir el Proceso?',
+                text: "La solicitud se termina, solo un administrador la puede re-abrir!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Si, Terminar!',
+                buttonsStyling: false
+            }).then(function () {
+                TerminaProceso('UsuariosSolicituds/TerminarProceso');
+            });
+        }
+
+        function TerminaProceso(action) {
+
+            id = "@ViewBag.Id";
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id
+                },
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    for (var i in result) {
+                        switch (result[i].tipo) {
+                            case 1://Error
+                                Mensaje(result[i].mensaje, "danger");
+                                break;
+                            case 2://ErrorAtributos
+                                MensajeCampos(result[i].mensaje);
+                                swal({
+                        title: 'Terminado!',
+                        text: 'Su proceso se ha terminado.',
+                        type: 'success',
+                        confirmButtonClass: "btn btn-success",
+                        buttonsStyling: false
+                    })
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 2000);
+                                break;
+                            case 3://Exitoso
+                                Mensaje(result[i].mensaje, "success");
+                                window.location.reload(true);
+                                break;
+                            case 4://Informativo
+                                Mensaje(result[i].mensaje, "info");
+                                break;
+                        }
+                    }
+                }
+            });
+        }
+        /*Modificamos Fiador*/
+        function CancelarProceso(action) {
+             observaciones = '';
+            id = "@ViewBag.Id";
+            Observacion = $('input[name=Observacion')[0].value;
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id, Observacion
+                },
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    for (var i in result) {
+                        switch (result[i].tipo) {
+                            case 1://Error
+                                Mensaje(result[i].mensaje, "danger");
+                                break;
+                            case 2://ErrorAtributos
+                                MensajeCampos(result[i].mensaje);
+                                break;
+                            case 3://Exitoso
+                                Mensaje(result[i].mensaje, "success");
+                                window.location.reload(true);
+                                break;
+                            case 4://Informativo
+                                Mensaje(result[i].mensaje, "info");
+                                break;
+                        }
+                    }
+                }
+            });
+        }
+        function CambiarProcesoC(action) {
+             observaciones = '';
+            id = "@ViewBag.Id";
+            TipoProcesoId = $('select[name=TipoProcesoId')[0].value;
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id, TipoProcesoId
+                },
+                success: function (response) {
+                var result = JSON.parse(response);
+                    for (var i in result) {
+                        switch (result[i].tipo) {
+                            case 1://Error
+                                Mensaje(result[i].mensaje, "danger");
+                                break;
+                            case 2://ErrorAtributos
+                                MensajeCampos(result[i].mensaje);
+                                break;
+                            case 3://Exitoso
+                                Mensaje(result[i].mensaje, "success");
+                                window.location.reload(true);
+                                break;
+                            case 4://Informativo
+                                Mensaje(result[i].mensaje, "info");
+                                break;
+                        }
+                    }
+                }
+            });
+        }
+        function Mensaje(mensaje, tipo) {
+            $.notify({
+                icon: "add_alert",
+                message: mensaje
+
+            }, {
+                type: tipo,
+                timer: 10000,
+                placement: {
+                    from: "top",
+                    align: "right"
+                }
+            });
+        }
+        function MensajeCampos(id) {
+            id = '#' + id;
+            $(id).addClass('has-error');
+        }
+
+    </script>
+
+}

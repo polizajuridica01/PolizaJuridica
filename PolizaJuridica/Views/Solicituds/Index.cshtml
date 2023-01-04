@@ -1,0 +1,368 @@
+﻿@model IEnumerable<PolizaJuridica.ViewModels.SolicitudIndexViewModel>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Listado de Solicitudes</h4>
+
+
+                <div class="toolbar">
+                    <div class="row">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Inicio </label>
+                                        <input name="FechaInicio" class="form-control" type="date">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Fin </label>
+                                        <input name="FechaFin" class="form-control" type="date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5" align="center">
+                                    <select name="TipoprocesoId" class="btn btn-primary btn-round" asp-items="ViewBag.TipoProceso">
+                                        <option> (Seleccionar Tipo Proceso) </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="IsRenovaciones">
+                                                Es renovaciones:
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="submit" class='btn btn-fill btn-primary btn-wd' value="Filtrar">
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <a asp-action="Create" class="btn btn-finish btn-red btn-wd pull-right">Nueva solicitud</a>
+                        @*<a asp-controller="GenerateExcels" asp-action="GenerarSolicitudes" class="btn btn-finish btn-red btn-wd pull-right">Generar Excel</a>*@
+                    </div>
+                    <div class="material-datatables">
+                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Id
+                                    </th>
+                                    <th>
+                                        Tipo Póliza
+                                    </th>
+                                    <th>
+                                        Arrendador
+                                    </th>
+                                    <th>
+                                        Dirección Inmueble
+                                    </th>
+                                    <th>
+                                        Fecha Solicitud
+                                    </th>
+                                    <th>
+                                        Captura
+                                    </th>
+                                    <th>
+                                        Representante
+                                    </th>
+                                    <th>
+                                        Asesor
+                                    </th>
+                                    <th>
+                                        Estatus
+                                    </th>
+                                    <th>
+                                        Reno
+                                    </th>
+                                    <th class="disabled-sorting text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SolicitudId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SolicitudTipoPoliza)
+                                        </td>
+                                        @if (item.SolicitudTipoRegimen == 1)
+                                        {
+                                            <td>
+                                                @item.SolicitudNombreProp @item.SolicitudApePaternoProp @item.SolicitudApeMaternoProp
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SolicitudRazonSocial)
+                                            </td>
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SolicitudUbicacionArrendado)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SolicitudFechaSolicitud)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreadorNombreCompleto)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RepresentanteNombreCompleto)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AsesorNombreCompleto)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SolicitudEstatus)
+                                        </td>
+                                        @if (item.IsRenovacion == true)
+                                        {
+                                            <td>
+                                                <a data-toggle="tooltip" data-placement="top" title="Renovación"><i class="material-icons">check_circle</i></a>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.SolicitudId" asp-route-origen="1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="material-icons">edit</i></a>
+                                            @if (item.SolicitudEstatus == "Recibida" || item.SolicitudEstatus == "Capturada")
+                                            {
+                                                <a asp-action="ProcesoRealizar" asp-route-id="@item.SolicitudId" data-toggle="tooltip" data-placement="top" title="Proceso"><i class="material-icons">play_arrow</i></a>
+                                                <a asp-action="Delete" asp-route-id="@item.SolicitudId" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="material-icons">close</i></a>
+                                            }
+
+
+                                            @if (item.SolicitudEstatus == "Recibida" || item.SolicitudEstatus == "Atención a Clientes" || item.SolicitudEstatus == "Procesos" || "Investigación y Validación" == User.FindFirst("Area").Value || "Control y Calidad" == User.FindFirst("Area").Value || "Documentación" == User.FindFirst("Area").Value)
+                                            {
+                                                <a data-toggle="tooltip" data-placement="top" title="Estatus" onclick="MensajeTerminarProceso(@item.SolicitudId)"><i class="material-icons">thumbs_up_down</i></a>
+                                            }
+                                            @if ("Captura" == User.FindFirst("Area").Value ||"Control y Calidad" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value || "Investigación y Validación" == User.FindFirst("Area").Value)
+                                            {
+                                                if ("Concluida".Equals(item.SolicitudEstatus) || "Cancelada".Equals(item.SolicitudEstatus))
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="ReporteInvsts" asp-action="Create" asp-route-id="@item.SolicitudId" data-toggle="tooltip" data-placement="top" title="Investigación"><i class="material-icons">search</i></a>
+                                                }
+
+                                            }
+
+                                            @if (item.FisicaMoralId > 0)
+                                            {
+                                                <a asp-controller="Documentos" asp-action="Index" asp-route-id="@item.FisicaMoralId" data-toggle="tooltip" data-placement="top" title="Documentos"><i class="material-icons">picture_as_pdf</i></a>
+                                            }
+
+                                            <a asp-controller="FlujoSolicituds" asp-action="Index" asp-route-id="@item.SolicitudId" data-toggle="tooltip" data-placement="top" title="Asignaciones"><i class="material-icons">supervisor_account</i></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Reutilizar" onclick="createRenovacion('@item.SolicitudId')"><i class="material-icons">cached</i></a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+    <!-- end row -->
+    @section Scripts
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#datatables').DataTable({
+                    "pagingType": "full_numbers",
+                    "lengthMenu": [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                    ],
+                    responsive: true,
+                    language: {
+                        search: "_INPUT_",
+                        searchPlaceholder: "Buscar",
+                    }
+
+                });
+
+
+                var table = $('#datatables').DataTable();
+
+                // Edit record
+                table.on('click', '.edit', function () {
+                    $tr = $(this).closest('tr');
+
+                    var data = table.row($tr).data();
+                    alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+                });
+
+                // Delete a record
+                table.on('click', '.remove', function (e) {
+                    $tr = $(this).closest('tr');
+                    table.row($tr).remove().draw();
+                    e.preventDefault();
+                });
+
+                //Like record
+                table.on('click', '.like', function () {
+                    alert('You clicked on Like button');
+                });
+
+                $('.card .material-datatables label').addClass('form-group');
+            });
+
+            function createRenovacion(id) {
+                swal({
+                    title: '¿Estas seguro de duplicar la solicitud?',
+                    text: "Esto generar un nuevo número de solicitud con toda la info carga, (solvencia completa)",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    confirmButtonText: 'Si, Duplicar!',
+                    buttonsStyling: false
+                }).then(function () {
+                    generarRenovacion('solicituds/GeneraRenovacion', id);
+                });
+            }
+
+            function MensajeTerminarProceso(id) {
+                swal({
+                    title: '¿Estas Seguro de concluir el Proceso?',
+                    text: "La solicitud se termina, solo un administrador la puede re-abrir!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    confirmButtonText: 'Si, Terminar!',
+                    buttonsStyling: false
+                }).then(function () {
+                    TerminaProceso('usuariossolicituds/TerminarProcesoSolicitud', id);
+                });
+            }
+
+            function TerminaProceso(action, id) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "../../" + action,
+                    data: {
+                        id
+                    },
+                    success: function (response) {
+                        var result = JSON.parse(response);
+                        for (var i in result) {
+
+                            switch (result[i].tipo) {
+                                case 1://Error
+                                    Mensaje(result[i].mensaje, "danger");
+                                    break;
+                                case 2://ErrorAtributos
+                                    MensajeCampos(result[i].mensaje);
+                                    break;
+                                case 3://Exitoso
+                                    Mensaje(result[i].mensaje, "success");
+                                    wal({
+                                        title: 'Terminado!',
+                                        text: 'Su proceso se ha terminado.',
+                                        type: 'success',
+                                        confirmButtonClass: "btn btn-success",
+                                        buttonsStyling: false
+                                    })
+                                    setTimeout(function () {
+                                        window.location.reload(true);
+                                    }, 2000);
+                                    break;
+                                case 4://Informativo
+                                    Mensaje(result[i].mensaje, "info");
+                                    break;
+                            }
+                        }
+                    }
+                });
+            }
+
+            function generarRenovacion(action, id) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "../../" + action,
+                    data: {
+                        id
+                    },
+                    success: function (response) {
+                        var result = JSON.parse(response);
+                        for (var i in result) {
+
+                            switch (result[i].tipo) {
+                                case 1://Error
+                                    Mensaje(result[i].mensaje, "danger");
+                                    break;
+                                case 2://ErrorAtributos
+                                    MensajeCampos(result[i].mensaje);
+                                    break;
+                                case 3://Exitoso
+                                    Mensaje(result[i].mensaje, "success");
+                                    wal({
+                                        title: 'Terminado!',
+                                        text: 'Su proceso se ha terminado.',
+                                        type: 'success',
+                                        confirmButtonClass: "btn btn-success",
+                                        buttonsStyling: false
+                                    })
+                                    setTimeout(function () {
+                                        window.location.reload(true);
+                                    }, 2000);
+                                    break;
+                                case 4://Informativo
+                                    Mensaje(result[i].mensaje, "info");
+                                    break;
+                            }
+                        }
+                    }
+                });
+            }
+            function Mensaje(mensaje, tipo) {
+                $.notify({
+                    icon: "add_alert",
+                    message: mensaje
+
+                }, {
+                    type: tipo,
+                    timer: 10000,
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    }
+                });
+            }
+            function MensajeCampos(id) {
+                id = '#' + id;
+                $(id).addClass('has-error');
+            }
+
+        </script>
+    }

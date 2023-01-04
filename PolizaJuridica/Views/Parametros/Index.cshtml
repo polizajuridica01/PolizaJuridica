@@ -1,0 +1,76 @@
+﻿@model IEnumerable<PolizaJuridica.Data.Parametros>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ParametroNombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParametroValor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParametroValorNumerico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParametroValor1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParametroValor2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParametroValor3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParametroValor4)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParametroNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParametroValor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParametroValorNumerico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParametroValor1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParametroValor2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParametroValor3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParametroValor4)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ParametrosId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ParametrosId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ParametrosId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

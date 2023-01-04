@@ -1,0 +1,54 @@
+﻿@model PolizaJuridica.Data.MenuP
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>MenuP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Controlador)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Controlador)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pantalla)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pantalla)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Area)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.AreaId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuPpadre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MenuPpadre.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

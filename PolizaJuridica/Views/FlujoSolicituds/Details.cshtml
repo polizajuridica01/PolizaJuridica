@@ -1,0 +1,37 @@
+﻿@model PolizaJuridica.Data.FlujoSolicitud
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FlujoSolicitud</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaAsignacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaAsignacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Persona)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Persona.UsuariosId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Solicitud)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Solicitud.SolicitudId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

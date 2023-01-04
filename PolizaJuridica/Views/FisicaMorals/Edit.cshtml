@@ -1,0 +1,734 @@
+﻿@model PolizaJuridica.Data.FisicaMoral
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Solicitud de Arrendatario</h4>
+                <div>
+                    <form asp-action="Edit">
+                        <div class="card">
+                            <div class="card-header card-header-tabs" data-background-color="red">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <span class="nav-tabs-title">Datos:</span>
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="">
+                                                @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = Model.FisicaMoralId, origen = 2 })
+                                            </li>
+                                            @if (@ViewBag.TipoRegimen == 1)
+                                            {
+                                                <li class="active">
+                                                    <a href="#1" data-toggle="tab">
+                                                        <i class="material-icons">bug_report</i>
+                                                        Persona Fisica
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Personas que Ocuparán el Inmueble", "Index", "PersonasOcupanInms", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Documentos", "Index", "Documentos", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                if (ViewBag.fiador == true)
+                                                {
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Fisíca)", "Index", "FiadorFs", new { id = Model.FisicaMoralId })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = Model.FisicaMoralId })
+                                                    </li>
+                                                }
+                                            }
+                                            @if (@ViewBag.TipoRegimen == 2)
+                                            {
+                                                <li class="active">
+                                                    <a href="#1" data-toggle="tab">
+                                                        <i class="material-icons">bug_report</i>
+                                                        Persona Moral
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Documentos", "Index", "Documentos", new { id = Model.FisicaMoralId })
+                                                </li>
+                                                @if (ViewBag.fiador == true)
+                                                {
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Fisíca)", "Index", "FiadorFs", new { id = Model.FisicaMoralId })
+                                                    </li>
+                                                    <li class="">
+                                                        @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = Model.FisicaMoralId })
+                                                    </li>
+
+                                                }
+                                            }
+                                            @if ("Procesos" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value || "Control y Calidad" == User.FindFirst("Area").Value)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Investigación", "Index", "Investigacions", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = Model.FisicaMoralId })
+                                                </li>
+
+                                            }
+                                            <li class="">
+                                                @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = Model.FisicaMoralId })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Generar Solicitudes", "Index", "GenerarSolicitudes", new { id = Model.FisicaMoralId })
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="tab-content">
+                                    <!--Inicio de Secccion 1-->
+                                    @if (@ViewBag.TipoRegimen == 1)
+                                    {
+                                        <div class="tab-content">
+                                            <!--Inicio de Secccion 1-->
+                                            <div class="tab-pane active" id="1">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaNombreError">
+                                                            <label class="control-label"><star>*</star>Nombre(s)</label>
+                                                            <input asp-for="SfisicaNombre" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaApePatError">
+                                                            <label class="control-label"><star>*</star>Apellido Paterno </label>
+                                                            <input asp-for="SfisicaApePat" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaApeMat">
+                                                            <label class="control-label">Apellido Materno</label>
+                                                            <input asp-for="SfisicaApeMat" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaRFCError">
+                                                            <label class="control-label">RFC</label>
+                                                            <input asp-for="SfisicaRfc" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaNacionallidadError">
+                                                            <label class="control-label"><star>*</star>Nacionalidad</label>
+                                                            <input asp-for="SfisicaNacionallidad" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaCondMigratoriaError">
+                                                            <label class="control-label">Condición Migratoria </label>
+                                                            <input asp-for="SfisicaCondMigratoria" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaEstadoCivilError">
+                                                            <label class="control-label">Estado Civil</label>
+                                                            <input asp-for="SfisicaEstadoCivil" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaConvenioECError">
+                                                            <label class="control-label">Convenio</label>
+                                                            <input asp-for="SfisicaConvenioEc" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating" id="TipoIdentificacionError">
+                                                            <label class="control-label">Tipo de identificación</label>
+                                                            <input asp-for="TipoIdentificacion" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating" id="NumeroIdentificacionError">
+                                                            <label class="control-label">Número de Identificación </label>
+                                                            <input asp-for="NumeroIdentificacion" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group label-floating" id="SFisicaDomicilioError">
+                                                            <label class="control-label"><star>*</star>Domicilio</label>
+                                                            <input asp-for="SfisicaDomicilio" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group label-floating" id="SFisicaColoniaError">
+                                                            <label class="control-label"><star>*</star>Colonia</label>
+                                                            <input asp-for="SfisicaColonia" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group label-floating" id="SFisicaDelegacionMunicipioError">
+                                                            <label class="control-label"><star>*</star>Alcaldía/Municipio</label>
+                                                            <input asp-for="SfisicaDelegacionMunicipio" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group label-floating" id="SFisicaCodigoPostalError">
+                                                            <label class="control-label"><star>*</star>Código Postal</label>
+                                                            <input asp-for="SfisicaCodigoPostal" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group label-floating" id="SFisicaEstadoError">
+                                                            <label class="control-label"><star>*</star>Estado</label>
+                                                            <input asp-for="SfisicaEstado" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaTelefonoError">
+                                                            <label class="control-label">Telefono</label>
+                                                            <input asp-for="SfisicaTelefono" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaCelularError">
+                                                            <label class="control-label"><star>*</star>Celular</label>
+                                                            <input asp-for="SfisicaCelular" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaEmailError">
+                                                            <label class="control-label"><star>*</star>Email</label>
+                                                            <input asp-for="SfisicaEmail" type="email" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating" id="SFisicaProfesionError">
+                                                            <label class="control-label">Profesión</label>
+                                                            <input asp-for="SfisicaProfesion" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating" id="SFisicaIngresoMensualError">
+                                                            <label class="control-label">Ingreso Mensual</label>
+                                                            <input asp-for="SfisicaIngresoMensual" type="number" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating" id="SFisicaTrabajoError">
+                                                            <label class="control-label">Empresa donde trabaja</label>
+                                                            <input asp-for="SfisicaTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Antiguedad</label>
+                                                            <input asp-for="SfisicaAntiguedad" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Puesto</label>
+                                                            <input asp-for="SfisicaPuesto" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Telefono</label>
+                                                            <input asp-for="SfisicaTelefonoTrabajo" type="number" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Horario</label>
+                                                            <input asp-for="SfisicaHorario" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Giro</label>
+                                                            <input asp-for="SfisicaGiroTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Sitio WEB</label>
+                                                            <input asp-for="SfisicaWebTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Domicilio del trabajo</label>
+                                                            <input asp-for="SfisicaDomicilioTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Colonia</label>
+                                                            <input asp-for="SfisicaColoniaTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Alcaldía/Municipio</label>
+                                                            <input asp-for="SfisicaDelegMuniTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Código Postal</label>
+                                                            <input asp-for="SfisicaCodigoPostalTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Estado</label>
+                                                            <input asp-for="SfisicaEstadoTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Jefe</label>
+                                                            <input asp-for="SfisicaJefeTrabajo" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Puesto</label>
+                                                            <input asp-for="SfisicaPuestoJefe" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Email</label>
+                                                            <input asp-for="SfisicaEmailJefe" type="email" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            Requeriere de comprobante fiscal para el arrendamiento.
+                                                            <input asp-for="SfisicaFactura" />
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" hidden>
+                                                    <div class="form-group label-floating">
+                                                        <input asp-for="SolicitudId" type="number" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (@ViewBag.TipoRegimen == 2)
+                                    {
+                                        <div class="tab-content">
+                                            <!--Inicio de Secccion 1-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="SFisicaRazonSocialError">
+                                                        <label class="control-label"><star>*</star>Razón Social</label>
+                                                        <input asp-for="SfisicaRazonSocial" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="SFisicaRFCError">
+                                                        <label class="control-label"><star>*</star>RFC</label>
+                                                        <input asp-for="SfisicaRfc" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating" id="SFisicaNombreError">
+                                                        <label class="control-label"><star>*</star>Nombre(s) Representante Legal</label>
+                                                        <input asp-for="SfisicaNombre" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating" id="SFisicaApePatError">
+                                                        <label class="control-label"><star>*</star>Apellido Paterno Representante Legal </label>
+                                                        <input asp-for="SfisicaApePat" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating" id="SFisicaApeMatError">
+                                                        <label class="control-label"><star>*</star>Apellido Materno Representate Legal</label>
+                                                        <input asp-for="SfisicaApeMat" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="TipoIdentificacionError">
+                                                        <label class="control-label">Tipo de identificación</label>
+                                                        <input asp-for="TipoIdentificacion" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="NumeroIdentificacionError">
+                                                        <label class="control-label">Número de Identificación </label>
+                                                        <input asp-for="NumeroIdentificacion" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Telefono</label>
+                                                        <input asp-for="SfisicaTelefono" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Giro de la Empresa</label>
+                                                        <input asp-for="SfisicaGiroTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group label-floating" id="SFisicaDomicilioError">
+                                                        <label class="control-label"><star>*</star>Domicilio Empresa</label>
+                                                        <input asp-for="SfisicaDomicilio" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating" id="SFisicaColoniaError">
+                                                        <label class="control-label"><star>*</star>Colonia</label>
+                                                        <input asp-for="SfisicaColonia" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating" id="SFisicaDelegacionMunicipioError">
+                                                        <label class="control-label"><star>*</star>Alcaldía ó Municipio</label>
+                                                        <input asp-for="SfisicaDelegacionMunicipio" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating" id="SFisicaCodigoPostalError">
+                                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                                        <input asp-for="SfisicaCodigoPostal" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating" id="SFisicaEstadoError">
+                                                        <label class="control-label"><star>*</star>Estado</label>
+                                                        <input asp-for="SfisicaEstado" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="SFisicaNacionallidadError">
+                                                        <label class="control-label"><star>*</star>Nacionalidad</label>
+                                                        <input asp-for="SfisicaNacionallidad" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Condición Migratoria</label>
+                                                        <input asp-for="SfisicaCondMigratoria" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group label-floating" id="DomicilioRepresentanteLegalError">
+                                                        <label class="control-label"><star>*</star>Domicilio Particular del Representante Legal</label>
+                                                        <input asp-for="DomicilioRepresentanteLegal" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="ColoniaRLError">
+                                                        <label class="control-label"><star>*</star>Colonia</label>
+                                                        <input asp-for="ColoniaRl" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="DeleMuniError">
+                                                        <label class="control-label"><star>*</star>Alcaldía ó Municipio</label>
+                                                        <input asp-for="DeleMuni" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="SFisicaCodigoPostalTrabajoError">
+                                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                                        <input asp-for="SfisicaCodigoPostalTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating" id="EstadoRLError">
+                                                        <label class="control-label"><star>*</star>Estado</label>
+                                                        <input asp-for="EstadoRl" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="TelefonoRLError">
+                                                        <label class="control-label"><star>*</star>Celular </label>
+                                                        <input asp-for="TelefonoRl" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating" id="EmailRLError">
+                                                        <label class="control-label"><star>*</star>Email</label>
+                                                        <input asp-for="EmailRl" type="email" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Jefe Inmediato</label>
+                                                        <input asp-for="SfisicaJefeTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Puesto</label>
+                                                        <input asp-for="SfisicaPuesto" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Telefono</label>
+                                                        <input asp-for="SfisicaTelefonoTrabajo" type="number" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Página WEB</label>
+                                                        <input asp-for="SfisicaWebTrabajo" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Horario de la empresa</label>
+                                                        <input asp-for="HorarioRl" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Ingreso mensual de la empresa</label>
+                                                        <input asp-for="IngresoMensualRl" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Sindicato Afiliado</label>
+                                                        <input asp-for="SindicadoRl" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4" hidden>
+                                                <div class="form-group label-floating">
+                                                    <input asp-for="SolicitudId" type="number" class="form-control">
+                                                </div>
+                                            </div>
+                                            <!--Sección de los datos de escritura-->
+                                            <h5>Sección para datos de escrituras</h5>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Número RPP constitutiva</label>
+                                                        <input asp-for="NumRppcons" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Número de Escritura</label>
+                                                        <input asp-for="EscrituraNumero" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Licenciado que emite la constitutiva</label>
+                                                        <input asp-for="Licenciado" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Número de Notaria</label>
+                                                        <input asp-for="NumeroNotaria" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Fecha de Registro Constitutiva RPP</label>
+                                                        <input asp-for="FechaRppcons" type="date" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Número de Escritura del Poder</label>
+                                                        <input asp-for="NumEscPoder" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Titular de la notaria que emite el poder</label>
+                                                        <input asp-for="TitularNotaPoder" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Número de la notaria</label>
+                                                        <input asp-for="NumNotaria" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Fecha en que se emite el Poder</label>
+                                                        <input asp-for="FechaEmitePoder" type="date" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Fecha en que se emite el Poder</label>
+                                                        <input asp-for="FechaConstitutiva" type="date" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Fin Sección de los datos de escritura-->
+
+                                        </div>
+                                    }
+                                    <div class="col-md-4" hidden>
+                                        <div class="form-group label-floating">
+                                            <input asp-for="FisicaMoralId" type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Fin de Seccion 1-->
+                        </div>
+                        <div class="form-group">
+                            <a asp-controller="Solicituds" asp-action="RediEdit" asp-route-id="@Model.FisicaMoralId" class="btn btn-default pull-left">Atrás</a>
+                            <input type='submit' class='btn btn-success pull-right' name='Guardar' value='Guardar' />
+                            <a asp-controller="RefArrendamientoes" asp-action="Edit" asp-route-id="@Model.FisicaMoralId" class="btn btn-primary pull-right" align="left">Siguiente</a>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script type="text/javascript">
+$(document).ready(function() {
+            function Mensaje(mensaje) {
+                $.notify({
+                    icon: "add_alert",
+                    message:mensaje
+
+                },{
+                        type: "danger",
+                        timer: 10000,
+                        placement: {
+                            from: "top",
+                            align: "right"
+                        }
+                    });
+            }
+            function MensajeExitoso() {
+                $.notify({
+                    icon: "add_alert",
+                    message: "Se guardaron los cambios"
+
+                }, {
+                        type: "success",
+                        timer: 10000,
+                        placement: {
+                            from: "top",
+                            align: "right"
+                        }
+                    });
+            }
+            function MensajeCampos(id) {
+                id = '#' + id;
+                console.log(id);
+                $(id).addClass('has-error');
+            }
+           @if (@ViewData["Error"] != null)
+           {
+               List<string> errors = ViewData["Error"] as List<string>;
+                @foreach(var e in errors)
+                {
+                    @:Mensaje("@e");
+                }
+           }
+
+            @if (@ViewData["CamposError"] != null)
+           {
+               List<string> CamposError = ViewData["CamposError"] as List<string>;
+                @foreach(var er in CamposError)
+                {
+                    @:MensajeCampos("@er");
+                }
+           }
+             @if (@ViewData["Exitoso"] != null)
+           {
+                    @:MensajeExitoso();
+           }
+        });</script>
+}

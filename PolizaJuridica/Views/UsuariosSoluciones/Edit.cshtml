@@ -1,0 +1,60 @@
+﻿@model PolizaJuridica.Data.UsuariosSoluciones
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>UsuariosSoluciones</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UsuariosSolulucionesId" />
+            <div class="form-group">
+                <label asp-for="UsuariosId" class="control-label"></label>
+                <select asp-for="UsuariosId" class="form-control" asp-items="ViewBag.UsuariosId"></select>
+                <span asp-validation-for="UsuariosId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SolucionesId" class="control-label"></label>
+                <select asp-for="SolucionesId" class="form-control" asp-items="ViewBag.SolucionesId"></select>
+                <span asp-validation-for="SolucionesId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observacion" class="control-label"></label>
+                <input asp-for="Observacion" class="form-control" />
+                <span asp-validation-for="Observacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProcesoSolucionesId" class="control-label"></label>
+                <select asp-for="ProcesoSolucionesId" class="form-control" asp-items="ViewBag.ProcesoSolucionesId"></select>
+                <span asp-validation-for="ProcesoSolucionesId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

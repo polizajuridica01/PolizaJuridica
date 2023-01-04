@@ -1,0 +1,325 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                @if (@ViewBag.TipoRegimen == "1")
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Física con número: @ViewBag.SolicitudId</h4>
+                }
+                @if (@ViewBag.TipoRegimen == "2")
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Moral con número: @ViewBag.SolicitudId</h4>
+                }
+                <div>
+                    <div class="card">
+                        <div class="card-header card-header-tabs" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Datos:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="">
+                                            @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = ViewBag.Id, origen = 2 })
+                                        </li>
+                                        @if (@ViewBag.TipoRegimen == "1")
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Física", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Personas que Ocuparán el Inmueble", "Index", "PersonasOcupanInms", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            @if (ViewBag.fiador == true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Física)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+
+                                            }
+                                            <li class="">
+                                                @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Generar Solicitudes
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (@ViewBag.TipoRegimen == "2")
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Moral", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            @if (ViewBag.fiador == true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Física)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Persona Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+                                            }
+                                            @if ("Procesos" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value || "Control y Calidad" == User.FindFirst("Area").Value)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Investigación", "Index", "DetalleInvestigacions", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                                </li>
+
+                                            }
+                                            <li class="">
+                                                @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Generar Solicitudes
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content">
+                                <!--Inicio de Secccion 1-->
+                                <div class="tab-pane active" id="2">
+                                    <!--INICIO Seccion dentro del tab-->
+                                    <div class="row">
+                                        <!--Seccion de contenedor-->
+                                        <div class="col-lg-6 col-md-3">
+                                            <div class="card card-pricing card-raised">
+                                                <div class="content">
+                                                    <h4 class="card-title">Generar Solicitud de Otorgamiento</h4>
+                                                    <a asp-action="GenerarOtorgamiento" asp-route-id="@ViewBag.Id" class="btn btn-rose btn-round">Generar</a>
+                                                    <h4 class="card-title">Generar Solicitud del Arrendatario (Principal)</h4>
+                                                    <a asp-action="GenerarFisicaMoral" asp-route-id="@ViewBag.Id" class="btn btn-rose btn-round">Generar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-3">
+                                            <div class="card card-pricing card-raised">
+                                                <div class="content">
+                                                    <h3 class="card-title">Generar Solicitud Arrendadores</h3>
+                                                    <div class="material-datatables">
+                                                        <table id="datatablesContratos" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        Nombre
+                                                                    </th>
+                                                                    <th>Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var a in ViewData["Arrendadores"] as IList<Arrendatario>)
+                                                                {
+                                                                    <tr>
+                                                                        <td>
+                                                                            @a.Nombre @a.ApePaterno
+                                                                        </td>
+                                                                        <td>
+                                                                            <a asp-action="GenerarFiadorF" asp-route-id="@ViewBag.Id" >Generar</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end col-md-12  fin de contenedor-->
+                                    </div>
+                                    <div class="row">
+                                        @if(ViewBag.Fisica == true)
+                                        {
+                                            <!--Seccion de contenedor-->
+                                            <div class="col-lg-6 col-md-3">
+                                                <div class="card card-pricing card-raised">
+                                                    <div class="content">
+                                                        <h3 class="card-title">Generar Solicitud Fiadores (Personas Fisícas)</h3>
+                                                        <div class="material-datatables">
+                                                            <table id="datatablesContratos" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            Nombre
+                                                                        </th>
+                                                                        <th>Acción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var f in ViewData["Fisicas"] as IList<FiadorF>)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @f.FiadorFnombres @f.FiadorFapePaterno
+                                                                            </td>
+                                                                            <td>
+                                                                                <a asp-action="GenerarFiadorF" asp-route-id="@ViewBag.Id" asp-route-contratoid="@f.FiadorFid">Generar</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end col-md-12  fin de contenedor-->
+
+                                        }
+                                        @if (ViewBag.Moral == true)
+                                        {
+                                            <!--Seccion de contenedor-->
+                                            <div class="col-lg-6 col-md-3">
+                                                <div class="card card-pricing card-raised">
+                                                    <div class="content">
+                                                        <h3 class="card-title">Generar Solicitud Fiadores (Personas Morales)</h3>
+                                                        <div class="material-datatables">
+                                                            <table id="datatablesContratos" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            Empresa
+                                                                        </th>
+                                                                        <th>
+                                                                            Nombre
+                                                                        </th>
+                                                                        <th>Acción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var f in ViewData["Morales"] as IList<FiadorM>)
+                                                                    {
+                                                                    <tr>
+                                                                        <td>
+                                                                            @f.FiaddorMrazonSocial
+                                                                        </td>
+                                                                        <td>
+                                                                            @f.FiadorMnombresRlegal  @f.FiadorMapePaternoRlegal
+                                                                        </td>
+                                                                        <td>
+                                                                            <a asp-action="GenerarFiadorM" asp-route-id="@ViewBag.Id" asp-route-contratoid="@f.FiadorMid">Generar</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end col-md-12  fin de contenedor-->
+                                        }
+                                    </div>
+                                    <!--FIN Seccion dentro del tab-->
+                                            
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin de Seccion 1-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+<!-- end row -->
+
+
+
+@section Scripts   {
+
+    <script type="text/javascript">
+        var objeto = @Html.Raw(Json.Serialize(@ViewBag.Error));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var o in obj) {
+
+                    switch (obj[o].tipo) {
+                        case 1://Error
+                        Mensaje(obj[o].mensaje, "danger");
+                        break;
+                        case 2://ErrorAtributos
+                        MensajeCampos(obj[o].mensaje);
+                        break;
+                        case 3://Exitoso
+                        Mensaje(obj[o].mensaje, "success");
+                        break;
+                        case 4://Informativo
+                        Mensaje(obj[o].mensaje, "info");
+                        break;
+                    }
+
+                }
+            }
+        }
+
+    function Mensaje(mensaje, tipo) {
+    $.notify({
+            icon: "add_alert",
+        message: mensaje
+
+    }, {
+            type: tipo,
+            timer: 10000,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    }
+       function MensajeCampos(id) {
+           id = '#' + id;
+            $(id).addClass('has-error');
+        }
+
+    </script>
+}
+
+

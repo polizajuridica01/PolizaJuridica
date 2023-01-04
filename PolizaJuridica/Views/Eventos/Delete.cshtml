@@ -1,0 +1,81 @@
+﻿@model PolizaJuridica.Data.Eventos
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Eliminar</title>
+</head>
+<body>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="rose">
+                <i class="material-icons">contacts</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">¿Estas seguro de eliminar el evento?</h4>
+                <label class="col-md-3 label-on-left">Título</label>
+                <div class="col-md-9">
+                    <div class="form-group label-floating is-empty">
+                        @Html.DisplayFor(model => model.Titulo)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-on-left">Descripción</label>
+                <div class="col-md-9">
+                    <div class="form-group label-floating is-empty">
+                        @Html.DisplayFor(model => model.Descripcion)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-on-left">Lugar</label>
+                <div class="col-md-9">
+                    <div class="form-group label-floating is-empty">
+                        @Html.DisplayFor(model => model.Lugar)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-on-left">Fecha / Hora Inicio</label>
+                <div class="col-md-9">
+                    <div class="form-group label-floating is-empty">
+                        @Html.DisplayFor(model => model.FechaHoraInicio)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-3 label-on-left">Fecha / Hora Fin</label>
+                <div class="col-md-9">
+                    <div class="form-group label-floating is-empty">
+                        @Html.DisplayFor(model => model.FechaHoraFin)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-3"></label>
+                <div class="col-md-9">
+                    <div class="checkbox form-horizontal-checkbox">
+                        <label>
+                            @Html.DisplayFor(model => model.Activo)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-3"></label>
+                <div class="col-md-9">
+                    <div class="form-group form-button">
+                        <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+                        <a asp-controller="Eventos" asp-action="DeleteConfirmed" asp-route-id="@Model.EventosId" class="btn btn-primary">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

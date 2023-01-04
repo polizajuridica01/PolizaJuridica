@@ -1,0 +1,60 @@
+﻿@model PolizaJuridica.Data.DetalleMovimiento
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>DetalleMovimiento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Importe)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Importe)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Referencias)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Referencias)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Origen)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Origen)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+﻿@model PolizaJuridica.Data.Eventos
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Crear</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="red">
+                    <i class="material-icons">contacts</i>
+                </div>
+                <div class="card-content">
+                    <h4 class="card-title">Crear Evento</h4>
+                    <form class="form-horizontal" asp-action="Create">
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Título</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="TituloError">
+                                    <input asp-for="Titulo" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Descripción</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="DescripcionError">
+                                    <input asp-for="Descripcion" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Lugar</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="lugarError">
+                                    <input asp-for="Lugar" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Fecha / Hora Inicio</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="FechaHoraInicioError">
+                                    <input asp-for="FechaHoraInicio" class="form-control datetimepicker" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Fecha / Hora Fin</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="FechaHoraFinError">
+                                    <input asp-for="FechaHoraFin" class="form-control datetimepicker" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Id de Reunión</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="ReunionIdeError">
+                                    <input asp-for="ReunionIde" class="form-control " type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Contraseña de Reunión</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="ReunionPassError">
+                                    <input asp-for="ReunionPass" class="form-control " type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Url Reunión</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="ReunionUrError">
+                                    <input asp-for="ReunionUr" class="form-control " type="url" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3"></label>
+                            <div class="col-md-9">
+                                <div class="checkbox form-horizontal-checkbox">
+                                    <label>
+                                        <input type="checkbox" asp-for="Activo"> Activar
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3"></label>
+                            <div class="col-md-9">
+                                <div class="form-group form-button">
+                                    <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datetimepicker').datetimepicker({
+
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove',
+                inline: true
+            }
+            });
+        });
+
+           @if (@ViewData["Error"] != null)
+           {
+               List<string> errors = ViewData["Error"] as List<string>;
+                @foreach(var e in errors)
+                {
+                    @:Mensaje("@e");
+                }
+           }
+
+           @if (@ViewData["CamposError"] != null)
+           {
+               List<string> CamposError = ViewData["CamposError"] as List<string>;
+                @foreach(var er in CamposError)
+                {
+                    @:MensajeCampos("@er");
+                }
+           }
+
+        function Mensaje(mensaje) {
+                $.notify({
+                    icon: "add_alert",
+                    message:mensaje
+
+                },{
+                        type: "danger",
+                        timer: 10000,
+                        placement: {
+                            from: "top",
+                            align: "right"
+                        }
+                    });
+            }
+
+            function MensajeCampos(id) {
+                id = '#' + id;
+                console.log(id);
+                $(id).addClass('has-error');
+            }
+
+    </script>
+}

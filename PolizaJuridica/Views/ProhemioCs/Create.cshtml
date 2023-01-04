@@ -1,0 +1,50 @@
+﻿@model PolizaJuridica.Data.ProhemioC
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>ProhemioC</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group">
+                <select asp-for="Tipo" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center">
+                    <option disabled selected>Seleccionar Tipo</option>
+                    <option value="1">Arrendador</option>
+                    <option value="2">Arrendatario</option>
+                    <option value="3">Fiador</option>
+                </select>
+                <span asp-validation-for="Tipo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="PersonalidadJuridica" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center">
+                    <option disabled selected>Seleccionar P. J.</option>
+                    <option value="1">Fisica</option>
+                    <option value="2">Moral</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cantidad" class="control-label"></label>
+                <input asp-for="Cantidad" class="form-control" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProhemioId" class="control-label"></label>
+                <select asp-for="ProhemioId" class ="form-control" asp-items="ViewBag.ProhemioId" value="@ViewBag.Id"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

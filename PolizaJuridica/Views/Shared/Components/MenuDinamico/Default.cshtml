@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PolizaJuridica.Data.MenuP>
+
+
+@if (Model != null)
+{
+    @foreach (var i in Model)
+    {
+        @if (i.MenuPpadreId == null && i.Controlador != null)
+        {
+            <li>
+                <a asp-controller="@i.Controlador" asp-action="@i.Pantalla">
+                    <i class="material-icons">group</i>
+                    <p>@i.Nombre</p>
+                </a>
+            </li>
+
+        }
+        else if (i.Controlador == null)
+        {
+            <li>
+                <a data-toggle="collapse" href='#pages@(i.Nombre)'>
+                    <i class="material-icons">security</i>
+                    <p>
+                        @i.Nombre.Trim()
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id='pages@(i.Nombre)'>
+                    <ul class="nav">
+                        @foreach (var o in i.InverseMenuPpadre)
+                        {
+                            <li>
+                                <a asp-controller="@o.Controlador.Trim()" asp-action="@o.Pantalla.Trim()">@o.Nombre.Trim()</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+    }
+}

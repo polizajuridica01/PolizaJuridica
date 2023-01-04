@@ -1,0 +1,195 @@
+﻿@model PolizaJuridica.Data.Soluciones
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Soluciones</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaCreacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PolizaAnterior)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PolizaAnterior)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PolizaId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PolizaId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NombrePro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombrePro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoPatPro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoPatPro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoMatPro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoMatPro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DireccionInmueble)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DireccionInmueble)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ColoniaInmueble)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ColoniaInmueble)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AlcaldiaMunicipioInmueble)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AlcaldiaMunicipioInmueble)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cpinmueble)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cpinmueble)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DescripcionProblema)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionProblema)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaArrendatario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaArrendatario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Argumenta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Argumenta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaContratoI)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaContratoI)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CelularProp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CelularProp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailProp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailProp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreArren)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreArren)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoPatArren)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoPatArren)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoMatArren)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoMatArren)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CelularArrem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CelularArrem)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailArren)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailArren)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreFiador)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreFiador)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoPatFiador)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoPatFiador)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoMatFiador)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoMatFiador)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CelularFiador)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CelularFiador)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailFiador)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailFiador)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Estado.EstadosId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.UsuariosId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="SolucionesId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+</body>
+</html>

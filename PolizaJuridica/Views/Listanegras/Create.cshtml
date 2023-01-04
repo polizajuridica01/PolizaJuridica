@@ -1,0 +1,141 @@
+﻿@model PolizaJuridica.Data.Listanegra
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Crear Usuario</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="red">
+                    <i class="material-icons">contacts</i>
+                </div>
+                <div class="card-content">
+                    <h4 class="card-title">Crear Persona para Lista Negra</h4>
+                    <form asp-action="Create">
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Nombre (s)</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="NombreError">
+                                    <input asp-for="Nombres" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Apellido Paterno</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="ApellidoPaternoError">
+                                    <input asp-for="ApellidoPaterno" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Apellido Materno</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="ApellidoMaternoError">
+                                    <input asp-for="ApellidoMaterno" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Razón Social</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioTelefonoError">
+                                    <input asp-for="RazonSocial" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">RFC</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioCelularError">
+                                    <input asp-for="Rfc" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 label-on-left">Observaciones</label>
+                            <div class="col-md-9">
+                                <div class="form-group label-floating is-empty" id="UsuarioInmobiliariaError">
+                                    <textarea asp-for="Observaciones" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3"></label>
+                            <div class="col-md-9">
+                                <div class="form-group form-button">
+                                    <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        var objeto = @Html.Raw(Json.Serialize(@ViewBag.Errores));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var i in obj) {
+
+                    switch (obj[i].tipo) {
+                        case 1://Error
+                        Mensaje(obj[i].mensaje, "danger");
+                        break;
+                        case 2://ErrorAtributos
+                        MensajeCampos(obj[i].mensaje);
+                        break;
+                        case 3://Exitoso
+                        Mensaje(obj[i].mensaje, "success");
+                        break;
+                        case 4://Informativo
+                        Mensaje(obj[i].mensaje, "info");
+                        break;
+                    }
+
+                }
+            }
+        }
+
+    function Mensaje(mensaje, tipo) {
+    $.notify({
+            icon: "add_alert",
+        message: mensaje
+
+    }, {
+            type: tipo,
+            timer: 10000,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    }
+       function MensajeCampos(id) {
+           id = '#' + id;
+            $(id).addClass('has-error');
+       }
+
+       var checkbox = $('.footer-checkbox');
+
+
+    </script>
+}

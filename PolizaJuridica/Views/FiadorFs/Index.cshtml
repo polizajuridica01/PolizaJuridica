@@ -1,0 +1,1293 @@
+﻿@model IEnumerable<PolizaJuridica.Data.FiadorF>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                @if (@ViewBag.TipoRegimen == 1)
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Física</h4>
+                }
+                @if (@ViewBag.TipoRegimen == 2)
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Moral</h4>
+                }
+                <div>
+                    <div class="card">
+                        <div class="card-header card-header-tabs" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Datos:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="">
+                                            @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = ViewBag.Id, origen = 2 })
+                                        </li>
+                                        @if (@ViewBag.TipoRegimen == 1)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Arrendatario (P. Física)", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Personas que Ocuparán el Inmueble", "Index", "PersonasOcupanInms", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Fiador (P. Física)
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Fiador (P. Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                            </li>
+                                        }
+                                        @if (@ViewBag.TipoRegimen == 2)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Arrendatario (P. Moral)", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Fiador (P. Física)
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Fiador (P. Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                            </li>
+                                        }
+                                        @if ("Procesos" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value || "Control y Calidad" == User.FindFirst("Area").Value)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Investigación", "Index", "DetalleInvestigacions", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                            </li>
+                                        }
+                                        <li class="">
+                                            @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = ViewBag.Id })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("Generar Solicitudes", "Index", "GenerarSolicitudes", new { id = ViewBag.Id })
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content">
+                                <!--Inicio de Secccion 1-->
+                                <div class="tab-pane active" id="2">
+                                    <!--INICIO Seccion dentro del tab-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 class="card-title">Fiador listado de personas fisícas</h4>
+                                            <div class="toolbar" align="right">
+                                                <a href="" data-toggle="modal" data-target="#Create" class="btn btn-finish btn-fill btn-red btn-wd">Nuevo fiador (P. Física)</a>
+                                            </div>
+                                            <div class="material-datatables">
+                                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Nombre
+                                                            </th>
+                                                            <th>
+                                                                Apellido Paterno
+                                                            </th>
+                                                            <th>
+                                                                Apellido Materno
+                                                            </th>
+                                                            <th class="disabled-sorting text-right">Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.FiadorFnombres)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.FiadorFapePaterno)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.FiadorFapeMaterno)
+                                                                </td>
+                                                                <td>
+                                                                    <a href="" data-toggle="modal" data-target="#Delete" class="pull-right" onclick="getDataAjax('@item.FiadorFid','FiadorFs/EditAjax')"><i class="material-icons">close</i></a>
+                                                                    <a href="" data-toggle="modal" data-target="#Edit" class="pull-right" onclick="getDataAjaxEdit('@item.FiadorFid','FiadorFs/EditAjaxEdit')"><i class="material-icons">edit</i></a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end col-md-12 -->
+                                    </div>
+                                    <!--FIN Seccion dentro del tab-->
+                                    <div class="form-group">
+                                        <a asp-controller="Documentos" asp-action="Index" asp-route-id="@ViewBag.Id" class="btn btn-default pull-left">Atrás</a>
+                                        <a asp-controller="FiadorMs" asp-action="Index" asp-route-id="@ViewBag.Id" class="btn btn-primary pull-right">Siguiente</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin de Seccion 1-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!--Seccion de Modal-->
+<!-- Modal -->
+<!--Create-->
+<div class="modal fade" id="Create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Crear Fiador</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="card-content">
+                            <ul class="nav nav-pills nav-pills-warning">
+                                <li class="active">
+                                    <a href="#pill1" data-toggle="tab">General</a>
+                                </li>
+                                <li>
+                                    <a href="#pill2" data-toggle="tab">Domicilio Particular</a>
+                                </li>
+                                <li>
+                                    <a href="#pill3" data-toggle="tab">Domicilio garantía</a>
+                                </li>
+                                <li>
+                                    <a href="#pill4" data-toggle="tab">Datos del Conyuge</a>
+                                </li>
+                                <li>
+                                    <a href="#pill5" data-toggle="tab">Datos de Escritura</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="pill1">
+                                    <div class="col-md-4">
+                                        <input type="hidden" name="FiadorFId" />
+                                        <div class="form-group label-floating" id="FiadorFNombresError">
+                                            <label class="control-label"><star>*</star>Nombre(s)</label>
+                                            <input tabindex="1" type="text" name="FiadorFNombres" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating" id="FiadorFNacionalidadError">
+                                            <label class="control-label"><star>*</star>Nacionalidad</label>
+                                            <input tabindex="4" type="text" name="FiadorFNacionalidad" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Condición de Estado Civil</label>
+                                            <input tabindex="7" type="text" name="FiadorFConvenioEC" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating" id="FiadorFCelularError">
+                                            <label class="control-label"><star>*</star>Celular</label>
+                                            <input tabindex="10" type="text" name="FiadorFCelular" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Teléfono de Empresa</label>
+                                            <input tabindex="13" type="text" name="FiadorFTelefonoEmpresa" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating" id="TipoIdentificacionError">
+                                            <label class="control-label">Tipo de identificación</label>
+                                            <input tabindex="15" type="text" name="TipoIdentificacion" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group label-floating" id="FiadorFApePaternoError">
+                                            <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                            <input tabindex="2" type="text" name="FiadorFApePaterno" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Condición migratoria</label>
+                                            <input tabindex="5" type="text" name="FiadorFCondicionMigratoria" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating" id="FiadorFEmailError">
+                                            <label class="control-label"><star>*</star>E-mail</label>
+                                            <input tabindex="8" type="email" name="FiadorFEmail" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Parentesco Arrendatario</label>
+                                            <input tabindex="11" type="text" name="FiadorFParentesco" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Profesión</label>
+                                            <input tabindex="14" name="FiadorFProfesion" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating" id="NumeroIdentificacionError">
+                                            <label class="control-label">Número de identificación</label>
+                                            <input tabindex="16" type="text" name="NumeroIdentificacion" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group label-floating" id="FiadorFApeMaternoError">
+                                            <label class="control-label"><star>*</star>Apellido Materno</label>
+                                            <input tabindex="3" type="text" name="FiadorFApeMaterno" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Estado civil</label>
+                                            <input tabindex="6" type="text" name="FiadorFEstadoCivil" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating" id="FiadorFTelefonoError">
+                                            <label class="control-label"><star>*</star>Teléfono</label>
+                                            <input tabindex="9" type="text" name="FiadorFTelefono" class="form-control" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Empresa donde labora</label>
+                                            <input tabindex="12" type="text" name="FiadorFEmpresa" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill2">
+                                    <div class="form-group label-floating" id="FiadorFDomicilioError">
+                                        <label class="control-label"><star>*</star>Domicilio</label>
+                                        <input name="FiadorFDomicilio" class="form-control" />
+                                    </div>
+                                    <div class="form-group label-floating" id="FiadorFColoniaError">
+                                        <label class="control-label"><star>*</star>Colonia</label>
+                                        <input name="FiadorFColonia" class="form-control" />
+                                    </div>
+                                    <div class="form-group label-floating" id="FiadorFDelegacionError">
+                                        <label class="control-label"><star>*</star>Municipio ó Alcaldía</label>
+                                        <input name="FiadorFDelegacion" class="form-control" />
+                                    </div>
+                                    <div class="form-group label-floating" id="FiadorFEstadoError">
+                                        <label class="control-label"><star>*</star>Estado</label>
+                                        <input name="FiadorFEstado" class="form-control" />
+                                    </div>
+                                    <div class="form-group label-floating" id="FiadorFCodigoPostalError">
+                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                        <input name="FiadorFCodigoPostal" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill3">
+                                    <div class="form-group " id="FiadorFDomicilioGarantiaError">
+                                        <select name="TipoInmobiliarioId" class="btn btn-primary btn-round" asp-items="ViewBag.TipoInmobiliarioId">
+                                            <option> (Seleccionar Tipo Inmueble) </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group " id="FiadorFDomicilioGarantiaError">
+                                        <label class="control-label"><star>*</star>Domicilio del inmueble en garantía</label>
+                                        <input name="FiadorFDomicilioGarantia" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFColoniaGarantiaError">
+                                        <label class="control-label"><star>*</star>Colonia</label>
+                                        <input name="FiadorFColoniaGarantia" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFDelegaciónGarantiaError">
+                                        <label class="control-label"><star>*</star>Municipio ó Alcaldía</label>
+                                        <input name="FiadorFDelegaciónGarantia" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFEstadoGarantiaError">
+                                        <label class="control-label"><star>*</star>Estado</label>
+                                        <input name="FiadorFEstadoGarantia" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                        <input name="FiadorFCodigoPostalGarantia" class="form-control" type="text" />
+                                    </div>
+                                    <button type="button" class="btn btn-primary pull-left" onclick="Copiar()">Copiar domicilio particular</button>
+                                </div>
+                                <div class="tab-pane" id="pill4">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Nombre del conyuge</label>
+                                        <input name="FiadorFNombresConyuge" class="form-control" />
+                                    </div>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Apellido Paterno del conyuge</label>
+                                        <input name="FiadorFApePaternoConyuge" class="form-control" />
+                                    </div>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Apellido Materno del conyuge</label>
+                                        <input name="FiadorFApeMaternoConyuge" class="form-control" />
+                                    </div>
+                                    <div class="form-group label-floating" hidden>
+                                        <label name="FisicaMoralId" class="control-label"></label>
+                                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.Id" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill5">
+                                    <div class="form-group label-floating" id="EscrituraNumeroError">
+                                        <label class="control-label">Número de Escritura</label>
+                                        <input name="EscrituraNumero" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group label-floating" id="LicenciadoError">
+                                        <label class="control-label">Licenciado Notaría</label>
+                                        <input name="Licenciado" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group label-floating" id="NumeroNotariaError">
+                                        <label class="control-label">Número de Notaría</label>
+                                        <input name="NumeroNotaria" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group label-floating" id="DistritoJudicialError">
+                                        <label class="control-label">Distrito Judicial</label>
+                                        <input name="DistritoJudicial" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group label-floating" id="PartidaNumeroError">
+                                        <label class="control-label">Número de Partida</label>
+                                        <input name="PartidaNumero" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group label-floating" id="PartidaVolumenError">
+                                        <label class="control-label">Volumen</label>
+                                        <input name="PartidaVolumen" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group label-floating" id="PartidaLibroError">
+                                        <label class="control-label">Libro</label>
+                                        <input name="PartidaLibro" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group label-floating" id="PartidaSeccionError">
+                                        <label class="control-label">Sección</label>
+                                        <input name="PartidaSeccion" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="PartidaFechaError">
+                                        <label class="control-label">Fecha de Partida</label>
+                                        <input name="PartidaFecha" class="form-control datetimepicker" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataAdd('FiadorFs/Insertar')" onclick="this.disabled=true;">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Create-->
+<!--Edit-->
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar Fiador</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="card-content">
+                            <ul class="nav nav-pills nav-pills-warning">
+                                <li class="active">
+                                    <a href="#pill6" data-toggle="tab">General</a>
+                                </li>
+                                <li>
+                                    <a href="#pill7" data-toggle="tab">Domicilio Particular</a>
+                                </li>
+                                <li>
+                                    <a href="#pill8" data-toggle="tab">Domicilio garantía</a>
+                                </li>
+                                <li>
+                                    <a href="#pill9" data-toggle="tab">Datos del Conyuge</a>
+                                </li>
+                                <li>
+                                    <a href="#pill10" data-toggle="tab">Datos de Escritura</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="pill6">
+                                    <div class="col-md-4">
+                                        <input type="hidden" name="FiadorFIdEdit" />
+                                        <div class="form-group" id="FiadorFNombresEditError">
+                                            <label class="control-label"><star>*</star>Nombre(s)</label>
+                                            <input tabindex="1" type="text" name="FiadorFNombresEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group" id="FiadorFNacionalidadEditError">
+                                            <label class="control-label"><star>*</star>Nacionalidad</label>
+                                            <input tabindex="4" type="text" name="FiadorFNacionalidadEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Condición de Estado Civil</label>
+                                            <input tabindex="7" type="text" name="FiadorFConvenioECEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group" id="FiadorFCelularEditError">
+                                            <label class="control-label"><star>*</star>Celular</label>
+                                            <input tabindex="10" type="text" name="FiadorFCelularEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Telefono de Empresa</label>
+                                            <input tabindex="13" type="text" name="FiadorFTelefonoEmpresaEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group label" id="TipoIdentificacionEditError">
+                                            <label class="control-label">Tipo de identificación</label>
+                                            <input tabindex="15" type="text" name="TipoIdentificacionEdit" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" id="FiadorFApePaternoEditError">
+                                            <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                            <input tabindex="2" type="text" name="FiadorFApePaternoEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Condición migratoria</label>
+                                            <input tabindex="5" type="text" name="FiadorFCondicionMigratoriaEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group" id="FiadorFEmailEditError">
+                                            <label class="control-label"><star>*</star>E-mail</label>
+                                            <input tabindex="8" type="email" name="FiadorFEmailEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group" id="FiadorFParentescoEditError">
+                                            <label class="control-label">Parentesco Arrendatario</label>
+                                            <input tabindex="11" type="text" name="FiadorFParentescoEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label">Profesión</label>
+                                            <input tabindex="14" name="FiadorFProfesionEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group label" id="NumeroIdentificacionEditError">
+                                            <label class="control-label">Número de identificación</label>
+                                            <input tabindex="16" type="text" name="NumeroIdentificacionEdit" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group " id="FiadorFApeMaternoEditError">
+                                            <label class="control-label"><star>*</star>Apellido Materno</label>
+                                            <input tabindex="3" type="text" name="FiadorFApeMaternoEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label">Estado civil</label>
+                                            <input tabindex="6" type="text" name="FiadorFEstadoCivilEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group " id="FiadorFTelefonoEditError">
+                                            <label class="control-label"><star>*</star>Teléfono</label>
+                                            <input tabindex="9" type="text" name="FiadorFTelefonoEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Empresa donde labora</label>
+                                            <input tabindex="12" type="text" name="FiadorFEmpresaEdit" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill7">
+                                    <div class="form-group " id="FiadorFDomicilioEditError">
+                                        <label class="control-label"><star>*</star>Domicilio</label>
+                                        <input name="FiadorFDomicilioEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFColoniaEditError">
+                                        <label class="control-label"><star>*</star>Colonia</label>
+                                        <input name="FiadorFColoniaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFDelegacionEditError">
+                                        <label class="control-label"><star>*</star>Municipio ó Alcaldía</label>
+                                        <input name="FiadorFDelegacionEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFEstadoEditError">
+                                        <label class="control-label"><star>*</star>Estado</label>
+                                        <input name="FiadorFEstadoEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group" id="FiadorFCodigoPostalEditError">
+                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                        <input name="FiadorFCodigoPostalEdit" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill8">
+                                    <div class="form-group " id="FiadorFDomicilioGarantiaError">
+                                        <select name="TipoInmobiliarioIdEdit" class="btn btn-primary btn-round" asp-items="ViewBag.TipoInmobiliarioId">
+                                            <option> (Seleccionar Tipo Inmueble) </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group " id="FiadorFDomicilioGarantiaEditError">
+                                        <label class="control-label"><star>*</star>Domicilio del inmueble en garantía</label>
+                                        <input name="FiadorFDomicilioGarantiaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group" id="FiadorFColoniaGarantiaEditError">
+                                        <label class="control-label"><star>*</star>Colonia</label>
+                                        <input name="FiadorFColoniaGarantiaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group" id="FiadorFDelegaciónGarantiaEditError">
+                                        <label class="control-label"><star>*</star>Municipio ó Alcaldía</label>
+                                        <input name="FiadorFDelegaciónGarantiaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group" id="FiadorFEstadoGarantiaEditError">
+                                        <label class="control-label"><star>*</star>Estado</label>
+                                        <input name="FiadorFEstadoGarantiaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group" id="FiadorFCodigoPostalGarantiaEditError">
+                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                        <input name="FiadorFCodigoPostalGarantiaEdit" class="form-control" type="text" />
+                                    </div>
+                                    <button type="button" class="btn btn-primary pull-left" onclick="CopiarEditar()">Copiar domicilio particular</button>
+                                </div>
+                                <div class="tab-pane" id="pill9">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre del conyuge</label>
+                                        <input name="FiadorFNombresConyugeEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Apellido Paterno del conyuge</label>
+                                        <input name="FiadorFApePaternoConyugeEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label">Apellido Materno del conyuge</label>
+                                        <input name="FiadorFApeMaternoConyugeEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group" hidden>
+                                        <input name="FisicaMoralIdEdit" value="@ViewBag.Id" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill10">
+                                    <div class="form-group" id="EscrituraNumeroError">
+                                        <label class="control-label">Número de Escritura</label>
+                                        <input name="EscrituraNumeroEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="LicenciadoError">
+                                        <label class="control-label">Licenciado Notaría</label>
+                                        <input name="LicenciadoEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="NumeroNotariaError">
+                                        <label class="control-label">Número de Notaría</label>
+                                        <input name="NumeroNotariaEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="DistritoJudicialError">
+                                        <label class="control-label">Distrito Judicial</label>
+                                        <input name="DistritoJudicialEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="PartidaNumeroError">
+                                        <label class="control-label">Número de Partida</label>
+                                        <input name="PartidaNumeroEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="PartidaVolumenError">
+                                        <label class="control-label">Volumen</label>
+                                        <input name="PartidaVolumenEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="PartidaLibroError">
+                                        <label class="control-label">Libro</label>
+                                        <input name="PartidaLibroEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="PartidaSeccionError">
+                                        <label class="control-label">Sección</label>
+                                        <input name="PartidaSeccionEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group" id="PartidaFechaError">
+                                        <label class="control-label">Fecha de Partida</label>
+                                        <input name="PartidaFechaEdit" class="form-control datetimepickerEdit" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setEditFiador('FiadorFs/EditFiadorAjax')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Edit-->
+<!--Delete-->
+<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Eliminar Fiador</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="card-content">
+                            <ul class="nav nav-pills nav-pills-warning">
+                                <li class="active">
+                                    <a href="#pill11" data-toggle="tab">General</a>
+                                </li>
+                                <li>
+                                    <a href="#pill12" data-toggle="tab">Domicilio Particular</a>
+                                </li>
+                                <li>
+                                    <a href="#pill13" data-toggle="tab">Domicilio garantía</a>
+                                </li>
+                                <li>
+                                    <a href="#pill14" data-toggle="tab">Datos del Conyuge</a>
+                                </li>
+                                <li>
+                                    <a href="#pill15" data-toggle="tab">Datos de Escritura</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="pill11">
+                                    <div class="col-md-4">
+                                        <input type="hidden" name="FiadorFid" />
+                                        <div class="form-group">
+                                            <label class="control-label"><star>*</star> Nombre(s)</label>
+                                            <input tabindex="1" type="text" name="FiadorFNombres" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label"><star>*</star>Nacionalidad</label>
+                                            <input tabindex="4" type="text" name="FiadorFNacionalidad" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Condición de Estado Civil</label>
+                                            <input tabindex="7" type="text" name="FiadorFConvenioEC" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Celular</label>
+                                            <input tabindex="10" type="text" name="FiadorFCelular" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Telefono de Empresa</label>
+                                            <input tabindex="13" type="text" name="FiadorFTelefonoEmpresa" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group" id="TipoIdentificacionEditError">
+                                            <label class="control-label">Tipo de identificación</label>
+                                            <input tabindex="15" type="text" name="TipoIdentificacion" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                            <input tabindex="2" type="text" name="FiadorFApePaterno" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Condición migratoria</label>
+                                            <input tabindex="5" type="text" name="FiadorFCondicionMigratoria" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label"><star>*</star>E-mail</label>
+                                            <input tabindex="8" type="email" name="FiadorFEmail" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Parentesco Arrendatario</label>
+                                            <input tabindex="11" type="text" name="FiadorFParentesco" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Profesión</label>
+                                            <input tabindex="14" name="FiadorFProfesion" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group" id="NumeroIdentificacionError">
+                                            <label class="control-label">Número de identificación</label>
+                                            <input tabindex="16" type="text" name="NumeroIdentificacion" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label"><star>*</star>Apellido Materno</label>
+                                            <input tabindex="3" type="text" name="FiadorFApeMaterno" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Estado civil</label>
+                                            <input tabindex="6" type="text" name="FiadorFEstadoCivil" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label"><star>*</star>Teléfono</label>
+                                            <input tabindex="9" type="text" name="FiadorFTelefono" class="form-control" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Empresa donde labora</label>
+                                            <input tabindex="12" type="text" name="FiadorFEmpresa" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill12">
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Domicilio</label>
+                                        <input name="FiadorFDomicilio" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Colonia</label>
+                                        <input name="FiadorFColonia" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Municipio ó Alcaldía</label>
+                                        <input name="FiadorFDelegacion" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Estado</label>
+                                        <input name="FiadorFEstado" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                        <input name="FiadorFCodigoPostal" class="form-control" type="text" disabled />
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill13">
+                                    <div class="form-group " id="FiadorFDomicilioGarantiaError">
+                                        <select name="TipoInmobiliarioId" class="btn btn-primary btn-round" asp-items="ViewBag.TipoInmobiliarioId" disabled>                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Domicilio del inmueble en garantía</label>
+                                        <input name="FiadorFDomicilioGarantia" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Colonia</label>
+                                        <input name="FiadorFColoniaGarantia" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Municipio ó Alcaldía</label>
+                                        <input name="FiadorFDelegaciónGarantia" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Estado</label>
+                                        <input name="FiadorFEstadoGarantia" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                        <input name="FiadorFCodigoPostalGarantia" class="form-control" type="text" disabled />
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill14">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre del conyuge</label>
+                                        <input name="FiadorFNombresConyuge" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Apellido Paterno del conyuge</label>
+                                        <input name="FiadorFApePaternoConyuge" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Apellido Materno del conyuge</label>
+                                        <input name="FiadorFApeMaternoConyuge" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group" hidden>
+                                        <label name="FisicaMoralId" class="control-label"></label>
+                                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.Id" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill15">
+                                    <div class="form-group" id="EscrituraNumeroError">
+                                        <label class="control-label">Número de Escritura</label>
+                                        <input name="EscrituraNumero" class="form-control" type="text" disabled />
+                                    </div>
+                                    <div class="form-group" id="LicenciadoError">
+                                        <label class="control-label">Licenciado Notaría</label>
+                                        <input name="Licenciado" class="form-control" type="text" disabled />
+                                    </div>
+                                    <div class="form-group" id="NumeroNotariaError">
+                                        <label class="control-label">Número de Notaría</label>
+                                        <input name="NumeroNotaria" class="form-control" type="text" disabled />
+                                    </div>
+                                    <div class="form-group" id="DistritoJudicialError">
+                                        <label class="control-label">Distrito Judicial</label>
+                                        <input name="DistritoJudicial" class="form-control" type="text" disabled />
+                                    </div>
+                                    <div class="form-group" id="PartidaNumeroError">
+                                        <label class="control-label">Número de Partida</label>
+                                        <input name="PartidaNumero" class="form-control" type="text" disabled />
+                                    </div>
+                                    <div class="form-group" id="PartidaVolumenError">
+                                        <label class="control-label">Volumen</label>
+                                        <input name="PartidaVolumen" class="form-control" type="text" disabled />
+                                    </div>
+                                    <div class="form-group" id="PartidaLibroError">
+                                        <label class="control-label">Libro</label>
+                                        <input name="PartidaLibro" class="form-control" type="text" disabled />
+                                    </div>
+                                    <div class="form-group" id="PartidaSeccionError">
+                                        <label class="control-label">Sección</label>
+                                        <input name="PartidaSeccion" class="form-control" type="text" disabled />
+                                    </div>
+                                    <div class="form-group" id="PartidaFechaError">
+                                        <label class="control-label">Fecha de Partida</label>
+                                        <input name="PartidaFecha" class="form-control datetimepicker" type="text" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="MensajeError()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Delete-->
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        var item;
+        var FiadorFId;
+        var FiadorFNombres;
+        var FiadorFApePaterno;
+        var FiadorFApeMaterno;
+        var FiadorFNacionalidad;
+        var FiadorFCondicionMigratoria;
+        var FiadorFParentesco;
+        var FiadorFEstadoCivil;
+        var FiadorFConvenioEC;
+        var FiadorFDomicilio;
+        var FiadorFColonia;
+        var FiadorFDelegacion;
+        var FiadorFTelefono;
+        var FiadorFCelular;
+        var FiadorFEmail;
+        var FiadorFDomicilioGarantia;
+        var FiadorFColoniaGarantia;
+        var FiadorFDelegaciónGarantia;
+        var FiadorFProfesion;
+        var FiadorFEmpresa;
+        var FiadorFTelefonoEmpresa;
+        var FiadorFNombresConyuge;
+        var FiadorFApePaternoConyuge;
+        var FiadorFApeMaternoConyuge;
+        var FisicaMoralId;
+        var FiadorFEstado;
+        var FiadorFEstadoGarantia;
+        var FiadorFCodigoPostal;
+        var FiadorFCodigoPostalGarantia;
+        var EscrituraNumero;
+        var Licenciado;
+        var NumeroNotaria;
+        var DistritoJudicial;
+        var PartidaNumero;
+        var PartidaVolumen;
+        var PartidaLibro;
+        var PartidaSeccion;
+        var PartidaFecha;
+        var TipoIdentificacion;
+        var NumeroIdentificacion;
+        var TipoInmobiliarioId;
+
+
+        /*Insertamos un registro*/
+        function setDataAdd(action) {
+
+            FiadorFId = $('input[name=FiadorFId')[0].value;
+            FiadorFNombres = $('input[name=FiadorFNombres')[0].value;
+            FiadorFApePaterno = $('input[name=FiadorFApePaterno')[0].value;
+            FiadorFApeMaterno = $('input[name=FiadorFApeMaterno')[0].value;
+            FiadorFNacionalidad = $('input[name=FiadorFNacionalidad')[0].value;
+            FiadorFCondicionMigratoria = $('input[name=FiadorFCondicionMigratoria')[0].value;
+            FiadorFParentesco = $('input[name=FiadorFParentesco')[0].value;
+            FiadorFEstadoCivil = $('input[name=FiadorFEstadoCivil')[0].value;
+            FiadorFConvenioEC = $('input[name=FiadorFConvenioEC')[0].value;
+            FiadorFDomicilio = $('input[name=FiadorFDomicilio')[0].value;
+            FiadorFColonia = $('input[name=FiadorFColonia')[0].value;
+            FiadorFDelegacion = $('input[name=FiadorFDelegacion')[0].value;
+            FiadorFTelefono = $('input[name=FiadorFTelefono')[0].value;
+            FiadorFCelular = $('input[name=FiadorFCelular')[0].value;
+            FiadorFEmail = $('input[name=FiadorFEmail')[0].value;
+            FiadorFDomicilioGarantia = $('input[name=FiadorFDomicilioGarantia')[0].value;
+            FiadorFColoniaGarantia = $('input[name=FiadorFColoniaGarantia')[0].value;
+            FiadorFDelegaciónGarantia = $('input[name=FiadorFDelegaciónGarantia')[0].value;
+            FiadorFProfesion = $('input[name=FiadorFProfesion')[0].value;
+            FiadorFEmpresa = $('input[name=FiadorFEmpresa')[0].value;
+            FiadorFTelefonoEmpresa = $('input[name=FiadorFTelefonoEmpresa')[0].value;
+            FiadorFNombresConyuge = $('input[name=FiadorFNombresConyuge')[0].value;
+            FiadorFApePaternoConyuge = $('input[name=FiadorFApePaternoConyuge')[0].value;
+            FiadorFApeMaternoConyuge = $('input[name=FiadorFApeMaternoConyuge')[0].value;
+            FisicaMoralId = $('input[name=FisicaMoralId')[0].value;
+            FiadorFEstado = $('input[name=FiadorFEstado')[0].value;
+            FiadorFEstadoGarantia = $('input[name=FiadorFEstadoGarantia')[0].value;
+            FiadorFCodigoPostal = $('input[name=FiadorFCodigoPostal')[0].value;
+            FiadorFCodigoPostalGarantia = $('input[name=FiadorFCodigoPostalGarantia')[0].value;
+            //Seccion de escritura
+            EscrituraNumero = $('input[name=EscrituraNumero')[0].value;
+            Licenciado = $('input[name=Licenciado')[0].value;
+            NumeroNotaria = $('input[name=NumeroNotaria')[0].value;
+            DistritoJudicial = $('input[name=DistritoJudicial')[0].value;
+            PartidaNumero = $('input[name=PartidaNumero')[0].value;
+            PartidaVolumen = $('input[name=PartidaVolumen')[0].value;
+            PartidaLibro = $('input[name=PartidaLibro')[0].value;
+            PartidaSeccion = $('input[name=PartidaSeccion')[0].value;
+            PartidaFecha = $('input[name=PartidaFecha')[0].value;
+            TipoIdentificacion = $('input[name=TipoIdentificacion')[0].value;
+            NumeroIdentificacion = $('input[name=NumeroIdentificacion')[0].value;
+            TipoInmobiliarioId = $('select[name=TipoInmobiliarioId]').val();
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    FiadorFId, FiadorFNombres, FiadorFApePaterno, FiadorFApeMaterno, FiadorFNacionalidad, FiadorFCondicionMigratoria, FiadorFParentesco, FiadorFEstadoCivil, FiadorFConvenioEC, FiadorFDomicilio, FiadorFColonia, FiadorFDelegacion, FiadorFTelefono, FiadorFCelular, FiadorFEmail, FiadorFDomicilioGarantia, FiadorFColoniaGarantia, FiadorFDelegaciónGarantia, FiadorFProfesion, FiadorFEmpresa, FiadorFTelefonoEmpresa, FiadorFNombresConyuge, FiadorFApePaternoConyuge, FiadorFApeMaternoConyuge, FisicaMoralId, FiadorFEstado, FiadorFEstadoGarantia, FiadorFCodigoPostal, FiadorFCodigoPostalGarantia, EscrituraNumero, Licenciado, NumeroNotaria, DistritoJudicial, PartidaNumero, PartidaVolumen, PartidaLibro, PartidaSeccion, PartidaFecha, TipoIdentificacion, NumeroIdentificacion, TipoInmobiliarioId
+                },
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    for (var i in result) {
+
+                        switch (result[i].tipo) {
+                            case 1://Error
+                                Mensaje(result[i].mensaje, "danger");
+                                break;
+                            case 2://ErrorAtributos
+                                MensajeCampos(result[i].mensaje);
+                                break;
+                            case 3://Exitoso
+                                $("#Create").modal('toggle');
+                                Mensaje(result[i].mensaje, "success");
+                                window.location.reload(true);
+                                break;
+                            case 4://Informativo
+                                Mensaje(result[i].mensaje, "info");
+                                break;
+                        }
+
+                    }
+                }
+            });
+        }
+        function Mensaje(mensaje, tipo) {
+            $.notify({
+                icon: "add_alert",
+                message: mensaje
+
+            }, {
+                type: tipo,
+                timer: 10000,
+                placement: {
+                    from: "top",
+                    align: "right"
+                }
+            });
+        }
+        function MensajeCampos(id) {
+            id = '#' + id;
+            $(id).addClass('has-error');
+        }
+
+        function getDataAjax(id, action) {
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    onSuccess(response);
+                }
+            });
+        }
+        function onSuccess(response) {
+            item = response;
+            $.each(item, function (idex, valor) {
+                $('input[name=FiadorFid').val(valor.fiadorFid);
+                $('input[name=FiadorFNombres').val(valor.fiadorFnombres);
+                $('input[name=FiadorFApePaterno').val(valor.fiadorFapePaterno);
+                $('input[name=FiadorFApeMaterno').val(valor.fiadorFapeMaterno);
+                $('input[name=FiadorFNacionalidad').val(valor.fiadorFnacionalidad);
+                $('input[name=FiadorFCondicionMigratoria').val(valor.fiadorFcondicionMigratoria);
+                $('input[name=FiadorFParentesco').val(valor.fiadorFpparentesco);
+                $('input[name=FiadorFEstadoCivil').val(valor.fiadorFestadoCivil);
+                $('input[name=FiadorFConvenioEC').val(valor.fiadorFconvenioEc);
+                $('input[name=FiadorFDomicilio').val(valor.fiadorFdomicilio);
+                $('input[name=FiadorFColonia').val(valor.fiadorFcolonia);
+                $('input[name=FiadorFDelegacion').val(valor.fiadorFdelegacion);
+                $('input[name=FiadorFTelefono').val(valor.fiadorFtelefono);
+                $('input[name=FiadorFCelular').val(valor.fiadorFcelular);
+                $('input[name=FiadorFEmail').val(valor.fiadorFemail);
+                $('input[name=FiadorFDomicilioGarantia').val(valor.fiadorFdomicilioGarantia);
+                $('input[name=FiadorFColoniaGarantia').val(valor.fiadorFcoloniaGarantia);
+                $('input[name=FiadorFDelegaciónGarantia').val(valor.fiadorFdelegacionGarantia);
+                $('input[name=FiadorFProfesion').val(valor.fiadorFprofesion);
+                $('input[name=FiadorFEmpresa').val(valor.fiadorFempresa);
+                $('input[name=FiadorFTelefonoEmpresa').val(valor.fiadorFtelefonoEmpresa);
+                $('input[name=FiadorFNombresConyuge').val(valor.fiadorFnombresConyuge);
+                $('input[name=FiadorFApePaternoConyuge').val(valor.fiadorFapePaternoConyuge);
+                $('input[name=FiadorFApeMaternoConyuge').val(valor.fiadorFapeMaternoConyuge);
+                $('input[name=FisicaMoralId').val(valor.fisicaMoralId);
+                $('input[name=FiadorFEstado').val(valor.fiadorFestado);
+                $('input[name=FiadorFEstadoGarantia').val(valor.fiadorFestadoGarantia);
+                $('input[name=FiadorFCodigoPostal').val(valor.fiadorFcodigoPostal);
+                $('input[name=FiadorFCodigoPostalGarantia').val(valor.fiadorFcodigoPostalGarantia);
+                //Seccion de escritura
+                $('input[name=EscrituraNumero').val(valor.escrituraNumero);
+                $('input[name=Licenciado').val(valor.licenciado);
+                $('input[name=NumeroNotaria').val(valor.numeroNotaria);
+                $('input[name=DistritoJudicial').val(valor.distritoJudicial);
+                $('input[name=PartidaNumero').val(valor.partidaNumero);
+                $('input[name=PartidaVolumen').val(valor.partidaVolumen);
+                $('input[name=PartidaLibro').val(valor.partidaLibro);
+                $('input[name=PartidaSeccion').val(valor.partidaSeccion);
+                $('input[name=PartidaFecha').val(valor.partidaFecha);
+                $('input[name=TipoIdentificacion').val(valor.tipoIdentificacion);
+                $('input[name=NumeroIdentificacion').val(valor.numeroIdentificacion);
+                $('select[name=TipoInmobiliarioId').val(valor.tipoInmobiliarioId);
+            });
+        }
+
+
+        function getDataAjaxEdit(id, action) {
+            //Recuperamos los datos del fiador para modificar y no se sobrepongan con los otros models
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    onSuccessEdit(response);
+                    console.log(response);
+                }
+            });
+        }
+        function onSuccessEdit(response) {
+            item = response;
+            $.each(item, function (idex, valor) {
+                $('input[name=FiadorFIdEdit').val(valor.fiadorFid);
+                $('input[name=FiadorFNombresEdit').val(valor.fiadorFnombres);
+                $('input[name=FiadorFApePaternoEdit').val(valor.fiadorFapePaterno);
+                $('input[name=FiadorFApeMaternoEdit').val(valor.fiadorFapeMaterno);
+                $('input[name=FiadorFNacionalidadEdit').val(valor.fiadorFnacionalidad);
+                $('input[name=FiadorFCondicionMigratoriaEdit').val(valor.fiadorFcondicionMigratoria);
+                $('input[name=FiadorFParentescoEdit').val(valor.fiadorFparentesco);
+                $('input[name=FiadorFEstadoCivilEdit').val(valor.fiadorFestadoCivil);
+                $('input[name=FiadorFConvenioECEdit').val(valor.fiadorFconvenioEc);
+                $('input[name=FiadorFDomicilioEdit').val(valor.fiadorFdomicilio);
+                $('input[name=FiadorFColoniaEdit').val(valor.fiadorFcolonia);
+                $('input[name=FiadorFDelegacionEdit').val(valor.fiadorFdelegacion);
+                $('input[name=FiadorFTelefonoEdit').val(valor.fiadorFtelefono);
+                $('input[name=FiadorFCelularEdit').val(valor.fiadorFcelular);
+                $('input[name=FiadorFEmailEdit').val(valor.fiadorFemail);
+                $('input[name=FiadorFDomicilioGarantiaEdit').val(valor.fiadorFdomicilioGarantia);
+                $('input[name=FiadorFColoniaGarantiaEdit').val(valor.fiadorFcoloniaGarantia);
+                $('input[name=FiadorFDelegaciónGarantiaEdit').val(valor.fiadorFdelegacionGarantia);
+                $('input[name=FiadorFProfesionEdit').val(valor.fiadorFprofesion);
+                $('input[name=FiadorFEmpresaEdit').val(valor.fiadorFempresa);
+                $('input[name=FiadorFTelefonoEmpresaEdit').val(valor.fiadorFtelefonoEmpresa);
+                $('input[name=FiadorFNombresConyugeEdit').val(valor.fiadorFnombresConyuge);
+                $('input[name=FiadorFApePaternoConyugeEdit').val(valor.fiadorFapePaternoConyuge);
+                $('input[name=FiadorFApeMaternoConyugeEdit').val(valor.fiadorFapeMaternoConyuge);
+                $('input[name=FisicaMoralIdEdit').val(valor.fisicaMoralId);
+                $('input[name=FiadorFEstadoEdit').val(valor.fiadorFestado);
+                $('input[name=FiadorFEstadoGarantiaEdit').val(valor.fiadorFestadoGarantia);
+                $('input[name=FiadorFCodigoPostalEdit').val(valor.fiadorFcodigoPostal);
+                $('input[name=FiadorFCodigoPostalGarantiaEdit').val(valor.fiadorFcodigoPostalGarantia);
+                //Seccion de escritura
+                $('input[name=EscrituraNumeroEdit').val(valor.escrituraNumero);
+                $('input[name=LicenciadoEdit').val(valor.licenciado);
+                $('input[name=NumeroNotariaEdit').val(valor.numeroNotaria);
+                $('input[name=DistritoJudicialEdit').val(valor.distritoJudicial);
+                $('input[name=PartidaNumeroEdit').val(valor.partidaNumero);
+                $('input[name=PartidaVolumenEdit').val(valor.partidaVolumen);
+                $('input[name=PartidaLibroEdit').val(valor.partidaLibro);
+                $('input[name=PartidaSeccionEdit').val(valor.partidaSeccion);
+                $('input[name=PartidaFechaEdit').val(valor.partidaFecha);
+                $('input[name=TipoIdentificacionEdit').val(valor.tipoIdentificacion);
+                $('input[name=NumeroIdentificacionEdit').val(valor.numeroIdentificacion);
+                $('select[name=TipoInmobiliarioIdEdit').val(valor.tipoInmuebleId);
+            });
+        }
+
+
+        /*Modificamos Fiador*/
+        function setEditFiador(action) {
+
+            FiadorFId = $('input[name=FiadorFIdEdit')[0].value;
+            FiadorFNombres = $('input[name=FiadorFNombresEdit')[0].value;
+            FiadorFApePaterno = $('input[name=FiadorFApePaternoEdit')[0].value;
+            FiadorFApeMaterno = $('input[name=FiadorFApeMaternoEdit')[0].value;
+            FiadorFNacionalidad = $('input[name=FiadorFNacionalidadEdit')[0].value;
+            FiadorFCondicionMigratoria = $('input[name=FiadorFCondicionMigratoriaEdit')[0].value;
+            FiadorFParentesco = $('input[name=FiadorFParentescoEdit')[0].value;
+            FiadorFEstadoCivil = $('input[name=FiadorFEstadoCivilEdit')[0].value;
+            FiadorFConvenioEC = $('input[name=FiadorFConvenioECEdit')[0].value;
+            FiadorFDomicilio = $('input[name=FiadorFDomicilioEdit')[0].value;
+            FiadorFColonia = $('input[name=FiadorFColoniaEdit')[0].value;
+            FiadorFDelegacion = $('input[name=FiadorFDelegacionEdit')[0].value;
+            FiadorFTelefono = $('input[name=FiadorFTelefonoEdit')[0].value;
+            FiadorFCelular = $('input[name=FiadorFCelularEdit')[0].value;
+            FiadorFEmail = $('input[name=FiadorFEmailEdit')[0].value;
+            FiadorFDomicilioGarantia = $('input[name=FiadorFDomicilioGarantiaEdit')[0].value;
+            FiadorFColoniaGarantia = $('input[name=FiadorFColoniaGarantiaEdit')[0].value;
+            FiadorFDelegaciónGarantia = $('input[name=FiadorFDelegaciónGarantiaEdit')[0].value;
+            FiadorFProfesion = $('input[name=FiadorFProfesionEdit')[0].value;
+            FiadorFEmpresa = $('input[name=FiadorFEmpresaEdit')[0].value;
+            FiadorFTelefonoEmpresa = $('input[name=FiadorFTelefonoEmpresaEdit')[0].value;
+            FiadorFNombresConyuge = $('input[name=FiadorFNombresConyugeEdit')[0].value;
+            FiadorFApePaternoConyuge = $('input[name=FiadorFApePaternoConyugeEdit')[0].value;
+            FiadorFApeMaternoConyuge = $('input[name=FiadorFApeMaternoConyugeEdit')[0].value;
+            FisicaMoralId = $('input[name=FisicaMoralId')[0].value;
+            FiadorFEstado = $('input[name=FiadorFEstadoEdit')[0].value;
+            FiadorFEstadoGarantia = $('input[name=FiadorFEstadoGarantiaEdit')[0].value;
+            FiadorFCodigoPostal = $('input[name=FiadorFCodigoPostalEdit')[0].value;
+            FiadorFCodigoPostalGarantia = $('input[name=FiadorFCodigoPostalGarantiaEdit')[0].value;
+            //Seccion de escritura
+            EscrituraNumero = $('input[name=EscrituraNumeroEdit')[0].value;
+            Licenciado = $('input[name=LicenciadoEdit')[0].value;
+            NumeroNotaria = $('input[name=NumeroNotariaEdit')[0].value;
+            DistritoJudicial = $('input[name=DistritoJudicialEdit')[0].value;
+            PartidaNumero = $('input[name=PartidaNumeroEdit')[0].value;
+            PartidaVolumen = $('input[name=PartidaVolumenEdit')[0].value;
+            PartidaLibro = $('input[name=PartidaLibroEdit')[0].value;
+            PartidaSeccion = $('input[name=PartidaSeccionEdit')[0].value;
+            PartidaFecha = $('input[name=PartidaFechaEdit')[0].value;
+            TipoIdentificacion = $('input[name=TipoIdentificacionEdit')[0].value;
+            NumeroIdentificacion = $('input[name=NumeroIdentificacionEdit')[0].value;
+            TipoInmobiliarioId = $('select[name=TipoInmobiliarioIdEdit]').val();
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    FiadorFId, FiadorFNombres, FiadorFApePaterno, FiadorFApeMaterno, FiadorFNacionalidad, FiadorFCondicionMigratoria, FiadorFParentesco, FiadorFEstadoCivil, FiadorFConvenioEC, FiadorFDomicilio, FiadorFColonia, FiadorFDelegacion, FiadorFTelefono, FiadorFCelular, FiadorFEmail, FiadorFDomicilioGarantia, FiadorFColoniaGarantia, FiadorFDelegaciónGarantia, FiadorFProfesion, FiadorFEmpresa, FiadorFTelefonoEmpresa, FiadorFNombresConyuge, FiadorFApePaternoConyuge, FiadorFApeMaternoConyuge, FisicaMoralId, FiadorFEstado, FiadorFEstadoGarantia, FiadorFCodigoPostal, FiadorFCodigoPostalGarantia, EscrituraNumero, Licenciado, NumeroNotaria, DistritoJudicial, PartidaNumero, PartidaVolumen, PartidaLibro, PartidaSeccion, PartidaFecha, TipoIdentificacion, NumeroIdentificacion, TipoInmobiliarioId
+                },
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    for (var i in result) {
+
+                        switch (result[i].tipo) {
+                            case 1://Error
+                                Mensaje(result[i].mensaje, "danger");
+                                break;
+                            case 2://ErrorAtributos
+                                MensajeCampos(result[i].mensaje);
+                                break;
+                            case 3://Exitoso
+                                $("#Edit").modal('toggle');
+                                Mensaje(result[i].mensaje, "success");
+                                window.location.reload(true);
+                                break;
+                            case 4://Informativo
+                                Mensaje(result[i].mensaje, "info");
+                                break;
+                        }
+
+                    }
+                }
+            });
+
+        }
+        /*Eliminamos*/
+        function setDataDeleteFiadorF(action) {
+
+            id = $('input[name=FiadorFid')[0].value;
+
+
+            $.each(item, function (idex, valor) {
+                valor.FiadorFId = id;
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        swal({
+                            title: 'Eliminado!',
+                            text: 'Su registro ha sido eliminado.',
+                            type: 'success',
+                            confirmButtonClass: "btn btn-success",
+                            buttonsStyling: false
+                        })
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        }, 2000);
+                    }
+                    else {
+                        //Mesaje de error
+                        $.notify({
+                            icon: "notifications",
+                            message: "Error," + response
+
+                        }, {
+                            type: "danger",
+                            timer: 3000,
+                            placement: {
+                                from: top,
+                                align: "right"
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        function MensajeError() {
+            swal({
+                title: '¿Estas Seguro?',
+                text: "Se eliminara de forma permanente",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Si, Eliminarlo!',
+                buttonsStyling: false
+            }).then(function () {
+                setDataDeleteFiadorF('FiadorFs/DeleteConfirmed');
+            });
+
+
+        }
+        $(document).ready(function () {
+            //Datepicker seccion
+            $('.datetimepicker').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            $('.datetimepickerEdit').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+        });
+
+        /*Copiar seccion Domicilio Particula al de Garantia (Editar)*/
+        function CopiarEditar() {
+            $('input[name=FiadorFDomicilioGarantiaEdit').val($('input[name=FiadorFDomicilioEdit')[0].value);
+            $('input[name=FiadorFColoniaGarantiaEdit').val($('input[name=FiadorFColoniaEdit')[0].value);
+            $('input[name=FiadorFDelegaciónGarantiaEdit').val($('input[name=FiadorFDelegacionEdit')[0].value);
+            $('input[name=FiadorFEstadoGarantiaEdit').val($('input[name=FiadorFEstadoEdit')[0].value);
+            $('input[name=FiadorFCodigoPostalGarantiaEdit').val($('input[name=FiadorFCodigoPostalGarantiaEdit')[0].value);
+        }
+        /*Copiar seccion Domicilio Particula al de Garantia (Insertar)*/
+        function Copiar() {
+            $('input[name=FiadorFDomicilioGarantia').val($('input[name=FiadorFDomicilio')[0].value);
+            $('input[name=FiadorFColoniaGarantia').val($('input[name=FiadorFColonia')[0].value);
+            $('input[name=FiadorFDelegaciónGarantia').val($('input[name=FiadorFDelegacion')[0].value);
+            $('input[name=FiadorFEstadoGarantia').val($('input[name=FiadorFEstado')[0].value);
+            $('input[name=FiadorFCodigoPostalGarantia').val($('input[name=FiadorFCodigoPostal')[0].value);
+        }
+    </script>
+}

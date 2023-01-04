@@ -1,0 +1,258 @@
+﻿
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="card card-calendar">
+            <div class="card-content ps-child">
+                <div id="fullCalendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Firmas-->
+<div class="modal fade" id="Firmas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Listado de Representantes</h4>
+            </div>
+            <div class="modal-body">
+                <form >
+                    <div class="row">
+                        <label class="col-md-3 label-on-left">Póliza</label>
+                        <div class="col-md-9">
+                            <div class="form-group label-floating is-empty" id="PolizaIdError">
+                                <input name="PolizaId" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 label-on-left">Lugar</label>
+                        <div class="col-md-9">
+                            <div class="form-group label-floating is-empty" id="LugarError">
+                                <input name="Lugar" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 label-on-left">Fecha Firma</label>
+                        <div class="col-md-9">
+                            <div class="form-group label-floating is-empty" id="FechaFirmaError">
+                                <input name="FechaFirma" type="datetime" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 label-on-left">Firmante</label>
+                        <div class="col-md-9">
+                            <div class="form-group label-floating is-empty" id="FirmanteId">
+                                <input name="FirmanteId" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        var calendario = document.getElementById('fullCalendar');
+        var calendar = new FullCalendar.Calendar(calendario, {
+            timeZone: 'locale',
+            locale: 'es-mx',
+            plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+            // themeSystem: 'bootstrap',
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth, timeGridWeek, timeGridDay'
+            },
+            buttonText: {
+                today: 'Hoy'
+            },
+            views: {
+                dayGridMonth: { buttonText: 'Mes' },
+                timeGridWeek: { buttonText: 'Semana' },
+                timeGridDay: { buttonText: 'Día' }
+            },
+            defaultView: 'dayGridMonth',
+            slotDuration: '00:30:00',
+            navLinks: true, // can click day/week names to navigate views
+            // defaultDate: '2019-03-26',
+            selectable: true,
+            selectMirror: true,
+            minTime: '08:30',
+            maxTime: '22:00',
+            businessHours: [ // specify an array instead
+                {
+                    daysOfWeek: [1, 2, 3, 4], // Monday, Tuesday, Wednesday
+                    startTime: '09:00', // 9am
+                    endTime: '18:00', // 6pm
+                    minTime: '08:00',
+                    maxTime: '22:00',
+                },
+                {
+                    daysOfWeek: [5, 6, 7], //  Viernes y Sabado
+                    startTime: '09:00',  // 9am
+                    endTime: '16:00'    // 4pm
+                }
+            ],
+            allDayText: 'TODO EL DÍA',
+            firstDay: 1, // Lunes
+            // nowIndicator :true,
+            select: function (arg) {
+                console.log('Entro');
+                $("#Firmas").modal()
+                //eN ESTA SECCION ENTRA CUANDO DAS CLICK DENTRO DEL CALNDARIO
+                //var flag = validaCamposEntorno();
+                // var flag = true;
+                //console.log(flag);
+
+                //if (flag) {
+
+                //    //console.log(arg.start, arg.end);
+
+                //    cargaFechas(arg.start, arg.end, arg.allDay);
+
+                //    $('#panAddEvento').modal('show');
+
+                //    $('#btnAddEvento').on('click', function () {
+
+                //        // Recalcula fechas por si el usuario modifico valores en pantalla emergente
+
+                //        var fec_inicio_bd = armaFechaHora($('#Evento_FecInicio').val(),
+                //            $('#Evento_HorInicio').val());
+
+                //        var fec_fin_bd = armaFechaHora($('#Evento_FecFin').val(),
+                //            $('#Evento_HorFin').val());
+
+                //        var evento = {
+                //            title: $('#pan-eve-titulo').val(),
+                //            descri: $('#pan-eve-descri').val(),
+                //            start: fec_inicio_bd,
+                //            end: fec_fin_bd,
+                //            allDay: arg.allDay
+                //        };
+
+                //        // guardar en base de datos
+                //        //guardaEventoBD(evento);
+
+                //    }); // FIN EVENTO CLICK PANTALLA EMERGENTE
+
+                //    $('#btnCanEvento').on('click', function () {
+                //        armaFechaHora();
+                //        $('#panAddEvento').modal('hide');
+                //        //console.log('evento unselect');
+                //        calendar.unselect();
+                //        $('#panAddEvento *').unbind(); // Unbind all events
+                //    });
+
+                //}// FIN VALIDACION DE CAMPOS
+                //else {
+                //    calendar.unselect();
+                //}
+            },
+            editable: false,
+            eventClick: function (info) {
+                //console.log('Event: le dio click');
+                //console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                //console.log('View: ' + info.view.type);
+
+                // change the border color just for fun
+                info.el.style.borderColor = 'red';
+            },
+            //  Evento cuando cambia de día horizontal
+            eventDrop: function (datos) {
+                // do something when event is dropped at a new location
+                //console.log('Drop');
+                //console.log(datos);
+                //console.log(datos.event);
+                actualizaEventoBD(datos.event);
+            },
+            //  Evento cuando cuando cambia de horario vertical
+            eventResize: function (datos) {
+                //console.log('Resize');
+                //console.log(datos);
+                //console.log(datos.event);
+                actualizaEventoBD(datos.event);
+            },
+            eventRender: function (info) {
+                //console.log(info.event);
+
+                var det = info.event._def.extendedProps;
+
+                var nombre = null;
+                if (det.solicitudTipoRegimen == "1") {
+                    nombre = det.solicitudNombreProp + " " + det.solicitudApePaternoProp;
+                } else {
+                    nombre = det.solicitudRepresentanteLegal + " " + det.solicitudApePaternoLegal;
+                }
+                var tmpStr = "<b>Tipo Póliza: </b>" + det.solicitudTipoPoliza + "<br /> " + "<b>Solicitud Id: </b>" + det.solicitudId + "<br />";
+
+                tmpStr = tmpStr +
+                    "<b>Arrendador: </b>" + nombre + "<br />" +
+                    "<b>Arrendatario: </b>" + det.arrendatarioNombre + " " + det.arrendatarioApePat + "<br />" +
+                    "<b>Dirección: </b>" + det.solicitudLugarFirma + "<br />" +
+                    "<b>Asesor: </b>" + det.asesorNombre + "<br />" +
+                    "<b>Representante: </b>" + det.representanteNombre + "<br />";
+
+                //if (det.solcambiofec) {
+
+                //    var descConfCamFec = (det.confcambiofec === true) ? 'Sí' : 'No';
+
+                //    tmpStr = tmpStr + "<b>Fec Ape: </b>" + det.fecapl.substring(0, 10) + "<br /> ";
+                //    tmpStr = tmpStr + "<b>Fec Cie: </b>" + det.fecapl2.substring(0, 10) + "<br /> ";
+                //    tmpStr = tmpStr + "<b>Fec Cie Ult Mes: </b>" + det.fecapl3.substring(0, 10) + "<br /> ";
+                //    tmpStr = tmpStr + "<b>Conf. Cambio Fecha Transversales: </b>" + descConfCamFec + "<br /> ";
+                //}
+
+                //tmpStr = tmpStr + det.descri;
+
+                $(info.el).tooltip({
+                    title: tmpStr,
+                    placement: 'top',
+                    trigger: 'hover',
+                    html: true,
+                    container: 'body',
+                    template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+                });
+
+                $(info.el).attr("href", "#");
+
+            },
+            eventSources: [
+                // your event source
+                {
+                    url: '/Calendarios/LoadCalendario',
+                    method: 'GET',
+                    extraParams: function () { // a function that returns an object
+                        return {
+                            aplicativo: $("#BusAplicacionCve").val(),
+                            entorno: $("#BusEntornoCve").val(),
+                            cvearea: $("#BusAreaCve").val(),
+                            cvesubarea: $("#BusSubAreaCve").val(),
+
+                        };
+                    },
+                    failure: function () {
+                        alert('Hubo un error al cargar los eventos!');
+                    },
+                    select: function (info) {
+                        console.log('Hz otra cosa');
+                    }
+
+                },
+                // any other sources...
+            ],
+            eventLimit: true // allow "more" link when too many events
+        });
+
+        calendar.render();
+    </script>
+}

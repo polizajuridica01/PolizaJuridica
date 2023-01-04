@@ -1,0 +1,58 @@
+﻿@model PolizaJuridica.Data.Movimientos
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+<h4>Movimientos</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DetallePolizaId" class="control-label"></label>
+                <select asp-for="DetallePolizaId" class ="form-control" asp-items="ViewBag.DetallePolizaId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mmid" class="control-label"></label>
+                <select asp-for="Mmid" class ="form-control" asp-items="ViewBag.Mmid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPadre" class="control-label"></label>
+                <select asp-for="IdPadre" class ="form-control" asp-items="ViewBag.IdPadre"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ccid" class="control-label"></label>
+                <select asp-for="Ccid" class ="form-control" asp-items="ViewBag.Ccid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cpid" class="control-label"></label>
+                <select asp-for="Cpid" class ="form-control" asp-items="ViewBag.Cpid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dmid" class="control-label"></label>
+                <select asp-for="Dmid" class ="form-control" asp-items="ViewBag.Dmid"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

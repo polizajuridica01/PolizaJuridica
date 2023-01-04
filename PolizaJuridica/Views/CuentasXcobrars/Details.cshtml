@@ -1,0 +1,54 @@
+﻿@model PolizaJuridica.Data.CuentasXcobrar
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>CuentasXcobrar</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Importe)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Importe)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Numeral)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Numeral)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImporteIncr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImporteIncr)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Poliza)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Poliza.PolizaId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Ccid">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

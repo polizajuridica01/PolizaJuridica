@@ -1,0 +1,365 @@
+﻿@model PolizaJuridica.Data.Soluciones
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                    <h4 class="card-title">Seguimiento de la Solución</h4>                
+                <div>
+                    <div class="card">
+                        <div class="card-header card-header-tabs" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Pestañas:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="active">
+                                            <a href="#1" data-toggle="tab">
+                                                <i class="material-icons">bug_report</i>
+                                                Solución
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("Seguimiento", "Index", "SolucionDetalles", new { id = ViewBag.Id })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("Estatus", "Index", "UsuariosSoluciones", new { id = ViewBag.Id })
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content">
+                                <!--Inicio de Secccion 1-->
+                                <div class="tab-pane active" id="2">
+                                    <!--INICIO Seccion dentro del tab-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form asp-action="Edit">
+                                                <input type="hidden" asp-for="SolucionesId" />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h5>Encabezado</h5>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="PolizaIdError">
+                                                                <label class="control-label">Póliza Id</label>
+                                                                <input asp-for="PolizaId" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="FechaCreacionError">
+                                                                <label class="control-label">Fecha de Creación</label>
+                                                                <input asp-for="FechaCreacion" type="datetime" class="form-control" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="PolizaAnteriorError">
+                                                                <label class="control-label">Póliza Anterior</label>
+                                                                <input asp-for="PolizaAnterior" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label" id="FechaContratoIError">
+                                                                <label class="control-label"><star>*</star>Fecha de Fin de la Póliza</label>
+                                                                <input asp-for="FechaContratoI" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label" id="FechaContratoFError">
+                                                                <label class="control-label"><star>*</star>Fecha de Inicio Póliza</label>
+                                                                <input asp-for="FechaContratoF" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="radio" id="TipoPolizaError">
+                                                                <label><star>*</star>Tipo de p&oacuteliza: </label>
+                                                                <label>
+                                                                    <input asp-for="TipoPoliza" type="radio" value="Tradicional">
+                                                                    Tradicional
+                                                                </label>
+                                                                <label>
+                                                                    <input asp-for="TipoPoliza" type="radio" value="Plus">
+                                                                    Plus
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <h5>Arrendador</h5>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="NombreProError">
+                                                                <label class="control-label"><star>*</star>Nombre (s)</label>
+                                                                <input asp-for="NombrePro" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="ApellidoPatProError">
+                                                                <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                                                <input asp-for="ApellidoPatPro" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="ApellidoMatProError">
+                                                                <label class="control-label">Apellido Materno</label>
+                                                                <input asp-for="ApellidoMatPro" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="CelularPropError">
+                                                                <label class="control-label"><star>*</star>Celular</label>
+                                                                <input asp-for="CelularProp" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="ApellidoPatProError">
+                                                                <label class="control-label"><star>*</star>Email</label>
+                                                                <input asp-for="EmailProp" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <h5>Direccion del Inmueble</h5>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-8">
+                                                            <div class="form-group label-floating" id="DireccionInmuebleError">
+                                                                <label class="control-label"><star>*</star>Dirección</label>
+                                                                <input asp-for="DireccionInmueble" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group label-floating" id="ColoniaInmuebleError">
+                                                                <label class="control-label"><star>*</star>Colonia</label>
+                                                                <input asp-for="ColoniaInmueble" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group label-floating" id="AlcaldiaMunicipioInmuebleError">
+                                                                <label class="control-label"><star>*</star>Alcaldía o Municipio</label>
+                                                                <input asp-for="AlcaldiaMunicipioInmueble" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-2">
+                                                            <div class="form-group label-floating" id="CpinmuebleError">
+                                                                <label class="control-label"><star>*</star>Código Postal</label>
+                                                                <input asp-for="Cpinmueble" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <div class="form-group label-floating" id="EstadoIdError">
+                                                                <label class="control-label"><star>*</star>Estado</label>
+                                                                <select asp-for="EstadoId" class="form-control" asp-items="ViewBag.EstadoId"></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <h5>Datos del Arrendatario</h5>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-8">
+                                                            <div class="form-group label-floating" id="NombreArrenError">
+                                                                <label class="control-label"><star>*</star>Nombres (s)</label>
+                                                                <input asp-for="NombreArren" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group label-floating" id="ApellidoPatArrenError">
+                                                                <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                                                <input asp-for="ApellidoPatArren" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group label-floating" id="ApellidoMatArrenError">
+                                                                <label class="control-label">Apellido Materno</label>
+                                                                <input asp-for="ApellidoMatArren" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="CelularArremError">
+                                                                <label class="control-label"><star>*</star>Celular</label>
+                                                                <input asp-for="CelularArrem" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="EmailArrenError">
+                                                                <label class="control-label"><star>*</star>Email</label>
+                                                                <input asp-for="EmailArren" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <h5>Datos del Fiador</h5>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="NombreFiadorError">
+                                                                <label class="control-label">Nombres (s)</label>
+                                                                <input asp-for="NombreFiador" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="ApellidoPatFiadorError">
+                                                                <label class="control-label">Apellido Paterno</label>
+                                                                <input asp-for="ApellidoPatFiador" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="ApellidoMatFiadorError">
+                                                                <label class="control-label">Apellido Materno</label>
+                                                                <input asp-for="ApellidoMatFiador" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="CelularFiadorError">
+                                                                <label class="control-label">Celular</label>
+                                                                <input asp-for="CelularFiador" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label-floating" id="EmailFiadorError">
+                                                                <label class="control-label">Email</label>
+                                                                <input asp-for="EmailFiador" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <h5>Datos de la Solución</h5>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group label-floating" id="DescripcionProblemaError">
+                                                                <label class="control-label"><star>*</star>Descripción del problema</label>
+                                                                <input asp-for="DescripcionProblema" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group label" id="FechaArrendatarioError">
+                                                                <label class="control-label"><star>*</star>Fecha y Hora de la solución</label>
+                                                                <input asp-for="FechaArrendatario" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group label-floating" id="ArgumentaError">
+                                                                <label class="control-label"><star>*</star>Argumenta</label>
+                                                                <input asp-for="Argumenta" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" hidden>
+                                                    <label asp-for="UsuarioId" class="control-label"></label>
+                                                    <input asp-for="UsuarioId" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button asp-action="Index" class='btn btn-fill btn-danger btn-wd pull-left'>Cancelar</button>
+                                                    <input type="submit" value="Guardar" class="btn btn-primary pull-right" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- end col-md-12 -->
+                                    </div>
+                                    <!--FIN Seccion dentro del tab-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin de Seccion 1-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts
+    {
+
+    <script type="text/javascript">
+               var objeto = @Html.Raw(Json.Serialize(@ViewBag.Error));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var o in obj) {
+
+                    switch (obj[o].tipo) {
+                        case 1://Error
+                        Mensaje(obj[o].mensaje, "danger");
+                        break;
+                        case 2://ErrorAtributos
+                        MensajeCampos(obj[o].mensaje);
+                        break;
+                        case 3://Exitoso
+                        Mensaje(obj[o].mensaje, "success");
+                        break;
+                        case 4://Informativo
+                        Mensaje(obj[o].mensaje, "info");
+                        break;
+                    }
+
+                }
+            }
+        }
+
+    function Mensaje(mensaje, tipo) {
+    $.notify({
+            icon: "add_alert",
+        message: mensaje
+
+    }, {
+            type: tipo,
+            timer: 10000,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    }
+       function MensajeCampos(id) {
+           id = '#' + id;
+            $(id).addClass('has-error');
+        }
+
+    </script>
+}

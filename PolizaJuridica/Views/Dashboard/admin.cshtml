@@ -1,0 +1,738 @@
+﻿@using PolizaJuridica.ViewModels;
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <h3>@ViewBag.FiltroFecha</h3>
+        </div>
+        <div class="row">
+            @using (Html.BeginForm())
+            {
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label">Fecha Inicio </label>
+                        <input name="FechaInicio" class="form-control" type="date">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label">Fecha Fin </label>
+                        <input name="FechaFin" class="form-control" type="date">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="submit" class='btn btn-fill btn-primary btn-wd' value="Filtrar">
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+    <div class="card-content">
+        <ul class="nav nav-pills nav-pills-warning">
+            <li class="active">
+                <a href="#pill1" data-toggle="tab">Vista General</a>
+            </li>
+            <li>
+                <a href="#pill7" data-toggle="tab">Representaciones</a>
+            </li>
+            <li>
+                <a href="#pill2" data-toggle="tab">Documentacion</a>
+            </li>
+            <li>
+                <a href="#pill3" data-toggle="tab">Procesos</a>
+            </li>
+            <li>
+                <a href="#pill4" data-toggle="tab">Cuentas por Pagar</a>
+            </li>
+            <li>
+                <a href="#pill5" data-toggle="tab">Cuentas por Cobrar</a>
+            </li>
+            <li>
+                <a href="#pill6" data-toggle="tab">Soluciones</a>
+            </li>
+
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="pill1">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="red">
+                                <i class="material-icons">equalizer</i>
+                            </div>
+                            <div class="card-content">
+                                <p class="category">Solicitudes</p>
+                                <h3 class="card-title">@ViewBag.Solicitudes</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">update</i> Estatus del día de hoy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="green">
+                                <i class="material-icons">equalizer</i>
+                            </div>
+                            <div class="card-content">
+                                <p class="category">Pólizas</p>
+                                <h3 class="card-title">@ViewBag.Poliza</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">update</i> Estatus del día de hoy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="purple">
+                                <i class="material-icons">equalizer</i>
+                            </div>
+                            <div class="card-content">
+                                <p class="category">Soluciones</p>
+                                <h3 class="card-title">@ViewBag.Soluciones</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">update</i> Estatus del día de hoy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="red">
+                                <i class="material-icons">equalizer</i>
+                            </div>
+                            <div class="card-content">
+                                <p class="category">Monto Global de Venta</p>
+                                <h3 class="card-title">@ViewBag.MontoGlobalVenta</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">update</i> Estatus del día de hoy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">equalizer</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Pólizas</p>
+                                    <h3 class="card-title"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Estatus del día de hoy
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="purple">
+                                    <i class="material-icons">equalizer</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Soluciones</p>
+                                    <h3 class="card-title"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Estatus del día de hoy
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card card-chart">
+                            <div class="card-header" data-background-color="rose" data-header-animation="false">
+                                <div class="ct-chart" id="websiteViewsChart"></div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-actions">
+                                    <button type="button" class="btn btn-danger btn-simple fix-broken-card">
+                                        <i class="material-icons">build</i> Fix Header!
+                                    </button>
+
+                                    @*<button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
+                            <i class="material-icons">refresh</i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
+                            <i class="material-icons">edit</i>
+                        </button>*@
+                                </div>
+
+                                <h4 class="card-title">Solicitudes</h4>
+                                @*<p class="category">Last Campaign Performance</p>*@
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> Actualizado al ingresar
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--<div class="col-md-4">
+                        <div class="card card-chart">
+                            <div class="card-header" data-background-color="green" data-header-animation="true">
+                                <div class="ct-chart" id="websiteViewsChart"></div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-actions">
+                                    <button type="button" class="btn btn-danger btn-simple fix-broken-card">
+                                        <i class="material-icons">build</i> Fix Header!
+                                    </button>-->
+
+                                    @*<button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
+                            <i class="material-icons">refresh</i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
+                            <i class="material-icons">edit</i>
+                        </button>*@
+                                <!--</div>
+
+                                <h4 class="card-title">Pólizas</h4>-->
+                                @*<p class="category">Last Campaign Performance</p>*@
+                            <!--</div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> Actualizado al ingresar
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart">
+                            <div class="card-header" data-background-color="blue" data-header-animation="true">
+                                <div class="ct-chart" id="websiteViewsChart"></div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-actions">
+                                    <button type="button" class="btn btn-danger btn-simple fix-broken-card">
+                                        <i class="material-icons">build</i> Fix Header!
+                                    </button>-->
+
+                                    @*<button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
+                            <i class="material-icons">refresh</i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
+                            <i class="material-icons">edit</i>
+                        </button>*@
+                                <!--</div>
+
+                                <h4 class="card-title">Soluciones</h4>-->
+                                @*<p class="category">Last Campaign Performance</p>*@
+                            <!--</div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> Actualizado al ingresar
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>-->
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive table-sales">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Id
+                                        </td>
+                                        <td>
+                                            Nombre
+                                        </td>
+                                        <td>
+                                            Cantidad de Pólizas
+                                        </td>
+                                        <td>
+                                            Monto Total
+                                        </td>
+                                    </tr>
+                                    @foreach (var r in ViewData["RepreCantCosto"] as IList<RepresentantesCPCViewModel>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @r.RepresentanteId
+                                            </td>
+                                            <td>
+                                                @r.Nombre
+                                            </td>
+                                            <td>
+                                                @r.CantidadPoliza
+                                            </td>
+                                            <td>
+                                                @r.CostoVenta
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="table-responsive table-sales">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Id
+                                        </td>
+                                        <td>
+                                            Representacion
+                                        </td>
+                                        <td>
+                                            Cantidad de Pólizas
+                                        </td>
+                                        <td>
+                                            Monto Total
+                                        </td>
+                                    </tr>
+                                    @foreach (var r in ViewData["RepresentacionCantidad"] as IList<RepresentantesCPCViewModel>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @r.RepresentanteId
+                                            </td>
+                                            <td>
+                                                @r.Nombre
+                                            </td>
+                                            <td>
+                                                @r.CantidadPoliza
+                                            </td>
+                                            <td>
+                                                @r.CostoVenta
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="pill2">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-1">
+                        <h3>Cantidad de solicitudes asignadas</h3>
+                        <div class="table-responsive table-sales">
+                            <table class="table">
+                                <tbody>
+                                <td class="text-center">
+                                    Id
+                                </td>
+                                <td class="text-center">
+                                    Nombre
+                                </td>
+                                <td class="text-center">
+                                    Cantidad
+                                </td>
+                                @*@foreach (var u in ViewData["CantidadFlujo"] as List<UsuarioCantidadViewModel>)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            @u.Id
+                                        </td>
+                                        <td class="text-center">
+                                            @u.UsuarioNombre
+                                        </td>
+                                        <td class="text-center">
+                                            @u.cantidad
+                                        </td>
+                                    </tr>
+                                }*@
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-1">
+                        <h3>Cantidad de solicitudes atendidas por Usuario</h3>
+                        <div class="table-responsive table-sales">
+                            <table class="table">
+                                <tbody>
+                                <td class="text-center">
+                                    Id
+                                </td>
+                                <td class="text-center">
+                                    Nombre
+                                </td>
+                                <td class="text-center">
+                                    Cantidad
+                                </td>
+                                @*@foreach (var u in ViewData["CantidadSolicutdes"] as List<UsuarioCantidadViewModel>)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            @u.Id
+                                        </td>
+                                        <td class="text-center">
+                                            @u.UsuarioNombre
+                                        </td>
+                                        <td class="text-center">
+                                            @u.cantidad
+                                        </td>
+                                    </tr>
+                                }*@
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="pill3">
+            </div>
+
+            <div class="tab-pane" id="pill6">
+            </div>
+            <div class="tab-pane" id="pill7">
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script type="text/javascript">
+        function initDocumentationCharts() {
+
+            //if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {
+                /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+
+                dataDailySalesChart = {
+                    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                    series: [
+                        [12, 17, 7, 17, 23, 18, 38]
+                    ]
+                };
+
+                optionsDailySalesChart = {
+                    lineSmooth: Chartist.Interpolation.cardinal({
+                        tension: 0
+                    }),
+                    low: 0,
+                    high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+                    chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
+                }
+
+                var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+
+                var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
+            //}
+        }
+
+        function initCharts() {
+            if ($('#roundedLineChart').length != 0 && $('#straightLinesChart').length != 0 && $('#colouredRoundedLineChart').length != 0 && $('#colouredBarsChart').length != 0 && $('#simpleBarChart').length != 0 && $('#multipleBarsChart').length != 0) {
+                /* ----------==========    Rounded Line Chart initialization    ==========---------- */
+
+                dataRoundedLineChart = {
+                    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                    series: [
+                        [12, 17, 7, 17, 23, 18, 38]
+                    ]
+                };
+
+                optionsRoundedLineChart = {
+                    lineSmooth: Chartist.Interpolation.cardinal({
+                        tension: 10
+                    }),
+                    axisX: {
+                        showGrid: false,
+                    },
+                    low: 0,
+                    high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+                    chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
+                    showPoint: false
+                }
+
+                var RoundedLineChart = new Chartist.Line('#roundedLineChart', dataRoundedLineChart, optionsRoundedLineChart);
+
+                md.startAnimationForLineChart(RoundedLineChart);
+
+
+                /*  **************** Straight Lines Chart - single line with points ******************** */
+
+                dataStraightLinesChart = {
+                    labels: ['\'07', '\'08', '\'09', '\'10', '\'11', '\'12', '\'13', '\'14', '\'15'],
+                    series: [
+                        [10, 16, 8, 13, 20, 15, 20, 34, 30]
+                    ]
+                };
+
+                optionsStraightLinesChart = {
+                    lineSmooth: Chartist.Interpolation.cardinal({
+                        tension: 0
+                    }),
+                    low: 0,
+                    high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+                    chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
+                    classNames: {
+                        point: 'ct-point ct-white',
+                        line: 'ct-line ct-white'
+                    }
+                }
+
+                var straightLinesChart = new Chartist.Line('#straightLinesChart', dataStraightLinesChart, optionsStraightLinesChart);
+
+                md.startAnimationForLineChart(straightLinesChart);
+
+
+                /*  **************** Coloured Rounded Line Chart - Line Chart ******************** */
+
+
+                dataColouredRoundedLineChart = {
+                    labels: ['\'06', '\'07', '\'08', '\'09', '\'10', '\'11', '\'12', '\'13', '\'14', '\'15'],
+                    series: [
+                        [287, 480, 290, 554, 690, 690, 500, 752, 650, 900, 944]
+                    ]
+                };
+
+                optionsColouredRoundedLineChart = {
+                    lineSmooth: Chartist.Interpolation.cardinal({
+                        tension: 10
+                    }),
+                    axisY: {
+                        showGrid: true,
+                        offset: 40
+                    },
+                    axisX: {
+                        showGrid: false,
+                    },
+                    low: 0,
+                    high: 1000,
+                    showPoint: true,
+                    height: '300px'
+                };
+
+
+                var colouredRoundedLineChart = new Chartist.Line('#colouredRoundedLineChart', dataColouredRoundedLineChart, optionsColouredRoundedLineChart);
+
+                md.startAnimationForLineChart(colouredRoundedLineChart);
+
+
+                /*  **************** Coloured Rounded Line Chart - Line Chart ******************** */
+
+
+                dataColouredBarsChart = {
+                    labels: ['\'06', '\'07', '\'08', '\'09', '\'10', '\'11', '\'12', '\'13', '\'14', '\'15'],
+                    series: [
+                        [287, 385, 490, 554, 586, 698, 695, 752, 788, 846, 944],
+                        [67, 152, 143, 287, 335, 435, 437, 539, 542, 544, 647],
+                        [23, 113, 67, 190, 239, 307, 308, 439, 410, 410, 509]
+                    ]
+                };
+
+                optionsColouredBarsChart = {
+                    lineSmooth: Chartist.Interpolation.cardinal({
+                        tension: 10
+                    }),
+                    axisY: {
+                        showGrid: true,
+                        offset: 40
+                    },
+                    axisX: {
+                        showGrid: false,
+                    },
+                    low: 0,
+                    high: 1000,
+                    showPoint: true,
+                    height: '300px'
+                };
+
+
+                var colouredBarsChart = new Chartist.Line('#colouredBarsChart', dataColouredBarsChart, optionsColouredBarsChart);
+
+                md.startAnimationForLineChart(colouredBarsChart);
+
+
+
+                /*  **************** Public Preferences - Pie Chart ******************** */
+
+                var dataPreferences = {
+                    labels: ['62%', '32%', '6%'],
+                    series: [62, 32, 6]
+                };
+
+                var optionsPreferences = {
+                    height: '230px'
+                };
+
+                Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
+
+                /*  **************** Simple Bar Chart - barchart ******************** */
+
+                var dataSimpleBarChart = {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    series: [
+                        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
+                    ]
+                };
+
+                var optionsSimpleBarChart = {
+                    seriesBarDistance: 10,
+                    axisX: {
+                        showGrid: false
+                    }
+                };
+
+                var responsiveOptionsSimpleBarChart = [
+                    ['screen and (max-width: 640px)', {
+                        seriesBarDistance: 5,
+                        axisX: {
+                            labelInterpolationFnc: function (value) {
+                                return value[0];
+                            }
+                        }
+                    }]
+                ];
+
+                var simpleBarChart = Chartist.Bar('#simpleBarChart', dataSimpleBarChart, optionsSimpleBarChart, responsiveOptionsSimpleBarChart);
+
+                //start animation for the Emails Subscription Chart
+                md.startAnimationForBarChart(simpleBarChart);
+
+
+                var dataMultipleBarsChart = {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    series: [
+                        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
+                        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
+                    ]
+                };
+
+                var optionsMultipleBarsChart = {
+                    seriesBarDistance: 10,
+                    axisX: {
+                        showGrid: false
+                    },
+                    height: '300px'
+                };
+
+                var responsiveOptionsMultipleBarsChart = [
+                    ['screen and (max-width: 640px)', {
+                        seriesBarDistance: 5,
+                        axisX: {
+                            labelInterpolationFnc: function (value) {
+                                return value[0];
+                            }
+                        }
+                    }]
+                ];
+
+                var multipleBarsChart = Chartist.Bar('#multipleBarsChart', dataMultipleBarsChart, optionsMultipleBarsChart, responsiveOptionsMultipleBarsChart);
+
+                //start animation for the Emails Subscription Chart
+                md.startAnimationForBarChart(multipleBarsChart);
+            }
+
+        }
+
+        function initDashboardPageCharts() {
+            if ($('#dailySalesChart').length != 0 && $('#completedTasksChart').length != 0 && $('#websiteViewsChart').length != 0) {
+                /* ----------==========     Daily Sales Chart initialization    ==========---------- */
+
+                dataDailySalesChart = {
+                    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                    series: [
+                        [12, 17, 7, 17, 23, 18, 38]
+                    ]
+                };
+
+                optionsDailySalesChart = {
+                    lineSmooth: Chartist.Interpolation.cardinal({
+                        tension: 0
+                    }),
+                    low: 0,
+                    high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+                    chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
+                }
+
+                var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+
+                md.startAnimationForLineChart(dailySalesChart);
+
+
+
+                /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
+
+                dataCompletedTasksChart = {
+                    labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
+                    series: [
+                        [230, 750, 450, 300, 280, 240, 200, 190]
+                    ]
+                };
+
+                optionsCompletedTasksChart = {
+                    lineSmooth: Chartist.Interpolation.cardinal({
+                        tension: 0
+                    }),
+                    low: 0,
+                    high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+                    chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
+                }
+
+                var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+
+                // start animation for the Completed Tasks Chart - Line Chart
+                md.startAnimationForLineChart(completedTasksChart);
+
+
+                /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
+
+                var dataWebsiteViewsChart = {
+                    labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+                    series: [
+                        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
+
+                    ]
+                };
+                var optionsWebsiteViewsChart = {
+                    axisX: {
+                        showGrid: false
+                    },
+                    low: 0,
+                    high: 1000,
+                    chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
+                };
+                var responsiveOptions = [
+                    ['screen and (max-width: 640px)', {
+                        seriesBarDistance: 5,
+                        axisX: {
+                            labelInterpolationFnc: function (value) {
+                                return value[0];
+                            }
+                        }
+                    }]
+                ];
+                var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
+
+                //start animation for the Emails Subscription Chart
+                md.startAnimationForBarChart(websiteViewsChart);
+            }
+        }
+
+        initDocumentationCharts();
+        //initCharts();
+        //initDashboardPageCharts();
+    </script>
+}
+

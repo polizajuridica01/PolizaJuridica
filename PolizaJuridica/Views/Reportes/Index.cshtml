@@ -1,0 +1,94 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="green">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Reporte de Ventas</h4>
+                <div class="toolbar">
+                    <div class="row">
+                        @using (Html.BeginForm("ventas", "Reportes", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Inicio Solicitud</label>
+                                        <input name="FechaInicio" class="form-control" type="date">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Fin Solicitud</label>
+                                        <input name="FechaFin" class="form-control" type="date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Inicio Poliza</label>
+                                        <input name="FechaInicioPoliza" class="form-control" type="date">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Fin Poliza</label>
+                                        <input name="FechaFinPoliza" class="form-control" type="date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Id Solicitud</label>
+                                        <input name="IdSolicitudInicio" class="form-control" type="number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Hasta Id de Solicitud</label>
+                                        <input name="IdSolicitudFin" class="form-control" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Id de Poliza</label>
+                                        <input name="IdPolizaInicio" class="form-control" type="number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">hasta Id Poliza</label>
+                                        <input name="IdPolizafin" class="form-control" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="reset" class='btn btn-fill btn-danger btn-wd' value="Limpiar">
+                                        <input type="submit" class='btn btn-fill btn-primary btn-wd' value="Generar">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+</div>
+<!-- end row -->
+@section Scripts
+    {
+    <script type="text/javascript">
+
+    </script>
+}

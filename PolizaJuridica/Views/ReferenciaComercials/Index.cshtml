@@ -1,0 +1,496 @@
+﻿@model IEnumerable<PolizaJuridica.Data.ReferenciaComercial>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Seguimiento de Solicitud Persona Moral</h4>
+                <div>
+                    <div class="card">
+                        <div class="card-header card-header-tabs" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Datos:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="">
+                                            @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = ViewBag.Id, origen = 2 })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("Persona Moral", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                        </li>
+                                        <li class="active">
+                                            <a href="" data-toggle="tab">
+                                                <i class="material-icons">bug_report</i>
+                                                Referencias Comerciales
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                        </li>
+                                        @if (@ViewBag.Fiador == true)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Fiador (P. Fisíca)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Fiador (P. Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                            </li>
+                                        }
+                                        @if ("Procesos" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value || "Control y Calidad" == User.FindFirst("Area").Value)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Investigación", "Index", "Investigacions", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                            </li>
+
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content">
+                                <!--Inicio de Secccion 1-->
+                                <div class="tab-pane active" id="2">
+                                    <!--INICIO Seccion dentro del tab-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 class="card-title">Listado de Referencias Comerciales</h4>
+                                            <div class="toolbar" align="right">
+                                                <a href="" data-toggle="modal" data-target="#Create" class="btn btn-finish btn-fill btn-red btn-wd">Nueva Referencia</a>                                            
+                                            </div>
+                                            <div class="material-datatables">
+                                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" style="width:100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Tipo de Referencia
+                                                            </th>
+                                                            <th>
+                                                                Detalle
+                                                            </th>
+                                                            <th>
+                                                                Referencia
+                                                            </th>
+                                                            <th class="disabled-sorting text-right">Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.TipoRefComercial.TipoRepresentaRc)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Rcrepresenta)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Rcdetalle)
+                                                            </td>
+                                                            <td>
+                                                                <a href="" data-toggle="modal" data-target="#Delete" class="pull-right" onclick="getDataAjax('@item.ReferenciaComercialId','ReferenciaComercials/EditAjax')"><i class="material-icons">close</i></a>
+                                                                <a href="" data-toggle="modal" data-target="#Edit" class="pull-right" onclick="getDataAjaxEdit('@item.ReferenciaComercialId','ReferenciaComercials/EditAjax')"><i class="material-icons">edit</i></a>
+                                                            </td>
+                                                        </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end col-md-12 -->
+                                    </div>
+                                    <!--FIN Seccion dentro del tab-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin de Seccion 1-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!--Create CreateCuentaBancaria-->
+<div class="modal fade" id="Create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Crear Cuentas Bancarias</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="col-lg-12 col-md-6 col-sm-3" align="center">
+                            <select name="TipoRefComercialId" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center" onChange="pagoOnChange(this)">
+                                <option disabled selected>Seleccione</option>
+                                <option value="1">Cuentas Bancarias</option>
+                                <option value="2">Créditos</option>
+                                <option value="3">Clientes</option>
+                                <option value="4">Proveedores</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" id="Label1"></label>
+                        <input for="RCRepresenta" name="RCRepresenta" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" id="Label2"></label>
+                        <input for="RCDetalle" name="RCDetalle" class="form-control" />
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="FisicaMoralId" class="control-label"></label>
+                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.id" class="form-control" />
+                        <input for="TipoRefComercialId" name="TipoRefComercialId" values="1" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataAddRefArren('ReferenciaComercials/Insertar')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Create-->
+
+<!--Edit-->
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group" hidden>
+                        <input for="ReferenciaComercialIdEdit" name="ReferenciaComercialIdEdit" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <select name="TipoRefComercialIdEdit" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center" onChange="pagoOnChangeEdit(this)">
+                            <option disabled selected>Seleccione</option>
+                            <option value="1">Cuentas Bancarias</option>
+                            <option value="2">Créditos</option>
+                            <option value="3">Clientes</option>
+                            <option value="4">Proveedores</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" id="Label3"></label>
+                        <input  name="RCRepresentaEdit" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" id="Label4"></label>
+                        <input  name="RCDetalleEdit" class="form-control" />
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="FisicaMoralId" class="control-label"></label>
+                        <input for="FisicaMoralId" name="FisicaMoralIdEdit" value="@ViewBag.id" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataRefArren('ReferenciaComercials/EditRefArrenAjax')">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Edit-->
+<!--Delete-->
+<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Eliminar
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <input for="ReferenciaComercialId" name="ReferenciaComercialId" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12 col-md-6 col-sm-3" align="center">
+                            <select name="TipoRefComercialId" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center" onChange="pagoOnChange(this)" disabled>
+                                <option disabled selected>Seleccione</option>
+                                <option value="1">Cuentas Bancarias</option>
+                                <option value="2">Créditos</option>
+                                <option value="3">Clientes</option>
+                                <option value="4">Proveedores</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" id="label5"></label>
+                        <input name="RCRepresenta" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" id="label6"></label>
+                        <input name="RCDetalle" class="form-control" />
+                    </div>
+                    <div class="form-group" hidden>
+                        <label class="control-label"></label>
+                        <input name="FisicaMoralId" value="@ViewBag.id" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="MensajeError()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Delete-->
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        var item;
+        var PersonasOcupanInmId;
+        var PersonasOcupanInmNombre;
+        var TipoParentescoId;
+        var sFisicaId;
+        var id;
+        var ripoReferenciaPersonalId;
+        /*Insertamos un registro*/
+        function setDataAddRefArren(action) {
+            ReferenciaComercialId = 0;
+            TipoRefComercialId = $('select[name=TipoRefComercialId]').val();
+            RCDetalle = $('input[name=RCDetalle')[0].value;
+            RCRepresenta = $('input[name=RCRepresenta')[0].value;
+            FisicaMoralId = $('input[name=FisicaMoralId')[0].value;
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    ReferenciaComercialId, RCDetalle, RCRepresenta, TipoRefComercialId, FisicaMoralId
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        window.location.reload(true);
+                    }
+                }
+            });
+        }
+        function getDataAjax(id, action) {
+            limpiar();
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    onSuccess(response);
+                }
+            });
+        }
+        function onSuccess(response) {
+            item = response;
+            $.each(item, function (idex, valor) {
+                $('input[name=ReferenciaComercialId').val(valor.referenciaComercialId);
+                $('input[name=RCDetalle').val(valor.rcdetalle);
+                $('input[name=RCRepresenta').val(valor.rcrepresenta);
+                $('select[name=TipoRefComercialId]').val(valor.tipoRefComercialId);
+                $('input[name=FisicaMoralId').val(valor.fisicaMoralId);
+            });
+        }
+        function getDataAjaxEdit(id, action) {
+            limpiar();
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    onSuccessEdit(response);
+                }
+            });
+        }
+        function onSuccessEdit(response) {
+            item = response;
+            //console.log(item);
+            $.each(item, function (idex, valor) {
+                $('input[name=ReferenciaComercialIdEdit').val(valor.referenciaComercialId);
+                $('input[name=RCDetalleEdit').val(valor.rcdetalle);
+                $('input[name=RCRepresentaEdit').val(valor.rcrepresenta);
+                $('select[name=TipoRefComercialIdEdit]').val(valor.tipoRefComercialId);
+                $('input[name=FisicaMoralIdEdit').val(valor.fisicaMoralId);
+
+                        switch (valor.tipoRefComercialId)
+            {
+                case 1:
+                    document.querySelector('#Label3').innerText = 'Cuentas Bancarias';
+                    document.querySelector('#Label4').innerText = 'Bancos';
+                    console.log("caso 1");
+                    break;
+
+                case 2:
+                    document.querySelector('#Label3').innerText = 'Créditos';
+                    document.querySelector('#Label4').innerText = 'Empresas';
+                     console.log("caso 2");
+                    break;
+                case 3:
+                    document.querySelector('#Label3').innerText = 'Clientes';
+                    document.querySelector('#Label4').innerText = 'Empresas';
+                     console.log("caso 2");
+                    break;
+                case 4:
+                    document.querySelector('#Label3').innerText = 'Proveedores';
+                    document.querySelector('#Label4').innerText = 'Empresas';
+                     console.log("caso 2");
+                    break;
+                }
+                 });
+        }
+        /*Modificamos usuario*/
+        function setDataRefArren(action) {
+
+            ReferenciaComercialId = $('input[name=ReferenciaComercialIdEdit')[0].value;
+            TipoRefComercialId = $('select[name=TipoRefComercialIdEdit]').val();
+            RCDetalle = $('input[name=RCDetalleEdit')[0].value;
+            RCRepresenta = $('input[name=RCRepresentaEdit')[0].value;
+            FisicaMoralId = $('input[name=FisicaMoralIdEdit')[0].value;
+
+            //alert(RefArrenNombres);
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    ReferenciaComercialId, RCDetalle, RCRepresenta, TipoRefComercialId, FisicaMoralId
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        window.location.reload(true);
+                    }
+                }
+            });
+        }
+        /*Eliminamos*/
+        function setDataDeleteRefArren(action) {
+
+            id = $('input[name=ReferenciaComercialId')[0].value;
+
+
+            $.each(item, function (idex, valor) {
+                valor.refArrenId = id;
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        swal({
+                            title: 'Eliminado!',
+                            text: 'Su registro ha sido eliminado.',
+                            type: 'success',
+                            confirmButtonClass: "btn btn-success",
+                            buttonsStyling: false
+                        })
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        }, 2000);
+                    }
+                }
+            });
+        }
+        function MensajeError() {
+            swal({
+                title: '¿Estas Seguro?',
+                text: "Se eliminara de forma permanente",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Si, Eliminarlo!',
+                buttonsStyling: false
+            }).then(function () {
+                setDataDeleteRefArren('ReferenciaComercials/DeleteConfirmed');
+            });
+
+
+        }
+        /*fin de eliminar*/
+        /*Limpiamos*/
+        function limpiar() {
+            item = "";
+            rpNombres = "";
+            rpApePaterno = "";
+            rpApeMaterno = "";
+            rpTelefono = "";
+            sFisicaId = "";
+            referenciaPersonalId = "";
+            id = "";
+            tipoReferenciaPersonalId = 0;
+
+        }
+
+        function pagoOnChange(sel) {
+            switch (sel.value)
+            {
+                case "1":
+                    document.querySelector('#Label1').innerText = 'Cuentas Bancarias';
+                    document.querySelector('#Label2').innerText = 'Bancos';
+                    break;
+
+                case "2":
+                    document.querySelector('#Label1').innerText = 'Créditos';
+                    document.querySelector('#Label2').innerText = 'Empresas';
+                    break;
+                case "3":
+                    document.querySelector('#Label1').innerText = 'Clientes';
+                    document.querySelector('#Label2').innerText = 'Empresas';
+                    break;
+                case "4":
+                    document.querySelector('#Label1').innerText = 'Proveedores';
+                    document.querySelector('#Label2').innerText = 'Empresas';
+                    break;
+            }
+        }
+        function pagoOnChangeEdit(sel) {
+            switch (sel.value)
+            {
+                case "1":
+                    document.querySelector('#Label3').innerText = 'Cuentas Bancarias';
+                    document.querySelector('#Label4').innerText = 'Bancos';
+                    //console.log("caso 1");
+                    break;
+
+                case "2":
+                    document.querySelector('#Label3').innerText = 'Créditos';
+                    document.querySelector('#Label4').innerText = 'Empresas';
+                     //console.log("caso 2");
+                    break;
+                case "3":
+                    document.querySelector('#Label3').innerText = 'Clientes';
+                    document.querySelector('#Label4').innerText = 'Empresas';
+                    break;
+                case "4":
+                    document.querySelector('#Label3').innerText = 'Proveedores';
+                    document.querySelector('#Label4').innerText = 'Empresas';
+                    break;
+            }
+        }
+
+    </script>
+}

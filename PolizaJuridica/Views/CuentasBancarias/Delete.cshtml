@@ -1,0 +1,51 @@
+﻿@model PolizaJuridica.Data.CuentasBancarias
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CuentasBancarias</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Clabe)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Clabe)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Banco)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Banco)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Estatus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Estatus)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CuentaId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+</body>
+</html>

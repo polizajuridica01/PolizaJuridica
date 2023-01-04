@@ -1,0 +1,30 @@
+﻿
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Nombres </label>
+                    <input name="nomb" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Apellido Paterno </label>
+                    <input name="apepat" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Apellido Materno </label>
+                    <input name="apemat" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="submit" class='btn btn-fill btn-primary btn-wd' value="Filtrar">
+                </div>
+            </div>
+
+        }
+</div>

@@ -1,0 +1,16 @@
+﻿@model IEnumerable<PolizaJuridica.Data.MenuP>
+
+@if (Model != null)
+{
+    @foreach (var i in Model)
+    {
+        @if (i.MenuPpadreId == null && i.Controlador != null)
+        {
+            <li>
+                @Html.ActionLink("@i.Nombre", "@i.Pantalla", "@i.Controlador", new { id = ViewBag.Id })
+            </li>
+
+        }
+    }
+
+}

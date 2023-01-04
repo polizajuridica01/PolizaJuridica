@@ -1,0 +1,1195 @@
+﻿@model PolizaJuridica.Data.ReporteInvst
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Arr = ViewBag.Arrendatario as FisicaMoral;
+
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Crear </h4>
+                <div class="material-datatables">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Texto1" class="control-label"></label>
+                                    <textarea asp-for="Texto1" class="form-control" rows="5"></textarea>
+                                    <span asp-validation-for="Texto1" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Texto2" class="control-label"></label>
+                                    <textarea asp-for="Texto2" class="form-control" rows="5"></textarea>
+                                    <span asp-validation-for="Texto2" class="text-danger"></span>
+                                </div>
+                                <div class="form-group" hidden>
+                                    <input asp-for="FisicaMoralId" class="form-control" value="@ViewBag.Id" />
+                                </div>
+                                <div class="form-group">
+                                    <a class="btn btn-default" asp-controller="Solicituds" asp-action="Index">Cancelar</a>
+                                    <input type="submit" value="Crear" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(Arr != null)
+{
+    <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Datos del Arrendatario </h4>
+                <div class="material-datatables">
+                    @if (Arr.Solicitud.TipoArrendatario == "1")
+                    {
+                        @:<div class="row">
+                            @:<div class="col-md-4">
+                                <label>Nombre: @Arr.SfisicaNombre @Arr.SfisicaApePat @Arr.SfisicaApeMat</label>
+                                <br />
+                                <label>Nacionalidad: @Arr.SfisicaNacionallidad</label>
+                                <br />
+                                <label>Estado Civil: @Arr.SfisicaEstadoCivil</label>
+                                @:</br>
+                                <label>Celular: @Arr.SfisicaCelular</label>
+                                @:</br>
+                                <label>Teléfono: @Arr.SfisicaTelefono</label>
+                                @:</br>
+                                <label>E-mail: @Arr.SfisicaEmail</label>
+                            @:</div>
+                            <div class="col-md-4">
+                                <label>@Arr.SfisicaDomicilio</label>
+                                <br />
+                                <label>Colonia: @Arr.SfisicaColonia</label>
+                                <br />
+                                <label>Alcaldía / Municipio:@Arr.SfisicaDelegacionMunicipio</label>
+                            </div>
+
+                            @:<div class="col-md-4">
+                                <label>Ingreso Mensual: @Arr.SfisicaIngresoMensual</label>
+                                @: </br>
+                                <label>Empresa: @Arr.SfisicaTrabajo</label>
+                                @:</br>
+                                <a class="btn btn-default" asp-controller="Solicituds" asp-action="Edit" asp-route-id="@Arr.FisicaMoralId">Editar</a>
+                            @:</div>
+                        @:</div>
+                    }
+                    @if (Arr.Solicitud.TipoArrendatario == "2")
+                    {
+                        @:<div class="row">
+                            @:<div class="col-md-4">
+                                <label>Razón social: @Arr.SfisicaRazonSocial</label>
+                                <br />
+                                <label>RFC: @Arr.SfisicaRfc</label>
+                                <br />
+                                <label>Nombre: @Arr.SfisicaNombre @Arr.SfisicaApePat @Arr.SfisicaApeMat</label>
+                                <br />
+                                <label>Nacionalidad: @Arr.SfisicaNacionallidad</label>
+                                <br />
+                                <label>Estado Civil: @Arr.SfisicaEstadoCivil</label>
+                                @:</br>
+                                <label>Celular: @Arr.SfisicaCelular</label>
+                                @:</br>
+                                <label>Teléfono: @Arr.SfisicaTelefono</label>
+                                @:</br>
+                                <label>E-mail: @Arr.SfisicaEmail</label>
+                            @:</div>
+                            <div class="col-md-4">
+                                <label>@Arr.SfisicaDomicilio</label>
+                                <br />
+                                <label>Colonia: @Arr.SfisicaColonia</label>
+                                <br />
+                                <label>Alcaldía / Municipio:@Arr.SfisicaDelegacionMunicipio</label>
+                            </div>
+
+                            @:<div class="col-md-4">
+                                <label>Ingreso Mensual: @Arr.SfisicaIngresoMensual</label>
+                                @:</br>
+                                <label>Empresa: @Arr.SfisicaTrabajo</label>
+                                @:</br>
+                                <a class="btn btn-default" asp-controller="Solicituds" asp-action="Edit" asp-route-id="@Arr.FisicaMoralId">Editar</a>
+                            @:</div>
+                        @:</div>
+                    }
+                </div>
+             </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Listado de Fiadores Fisicos</h4>
+                <div class="material-datatables">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Nombre Completo
+                                        </th>
+                                        <th>
+                                            Nacionalidad
+                                        </th>
+                                        <th>
+                                            Estado Civil
+                                        </th>
+                                        <th>
+                                            Domicilio Particular
+                                        </th>
+                                        <th>
+                                            Telefono
+                                        </th>
+                                        <th>
+                                            Celular
+                                        </th>
+                                        <th>
+                                            E-mail
+                                        </th>
+                                        <th>
+                                            Domicilio del inmueble
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var ff in ViewData["ff"] as IList<FiadorF>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @ff.FiadorFnombres @ff.FiadorFapePaterno @ff.FiadorFapeMaterno
+                                            </td>
+                                            <td>
+                                                @ff.FiadorFnacionalidad
+                                            </td>
+                                            <td>
+                                                @ff.FiadorFestadoCivil
+                                            </td>
+                                            <td>
+                                                @ff.FiadorFdomicilio Colonia: @ff.FiadorFcolonia Delegación/Alcaldía: @ff.FiadorFdelegacion Estado: @ff.FiadorFestado C.P.: @ff.FiadorFcodigoPostal
+                                            </td>
+                                            <td>
+                                                @ff.FiadorFtelefono
+                                            </td>
+                                            <td>
+                                                @ff.FiadorFcelular
+                                            </td>
+                                            <td>
+                                                @ff.FiadorFemail
+                                            </td>
+                                            <td>
+                                                @ff.FiadorFdomicilioGarantia Colonia: @ff.FiadorFcoloniaGarantia Delegación/Alcaldía: @ff.FiadorFdelegacionGarantia Estado: @ff.FiadorFestadoGarantia C.P.: @ff.FiadorFcodigoPostalGarantia
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Listado de Fiadores Morales</h4>
+                <div class="material-datatables">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Razon Social
+                                        </th>
+                                        <th>
+                                            RFC
+                                        </th>
+                                        <th>
+                                            Domicilio
+                                        </th>
+                                        <th>
+                                            Telefono
+                                        </th>
+                                        <th>
+                                            Giro de la Empresa
+                                        </th>
+                                        <th>
+                                            Pagina Web
+                                        </th>
+                                        <th>
+                                            Representante Legal
+                                        </th>
+                                        <th>
+                                            Puesto
+                                        </th>
+                                        <th>
+                                            Detalle
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var fm in ViewData["fm"] as IList<FiadorM>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @fm.FiaddorMrazonSocial
+                                            </td>
+                                            <td>
+                                                @fm.FiadorMrfc
+                                            </td>
+                                            <td>
+                                                @fm.FiadorMdomicilioGarantia Colonia: @fm.FiadorMcoliniaGarantia Delegación/Alcaldía: @fm.FiadorMdelegacionGarantia Estado: @fm.FiadorMestadoGarantia C.P.: @fm.FiadorMcpgarantia
+                                            </td>
+                                            <td>
+                                                @fm.FiadorMtelefono
+                                            </td>
+                                            <td>
+                                                @fm.FiadorMgiro
+                                            </td>
+                                            <td>
+                                                @fm.FiadorMweb
+                                            </td>
+                                            <td>
+                                                @fm.FiadorMnombresRlegal @fm.FiadorMapePaternoRlegal @fm.FiadorMapeMaternoRlegal
+                                            </td>
+                                            <td>
+                                                @fm.FiadorMpuestoRlegal
+                                            </td>
+                                            <td>
+                                                @fm.FiadorMweb
+                                            </td>
+                                            <td>
+                                                <a href="" data-toggle="modal" data-target="#Edit" class="pull-right" onclick="getDataAjaxEdit('@fm.FiadorMid','FiadorMs/EditAjax')"><i class="material-icons">edit</i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Listado Personas que Ocupan el Inmueble</h4>
+                <div class="material-datatables">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Id
+                                        </th>
+                                        <th>
+                                            Nombre Completo
+                                        </th>
+                                        <th>
+                                            Tipo de Parentesco
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var p in ViewData["PersonasOcupan"] as IList<PersonasOcupanInm>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @p.PersonasOcupanInmId
+                                            </td>
+                                            <td>
+                                                @p.PersonasOcupanInmNombre
+                                            </td>
+                                            <td>
+                                                @p.TipoParentesco.TipoParentescoDesc
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Edit-->
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar Fiador</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="card-content">
+                            <ul class="nav nav-pills nav-pills-warning">
+                                <li class="active">
+                                    <a href="#pill10" data-toggle="tab">General</a>
+                                </li>
+                                <li>
+                                    <a href="#pill11" data-toggle="tab">Domicilio Garantía</a>
+                                </li>
+                                <li>
+                                    <a href="#pill12" data-toggle="tab">Domicilio Empresa</a>
+                                </li>
+                                <li>
+                                    <a href="#pill13" data-toggle="tab">Acta Constitutiva</a>
+                                </li>
+                                <li>
+                                    <a href="#pill14" data-toggle="tab">Poder Representante Legal</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="pill10">
+                                    <div class="col-md-4">
+                                        <input type="hidden" name="FiadorMIdEdit" />
+                                        <div class="form-group">
+                                            <label class="control-label">Nombres (s), representante Legal</label>
+                                            <input tabindex="1" type="text" name="FiadorMNombresRLegalEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Puesto</label>
+                                            <input tabindex="4" type="text" name="FiadorMPuestoRLegalEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Nacionalidad Empresa</label>
+                                            <input tabindex="7" type="text" name="FiadorMNacionalidadRLegalEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Razón Social</label>
+                                            <input tabindex="10" type="text" name="FiaddorMRazonSocialEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Poder del Representante Legal</label>
+                                            <input tabindex="13" type="text" name="FiadorMPoderRepNoEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Página Web</label>
+                                            <input tabindex="16" type="text" name="FiadorMWebEdit" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Apellido Paterno Representante Legal</label>
+                                            <input tabindex="2" type="text" name="FiadorMApePaternoRLegalEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Celular</label>
+                                            <input tabindex="5" type="text" name="FiadorMCelularRLegalEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Condición Migratoria</label>
+                                            <input tabindex="8" type="text" name="FiadorMCondicionMigratoriaEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">R.F.C</label>
+                                            <input tabindex="11" type="text" name="FiadorMRFCEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Acta Constitutiva No.</label>
+                                            <input tabindex="14" type="text" name="FiadorMMActaNoEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo de Identificación</label>
+                                            <input tabindex="17" type="text" name="TipoIdentificacionEdit" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Apellido Materno Representante Legal</label>
+                                            <input tabindex="3" type="text" name="FiadorMApeMaternoRLegalEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Teléfono</label>
+                                            <input tabindex="6" type="text" name="FiadorMTelefonoRLegatEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">E-mail</label>
+                                            <input tabindex="9" type="text" name="FiadorMEmailRLegalEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Teléfono Empresa</label>
+                                            <input tabindex="12" type="text" name="FiadorMTelefonoEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Giro</label>
+                                            <input tabindex="15" type="text" name="FiadorMGiroEdit" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Número de Identificación</label>
+                                            <input tabindex="18" type="text" name="NumeroIdentificacionEdit" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill11">
+                                    <div class="form-group " id="FiadorFDomicilioGarantiaError">
+                                        <label class="control-label"><star>*</star>Domicilio del inmueble en garantía</label>
+                                        <input name="FiadorMDomicilioGarantiaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFColoniaGarantiaError">
+                                        <label class="control-label"><star>*</star>Colonia</label>
+                                        <input name="FiadorMColoniaGarantiaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorMDelegacionGarantiaError">
+                                        <label class="control-label"><star>*</star>Municipio ó Alcaldía</label>
+                                        <input name="FiadorMDelegacionGarantiaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFEstadoGarantiaError">
+                                        <label class="control-label"><star>*</star>Estado</label>
+                                        <input name="FiadorMEstadoGarantiaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Código Postal</label>
+                                        <input name="FiadorMCodigoPostalGarantiaEdit" class="form-control" type="text" />
+                                    </div>
+                                    <h3>Sección de Escritura</h3>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Nombre de Escritura</label>
+                                        <input name="FiadorMNombreEscrituraGarantiaEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Licenciado Notaria:</label>
+                                        <input name="FiadorMLicenciadoNotariaEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star> Número de Notaria:</label>
+                                        <input name="FiadorMNumNotariaEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Distrito Judicial</label>
+                                        <input name="FiadorMDistritoJudicialEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Numero de partida</label>
+                                        <input name="FiadorMNumPartidaEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Volumen</label>
+                                        <input name="FiadorMVolumenEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Libro</label>
+                                        <input name="FiadorMLibroEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Sección</label>
+                                        <input name="FiadorMSeccionEdit" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group " id="FiadorFCodigoPostalGarantiaError">
+                                        <label class="control-label"><star>*</star>Fecha de Partida</label>
+                                        <input name="FiadorMFechaPartidaEdit" class="form-control dtpFiadorMFechaPartidaEdit" type="text" />
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill12">
+                                    <div class="form-group">
+                                        <label class="control-label">Domicilio en Garantía</label>
+                                        <input name="FiadorMDomicilioEmpresaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Colonia</label>
+                                        <input name="FiadorMColoniaEmpresaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Alcaldía ó Municipio</label>
+                                        <input name="FiadorMDeleEmpresaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Estado</label>
+                                        <input name="FiadorMEstadoEmpresaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Código Postal</label>
+                                        <input name="FiadorMCPEmpresaEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group" hidden>
+                                        <label name="FisicaMoralId" class="control-label"></label>
+                                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.Id" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill13">
+                                    <div class="form-group">
+                                        <label class="control-label">Número de Acta Constitutiva</label>
+                                        <input name="FiadorMNumConsEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Acta Costitutiva:</label>
+                                        <input name="FiadorMFechaConsEdit" class="form-control dtpFiadorMFechaConsEdit" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Licenciado que emite:</label>
+                                        <input name="FiadorMLicenciadoConsEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Número Notaria:</label>
+                                        <input name="FiadorMNumNotaConsEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Número RPP:</label>
+                                        <input name="FiadorMNumRppEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha RPP: </label>
+                                        <input name="FiadorMFechaRppEdit" class="form-control dtpFiadorMFechaRppEdit" type="text" />
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pill14">
+                                    <div class="form-group">
+                                        <label class="control-label">Número de Escritura:</label>
+                                        <input name="FiadorMNumEscPoderEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha:</label>
+                                        <input name="FiadorMFechaPoderEdit" class="form-control dtpFiadorMFechaPoderEdit" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Licenciado que emite el poder:</label>
+                                        <input name="FiadorMLicenciadoPoderEdit" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Número Notaria:</label>
+                                        <input name="FiadorMNumeroNotaPoderEdit" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setEditFiador('FiadorMs/EditFiadorAjax')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Edit-->
+}
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        var FiadorMNombresRLegal;
+        var FiadorMPuestoRLegal;
+        var FiadorMNacionalidadRLegal;
+        var FiaddorMRazonSocial;
+        var FiadorMPoderRepNo;
+        var FiadorMWeb;
+        var FiadorMApePaternoRLegal;
+        var FiadorMCelularRLegal;
+        var fiadorMcondicionMigratoria;
+        var FiadorMRFC;
+        var FiadorMMActaNo;
+        var TipoIdentificacion;
+        var FiadorMApeMaternoRLegal;
+        var FiadorMTelefonoRLegat;
+        var FiadorMEmailRLegal;
+        var FiadorMTelefono;
+        var FiadorMGiro;
+        var NumeroIdentificacion;
+        var FiadorMDomicilioGarantia;
+        var FiadorMColoniaGarantia;
+        var FiadorMDelegacionGarantia;
+        var FiadorMEstadoGarantia;
+        var FiadorMCodigoPostalGarantia;
+        var FiadorMNombreEscrituraGarantia;
+        var FiadorMLicenciadoNotaria;
+        var FiadorMNumNotaria2;
+        var FiadorMDistritoJudicial2;
+        var FiadorMNumPartida2;
+        var FiadorMVolumen2;
+        var FiadorMLibro2;
+        var FiadorMSeccion2;
+        var FiadorMFechaPartida2;
+        var FiadorMColiniaGarantia;
+        var FiadorMNumCons;
+        var FiadorMFechaCons;
+        var FiadorMLicenciadoCons;
+        var FiadorMNumNotaCons;
+        var FiadorMNumRpp;
+        var FiadorMFechaRpp;
+        var FiadorMNumEscPoder;
+        var FiadorMFechaPoder;
+        var FiadorMLicenciadoPoder;
+        var FiadorMNumeroNotaPoder;
+        var FisicaMoralId;
+        var FiadorMid;
+        var FiadorMCodigoPostalGarantia;
+        var FiadorMCondicionMigratoria;
+        var FiadorMDomicilioEmpresa;
+        var FiadorMColoniaEmpresa;
+        var FiadorMDeleEmpresa;
+        var FiadorMEstadoEmpresa;
+        var FiadorMCPEmpresa
+
+        /*Insertamos un registro*/
+        function setDataAdd(action) {
+            FiadorMid = $('input[name=FiadorMId')[0].value;
+            FiadorMNombresRLegal = $('input[name=FiadorMNombresRLegal')[0].value;
+            FiadorMPuestoRLegal = $('input[name=FiadorMPuestoRLegal')[0].value;
+            FiadorMNacionalidadRLegal = $('input[name=FiadorMNacionalidadRLegal')[0].value;
+            FiaddorMRazonSocial = $('input[name=FiaddorMRazonSocial')[0].value;
+            FiadorMPoderRepNo = $('input[name=FiadorMPoderRepNo')[0].value;
+            FiadorMWeb = $('input[name=FiadorMWeb')[0].value;
+            FiadorMApePaternoRLegal = $('input[name=FiadorMApePaternoRLegal')[0].value;
+            FiadorMCelularRLegal = $('input[name=FiadorMCelularRLegal')[0].value;
+            FiadorMCondicionMigratoria = $('input[name=FiadorMCondicionMigratoria')[0].value;
+            FiadorMRFC = $('input[name=FiadorMRFC')[0].value;
+            FiadorMMActaNo = $('input[name=FiadorMMActaNo')[0].value;
+            TipoIdentificacion = $('input[name=TipoIdentificacion')[0].value;
+            FiadorMApeMaternoRLegal = $('input[name=FiadorMApeMaternoRLegal')[0].value;
+            FiadorMTelefonoRLegat = $('input[name=FiadorMTelefonoRLegat')[0].value;
+            FiadorMEmailRLegal = $('input[name=FiadorMEmailRLegal')[0].value;
+            FiadorMTelefono = $('input[name=FiadorMTelefono')[0].value;
+            FiadorMGiro = $('input[name=FiadorMGiro')[0].value;
+            NumeroIdentificacion = $('input[name=NumeroIdentificacion')[0].value;
+            FiadorMDomicilioGarantia = $('input[name=FiadorMDomicilioGarantia')[0].value;
+            FiadorMColoniaGarantia = $('input[name=FiadorMColoniaGarantia')[0].value;
+            FiadorMDelegacionGarantia = $('input[name=FiadorMDelegacionGarantia')[0].value;
+            FiadorMEstadoGarantia = $('input[name=FiadorMEstadoGarantia')[0].value;
+            FiadorMCodigoPostalGarantia = $('input[name=FiadorMCodigoPostalGarantia')[0].value;
+            FiadorMNombreEscrituraGarantia = $('input[name=FiadorMNombreEscrituraGarantia')[0].value;
+            FiadorMLicenciadoNotaria = $('input[name=FiadorMLicenciadoNotaria')[0].value;
+            FiadorMNumNotaria = $('input[name=FiadorMNumNotaria')[0].value;
+            FiadorMDistritoJudicial = $('input[name=FiadorMDistritoJudicial')[0].value;
+            FiadorMNumPartida = $('input[name=FiadorMNumPartida')[0].value;
+            FiadorMVolumen = $('input[name=FiadorMVolumen')[0].value;
+            FiadorMLibro = $('input[name=FiadorMLibro')[0].value;
+            FiadorMSeccion = $('input[name=FiadorMSeccion')[0].value;
+            FiadorMFechaPartida = $('input[name=FiadorMFechaPartida')[0].value;
+            FiadorMNumCons = $('input[name=FiadorMNumCons')[0].value;
+            FiadorMFechaCons = $('input[name=FiadorMFechaCons')[0].value;
+            FiadorMLicenciadoCons = $('input[name=FiadorMLicenciadoCons')[0].value;
+            FiadorMNumNotaCons = $('input[name=FiadorMNumNotaCons')[0].value;
+            FiadorMNumRpp = $('input[name=FiadorMNumRpp')[0].value;
+            FiadorMFechaRpp = $('input[name=FiadorMFechaRpp')[0].value;
+            FiadorMNumEscPoder = $('input[name=FiadorMNumEscPoder')[0].value;
+            FiadorMFechaPoder = $('input[name=FiadorMFechaPoder')[0].value;
+            FiadorMLicenciadoPoder = $('input[name=FiadorMLicenciadoPoder')[0].value;
+            FiadorMNumeroNotaPoder = $('input[name=FiadorMNumeroNotaPoder')[0].value;
+            FisicaMoralId = $('input[name=FisicaMoralId')[0].value;
+            FiadorMCondicionMigratoria = $('input[name=FiadorMCondicionMigratoria')[0].value;
+            FiadorMDomicilioEmpresa = $('input[name=FiadorMDomicilioEmpresa')[0].value;
+            FiadorMColoniaEmpresa = $('input[name=FiadorMColoniaEmpresa')[0].value;
+            FiadorMDeleEmpresa = $('input[name=FiadorMDeleEmpresa')[0].value;
+            FiadorMEstadoEmpresa = $('input[name=FiadorMEstadoEmpresa')[0].value;
+            FiadorMCPEmpresa = $('input[name=FiadorMCPEmpresa')[0].value;
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    FisicaMoralId, FiadorMNombresRLegal, FiadorMPuestoRLegal, FiadorMNacionalidadRLegal, FiaddorMRazonSocial, FiadorMPoderRepNo, FiadorMWeb, FiadorMApePaternoRLegal, FiadorMCelularRLegal, FiadorMCondicionMigratoria, FiadorMRFC, FiadorMMActaNo, TipoIdentificacion, FiadorMApeMaternoRLegal, FiadorMTelefonoRLegat, FiadorMEmailRLegal, FiadorMTelefono, FiadorMGiro, NumeroIdentificacion, FiadorMDomicilioGarantia, FiadorMColoniaGarantia, FiadorMDelegacionGarantia, FiadorMEstadoGarantia, FiadorMCodigoPostalGarantia, FiadorMNombreEscrituraGarantia, FiadorMLicenciadoNotaria, FiadorMColiniaGarantia, FiadorMNumCons, FiadorMFechaCons, FiadorMLicenciadoCons, FiadorMNumNotaCons, FiadorMNumRpp, FiadorMFechaRpp, FiadorMNumEscPoder, FiadorMFechaPoder, FiadorMLicenciadoPoder, FiadorMNumeroNotaPoder, FiadorMid, FiadorMNumNotaria, FiadorMDistritoJudicial, FiadorMNumPartida, FiadorMVolumen, FiadorMLibro, FiadorMSeccion, FiadorMFechaPartida, FiadorMCodigoPostalGarantia, FiadorMCondicionMigratoria, FiadorMDomicilioEmpresa, FiadorMColoniaEmpresa, FiadorMDeleEmpresa, FiadorMEstadoEmpresa, FiadorMCPEmpresa,
+                },
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    for (var i in result) {
+
+                        switch (result[i].tipo) {
+                            case 1://Error
+                                Mensaje(result[i].mensaje, "danger");
+                                break;
+                            case 2://ErrorAtributos
+                                MensajeCampos(result[i].mensaje);
+                                break;
+                            case 3://Exitoso
+                                $("#Edit").modal('toggle');
+                                Mensaje(result[i].mensaje, "success");
+                                window.location.reload(true);
+                                break;
+                            case 4://Informativo
+                                Mensaje(result[i].mensaje, "info");
+                                break;
+                        }
+
+                    }
+                }
+            });
+        }
+        function getDataAjax(id, action) {
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    console.log(response);
+                    onSuccess(response);
+                }
+            });
+        }
+        function onSuccess(response) {
+            item = response;
+            $.each(item, function (idex, valor) {
+                $('input[name=FiadorMId').val(valor.fiadorMid);
+                $('input[name=FiadorMNombresRLegal').val(valor.fiadorMnombresRlegal);
+                $('input[name=FiadorMApePaternoRLegal').val(valor.fiadorMapePaternoRlegal);
+                $('input[name=FiadorMApeMaternoRLegal').val(valor.fiadorMapeMaternoRlegal);
+                $('input[name=FiadorMPuestoRLegal').val(valor.fiadorMpuestoRlegal);
+                $('input[name=FiadorMCelularRLegal').val(valor.fiadorMcelularRlegal);
+                $('input[name=FiadorMTelefonoRLegat').val(valor.fiadorMtelefonoRlegat);
+                $('input[name=FiadorMNacionalidadRLegal').val(valor.fiadorMnacionalidadRlegal);
+
+                $('input[name=FiadorMEmailRLegal').val(valor.fiadorMemailRlegal);
+                $('input[name=FiaddorMRazonSocial').val(valor.fiaddorMrazonSocial);
+                $('input[name=FiadorMRFC').val(valor.fiadorMrfc);
+                $('input[name=FiadorMTelefono').val(valor.fiadorMtelefono);
+                $('input[name=FiadorMPoderRepNo').val(valor.fiadorMpoderRepNo);
+                $('input[name=FiadorMMActaNo').val(valor.fiadorMmactaNo);
+                $('input[name=FiadorMGiro').val(valor.fiadorMgiro);
+                $('input[name=FiadorMWeb').val(valor.fiadorMweb);
+                $('input[name=TipoIdentificacion').val(valor.tipoIdentificacion);
+                $('input[name=NumeroIdentificacion').val(valor.numeroIdentificacion);
+                $('input[name=FiadorMDomicilioGarantia').val(valor.fiadorMdomicilioGarantia);
+                $('input[name=FiadorMColoniaGarantia').val(valor.fiadorMcoloniaGarantia);
+                $('input[name=FiadorMDelegacionGarantia').val(valor.fiadorMdelegacionGarantia);
+                $('input[name=FiadorMEstadoGarantia').val(valor.fiadorMestadoGarantia);
+                $('input[name=FiadorMCodigoPostalGarantia').val(valor.fiadorMcodigoPostalGarantia);//actualizar
+                $('input[name=FiadorMNombreEscrituraGarantia').val(valor.fiadorMnombreEscrituraGarantia);
+                $('input[name=FiadorMLicenciadoNotaria').val(valor.fiadorMlicenciadoNotaria);
+                $('input[name=FiadorMNumNotaria').val(valor.fiadorMnumNotaria);
+                $('input[name=FiadorMDistritoJudicial').val(valor.fiadorMdistritoJudicial);
+                $('input[name=FiadorMNumPartida').val(valor.fiadorMnumPartida);
+                $('input[name=FiadorMVolumen').val(valor.fiadorMvolumen);
+                $('input[name=FiadorMLibro').val(valor.fiadorMlibro);
+                $('input[name=FiadorMSeccion').val(valor.fiadorMseccion);
+                $('input[name=FiadorMFechaPartida').val(valor.fiadorMfechaPartida);
+
+                $('input[name=FiadorMCondicionMigratoria').val(valor.fiadorMcondicionMigratoria);//Sección Domicilio Empresa
+                $('input[name=FiadorMDomicilioEmpresa').val(valor.fiadorMdomicilioEmpresa);
+                $('input[name=FiadorMColoniaEmpresa').val(valor.fiadorMcoloniaEmpresa);
+                $('input[name=FiadorMDeleEmpresa').val(valor.fiadorMdeleEmpresa);
+                $('input[name=FiadorMEstadoEmpresa').val(valor.fiadorMestadoEmpresa);
+                $('input[name=FiadorMCPEmpresa').val(valor.fiadorMcpempresa);//Fin de la seccion
+
+                $('input[name=FiadorMNumCons').val(valor.fiadorMnumCons);
+                $('input[name=FiadorMFechaCons').val(new Date(valor.fiadorMfechaCons));
+                $('input[name=FiadorMLicenciadoCons').val(valor.fiadorMlicenciadoCons);
+                $('input[name=FiadorMNumNotaCons').val(valor.fiadorMnumNotaCons);
+                $('input[name=FiadorMNumRpp').val(valor.fiadorMnumRpp);
+                $('input[name=FiadorMFechaRpp').val(valor.fiadorMfechaRpp);
+                $('input[name=FiadorMNumEscPoder').val(valor.fiadorMnumEscPoder);
+                $('input[name=FiadorMFechaPoder').val(valor.fiadorMfechaPoder);
+                $('input[name=FiadorMLicenciadoPoder').val(valor.fiadorMlicenciadoPoder);
+                $('input[name=FiadorMNumeroNotaPoder').val(valor.fiadorMnumeroNotaPoder);
+
+
+            });
+        }
+        function getDataAjaxEdit(id, action) {
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+
+                    onSuccessEdit(response);
+                }
+            });
+        }
+        function onSuccessEdit(response) {
+            var myjson = JSON.stringify(response);
+            console.log(myjson);
+            item = response;
+            $.each(item, function (idex, valor) {
+
+                $('input[name=FiadorMIdEdit').val(valor.fiadorMid);
+                $('input[name=FiadorMNombresRLegalEdit').val(valor.fiadorMnombresRlegal);
+                $('input[name=FiadorMApePaternoRLegalEdit').val(valor.fiadorMapePaternoRlegal);
+                $('input[name=FiadorMApeMaternoRLegalEdit').val(valor.fiadorMapeMaternoRlegal);
+                $('input[name=FiadorMPuestoRLegalEdit').val(valor.fiadorMpuestoRlegal);
+                $('input[name=FiadorMCelularRLegalEdit').val(valor.fiadorMcelularRlegal);
+                $('input[name=FiadorMTelefonoRLegatEdit').val(valor.fiadorMtelefonoRlegat);
+                $('input[name=FiadorMNacionalidadRLegalEdit').val(valor.fiadorMnacionalidadRlegal);
+
+                $('input[name=FiadorMEmailRLegalEdit').val(valor.fiadorMemailRlegal);
+                $('input[name=FiaddorMRazonSocialEdit').val(valor.fiaddorMrazonSocial);
+                $('input[name=FiadorMRFCEdit').val(valor.fiadorMrfc);
+                $('input[name=FiadorMTelefonoEdit').val(valor.fiadorMtelefono);
+                $('input[name=FiadorMPoderRepNoEdit').val(valor.fiadorMpoderRepNo);
+                $('input[name=FiadorMMActaNoEdit').val(valor.fiadorMmactaNo);
+                $('input[name=FiadorMGiroEdit').val(valor.fiadorMgiro);
+                $('input[name=FiadorMWebEdit').val(valor.fiadorMweb);
+                $('input[name=TipoIdentificacionEdit').val(valor.tipoIdentificacion);
+                $('input[name=NumeroIdentificacionEdit').val(valor.numeroIdentificacion);
+                $('input[name=FiadorMDomicilioGarantiaEdit').val(valor.fiadorMdomicilioGarantia);
+                $('input[name=FiadorMColoniaGarantiaEdit').val(valor.fiadorMcoloniaGarantia);
+                $('input[name=FiadorMDelegacionGarantiaEdit').val(valor.fiadorMdelegacionGarantia);
+                $('input[name=FiadorMEstadoGarantiaEdit').val(valor.fiadorMestadoGarantia);
+                $('input[name=FiadorMCodigoPostalGarantiaEdit').val(valor.fiadorMcodigoPostalGarantia);//actualizar
+                $('input[name=FiadorMNombreEscrituraGarantiaEdit').val(valor.fiadorMnombreEscrituraGarantia);
+                $('input[name=FiadorMLicenciadoNotariaEdit').val(valor.fiadorMlicenciadoNotaria);
+                $('input[name=FiadorMNumNotariaEdit').val(valor.fiadorMnumNotaria);
+                $('input[name=FiadorMDistritoJudicialEdit').val(valor.fiadorMdistritoJudicial);
+                $('input[name=FiadorMNumPartidaEdit').val(valor.fiadorMnumPartida);
+                $('input[name=FiadorMVolumenEdit').val(valor.fiadorMvolumen);
+                $('input[name=FiadorMLibroEdit').val(valor.fiadorMlibro);
+                $('input[name=FiadorMSeccionEdit').val(valor.fiadorMseccion);
+                $('input[name=FiadorMFechaPartidaEdit').val(valor.fiadorMfechaPartida);
+
+                $('input[name=FiadorMCondicionMigratoriaEdit').val(valor.fiadorMcondicionMigratoria);//Sección Domicilio Empresa
+                $('input[name=FiadorMDomicilioEmpresaEdit').val(valor.fiadorMdomicilioEmpresa);
+                $('input[name=FiadorMColoniaEmpresaEdit').val(valor.fiadorMcoloniaEmpresa);
+                $('input[name=FiadorMDeleEmpresaEdit').val(valor.fiadorMdeleEmpresa);
+                $('input[name=FiadorMEstadoEmpresaEdit').val(valor.fiadorMestadoEmpresa);
+                $('input[name=FiadorMCPEmpresaEdit').val(valor.fiadorMcpempresa);//Fin de la seccion
+
+                $('input[name=FiadorMNumConsEdit').val(valor.fiadorMnumCons);
+                $('input[name=FiadorMFechaConsEdit').val(valor.fiadorMfechaCons);
+                $('input[name=FiadorMLicenciadoConsEdit').val(valor.fiadorMlicenciadoCons);
+                $('input[name=FiadorMNumNotaConsEdit').val(valor.fiadorMnumNotaCons);
+                $('input[name=FiadorMNumRppEdit').val(valor.fiadorMnumRpp);
+                $('input[name=FiadorMFechaRppEdit').val(valor.fiadorMfechaRpp);
+                $('input[name=FiadorMNumEscPoderEdit').val(valor.fiadorMnumEscPoder);
+                $('input[name=FiadorMFechaPoderEdit').val(valor.fiadorMfechaPoder);
+                $('input[name=FiadorMLicenciadoPoderEdit').val(valor.fiadorMlicenciadoPoder);
+                $('input[name=FiadorMNumeroNotaPoderEdit').val(valor.fiadorMnumeroNotaPoder);
+
+
+            });
+        }
+        /*Modificamos Fiador*/
+        function setEditFiador(action) {
+            FiadorMid = $('input[name=FiadorMIdEdit')[0].value;
+            FiadorMNombresRLegal = $('input[name=FiadorMNombresRLegalEdit')[0].value;
+            FiadorMPuestoRLegal = $('input[name=FiadorMPuestoRLegalEdit')[0].value;
+            FiadorMNacionalidadRLegal = $('input[name=FiadorMNacionalidadRLegalEdit')[0].value;
+            FiaddorMRazonSocial = $('input[name=FiaddorMRazonSocialEdit')[0].value;
+            FiadorMPoderRepNo = $('input[name=FiadorMPoderRepNoEdit')[0].value;
+            FiadorMWeb = $('input[name=FiadorMWebEdit')[0].value;
+            FiadorMApePaternoRLegal = $('input[name=FiadorMApePaternoRLegalEdit')[0].value;
+            FiadorMCelularRLegal = $('input[name=FiadorMCelularRLegalEdit')[0].value;
+            FiadorMCondicionMigratoria = $('input[name=FiadorMCondicionMigratoriaEdit')[0].value;
+            FiadorMRFC = $('input[name=FiadorMRFCEdit')[0].value;
+            FiadorMMActaNo = $('input[name=FiadorMMActaNoEdit')[0].value;
+            TipoIdentificacion = $('input[name=TipoIdentificacionEdit')[0].value;
+            FiadorMApeMaternoRLegal = $('input[name=FiadorMApeMaternoRLegalEdit')[0].value;
+            FiadorMTelefonoRLegat = $('input[name=FiadorMTelefonoRLegatEdit')[0].value;
+            FiadorMEmailRLegal = $('input[name=FiadorMEmailRLegalEdit')[0].value;
+            FiadorMTelefono = $('input[name=FiadorMTelefonoEdit')[0].value;
+            FiadorMGiro = $('input[name=FiadorMGiroEdit')[0].value;
+            NumeroIdentificacion = $('input[name=NumeroIdentificacionEdit')[0].value;
+            FiadorMDomicilioGarantia = $('input[name=FiadorMDomicilioGarantiaEdit')[0].value;
+            FiadorMColoniaGarantia = $('input[name=FiadorMColoniaGarantiaEdit')[0].value;
+            FiadorMDelegacionGarantia = $('input[name=FiadorMDelegacionGarantiaEdit')[0].value;
+            FiadorMEstadoGarantia = $('input[name=FiadorMEstadoGarantiaEdit')[0].value;
+            FiadorMCodigoPostalGarantia = $('input[name=FiadorMCodigoPostalGarantiaEdit')[0].value;
+            FiadorMNombreEscrituraGarantia = $('input[name=FiadorMNombreEscrituraGarantiaEdit')[0].value;
+            FiadorMLicenciadoNotaria = $('input[name=FiadorMLicenciadoNotariaEdit')[0].value;
+            FiadorMNumNotaria = $('input[name=FiadorMNumNotariaEdit')[0].value;
+            FiadorMDistritoJudicial = $('input[name=FiadorMDistritoJudicialEdit')[0].value;
+            FiadorMNumPartida = $('input[name=FiadorMNumPartidaEdit')[0].value;
+            FiadorMVolumen = $('input[name=FiadorMVolumenEdit')[0].value;
+            FiadorMLibro = $('input[name=FiadorMLibroEdit')[0].value;
+            FiadorMSeccion = $('input[name=FiadorMSeccionEdit')[0].value;
+            FiadorMFechaPartida = $('input[name=FiadorMFechaPartidaEdit')[0].value;
+            FiadorMNumCons = $('input[name=FiadorMNumConsEdit')[0].value;
+            FiadorMFechaCons = $('input[name=FiadorMFechaConsEdit')[0].value;
+            FiadorMLicenciadoCons = $('input[name=FiadorMLicenciadoConsEdit')[0].value;
+            FiadorMNumNotaCons = $('input[name=FiadorMNumNotaConsEdit')[0].value;
+            FiadorMNumRpp = $('input[name=FiadorMNumRppEdit')[0].value;
+            FiadorMFechaRpp = $('input[name=FiadorMFechaRppEdit')[0].value;
+            FiadorMNumEscPoder = $('input[name=FiadorMNumEscPoderEdit')[0].value;
+            FiadorMFechaPoder = $('input[name=FiadorMFechaPoderEdit')[0].value;
+            FiadorMLicenciadoPoder = $('input[name=FiadorMLicenciadoPoderEdit')[0].value;
+            FiadorMNumeroNotaPoder = $('input[name=FiadorMNumeroNotaPoderEdit')[0].value;
+            FisicaMoralId = $('input[name=FisicaMoralId')[0].value;
+            FiadorMCondicionMigratoria = $('input[name=FiadorMCondicionMigratoriaEdit')[0].value;
+            FiadorMDomicilioEmpresa = $('input[name=FiadorMDomicilioEmpresaEdit')[0].value;
+            FiadorMColoniaEmpresa = $('input[name=FiadorMColoniaEmpresaEdit')[0].value;
+            FiadorMDeleEmpresa = $('input[name=FiadorMDeleEmpresaEdit')[0].value;
+            FiadorMEstadoEmpresa = $('input[name=FiadorMEstadoEmpresaEdit')[0].value;
+            FiadorMCPEmpresa = $('input[name=FiadorMCPEmpresaEdit')[0].value;
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    FisicaMoralId, FiadorMNombresRLegal, FiadorMPuestoRLegal, FiadorMNacionalidadRLegal, FiaddorMRazonSocial, FiadorMPoderRepNo, FiadorMWeb, FiadorMApePaternoRLegal, FiadorMCelularRLegal, FiadorMCondicionMigratoria, FiadorMRFC, FiadorMMActaNo, TipoIdentificacion, FiadorMApeMaternoRLegal, FiadorMTelefonoRLegat, FiadorMEmailRLegal, FiadorMTelefono, FiadorMGiro, NumeroIdentificacion, FiadorMDomicilioGarantia, FiadorMColoniaGarantia, FiadorMDelegacionGarantia, FiadorMEstadoGarantia, FiadorMCodigoPostalGarantia, FiadorMNombreEscrituraGarantia, FiadorMLicenciadoNotaria, FiadorMColiniaGarantia, FiadorMNumCons, FiadorMFechaCons, FiadorMLicenciadoCons, FiadorMNumNotaCons, FiadorMNumRpp, FiadorMFechaRpp, FiadorMNumEscPoder, FiadorMFechaPoder, FiadorMLicenciadoPoder, FiadorMNumeroNotaPoder, FiadorMid, FiadorMNumNotaria, FiadorMDistritoJudicial, FiadorMNumPartida, FiadorMVolumen, FiadorMLibro, FiadorMSeccion, FiadorMFechaPartida, FiadorMCodigoPostalGarantia, FiadorMCondicionMigratoria, FiadorMDomicilioEmpresa, FiadorMColoniaEmpresa, FiadorMDeleEmpresa, FiadorMEstadoEmpresa, FiadorMCPEmpresa,
+                },
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    for (var i in result) {
+
+                        switch (result[i].tipo) {
+                            case 1://Error
+                                Mensaje(result[i].mensaje, "danger");
+                                break;
+                            case 2://ErrorAtributos
+                                MensajeCampos(result[i].mensaje);
+                                break;
+                            case 3://Exitoso
+                                $("#Edit").modal('toggle');
+                                Mensaje(result[i].mensaje, "success");
+                                window.location.reload(true);
+                                break;
+                            case 4://Informativo
+                                Mensaje(result[i].mensaje, "info");
+                                break;
+                        }
+
+                    }
+                }
+            });
+        }
+        /*Eliminamos*/
+        function setDataDeleteFiadorF(action) {
+
+            id = $('input[name=FiadorMId')[0].value;
+
+
+            $.each(item, function (idex, valor) {
+                valor.FiadorFId = id;
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        swal({
+                            title: 'Eliminado!',
+                            text: 'Su registro ha sido eliminado.',
+                            type: 'success',
+                            confirmButtonClass: "btn btn-success",
+                            buttonsStyling: false
+                        })
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        }, 2000);
+                    }
+                    else {
+                        //Mesaje de error
+                        $.notify({
+                            icon: "notifications",
+                            message: "Error," + response
+
+                        }, {
+                            type: danger[red],
+                            timer: 3000,
+                            placement: {
+                                from: top,
+                                align: right
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        function MensajeError() {
+            swal({
+                title: '¿Estas Seguro?',
+                text: "Se eliminara de forma permanente",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Si, Eliminarlo!',
+                buttonsStyling: false
+            }).then(function () {
+                setDataDeleteFiadorF('FiadorMs/DeleteConfirmed');
+            });
+        }
+        function Mensaje(mensaje, tipo) {
+            $.notify({
+                icon: "add_alert",
+                message: mensaje
+
+            }, {
+                type: tipo,
+                timer: 1000,
+                placement: {
+                    from: "top",
+                    align: "right"
+                }
+            });
+        }
+        function MensajeCampos(id) {
+            id = '#' + id;
+            $(id).addClass('has-error');
+        }
+
+        $(document).ready(function () {
+            //Datepicker seccion
+            $('.dtpFiadorMFechaPartida').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            $('.dtpFiadorMFechaPartidaEdit').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            $('.dtpFiadorMFechaCons').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            $('.dtpFiadorMFechaConsEdit').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            $('.dtpFiadorMFechaRpp').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            $('.dtpFiadorMFechaRppEdit').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            $('.dtpFiadorMFechaPoder').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+            $('.dtpFiadorMFechaPoderEdit').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+        });
+    </script>
+}

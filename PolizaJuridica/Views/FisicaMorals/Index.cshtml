@@ -1,0 +1,265 @@
+﻿@model IEnumerable<PolizaJuridica.Data.FisicaMoral>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaNacionallidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaCondMigratoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaEstadoCivil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaConvenioEc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaDomicilio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaColonia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaDelegacionMunicipio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaTelefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaCelular)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaProfesion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaIngresoMensual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaAntiguedad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaPuesto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaTelefonoTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaHorario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaDomicilioTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaColoniaTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaDelegMuniTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaGiroTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaWebTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaJefeTrabajo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaPuestoJefe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaEmailJefe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SfisicaFactura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DomicilioRepresentanteLegal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColoniaRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeleMuni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonoRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HorarioRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IngresoMensualRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SindicadoRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequiereFacturaRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AfianzadoRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AfianzadoraRl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Solicitud)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaNacionallidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaCondMigratoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaEstadoCivil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaConvenioEc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaDomicilio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaColonia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaDelegacionMunicipio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaTelefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaCelular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaProfesion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaIngresoMensual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaTrabajo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaAntiguedad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaPuesto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaTelefonoTrabajo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaHorario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaDomicilioTrabajo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaColoniaTrabajo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaDelegMuniTrabajo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaGiroTrabajo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaWebTrabajo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaJefeTrabajo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaPuestoJefe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaEmailJefe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SfisicaFactura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DomicilioRepresentanteLegal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColoniaRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleMuni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HorarioRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IngresoMensualRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SindicadoRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiereFacturaRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AfianzadoRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AfianzadoraRl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Solicitud.SolicitudId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FisicaMoralId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FisicaMoralId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FisicaMoralId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

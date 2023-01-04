@@ -1,0 +1,65 @@
+﻿@model PolizaJuridica.Data.Movimientos
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>Movimientos</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="DetallePolizaId" class="control-label"></label>
+                <select asp-for="DetallePolizaId" class="form-control" asp-items="ViewBag.DetallePolizaId"></select>
+                <span asp-validation-for="DetallePolizaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mmid" class="control-label"></label>
+                <select asp-for="Mmid" class="form-control" asp-items="ViewBag.Mmid"></select>
+                <span asp-validation-for="Mmid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPadre" class="control-label"></label>
+                <select asp-for="IdPadre" class="form-control" asp-items="ViewBag.IdPadre"></select>
+                <span asp-validation-for="IdPadre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ccid" class="control-label"></label>
+                <select asp-for="Ccid" class="form-control" asp-items="ViewBag.Ccid"></select>
+                <span asp-validation-for="Ccid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cpid" class="control-label"></label>
+                <select asp-for="Cpid" class="form-control" asp-items="ViewBag.Cpid"></select>
+                <span asp-validation-for="Cpid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dmid" class="control-label"></label>
+                <select asp-for="Dmid" class="form-control" asp-items="ViewBag.Dmid"></select>
+                <span asp-validation-for="Dmid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

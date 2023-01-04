@@ -1,0 +1,114 @@
+﻿@model IEnumerable<PolizaJuridica.Data.MovimientoMaestro>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Listado de movimientos maestros</h4>
+
+
+                <div class="toolbar">
+                    <a asp-action="Create" class="btn btn-primary btn-red btn-wd pull-right">Nuevo</a>
+                </div>
+                <div class="material-datatables">
+                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    Cuenta
+                                </th>
+                                <th>
+                                    Entrada
+                                </th>
+                                <th>
+                                    Salida
+                                </th>
+                                <th>
+                                    Fecha
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(item.Cuenta.Nombre, "Details", "cuentasbancarias", new { id = item.CuentaId })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Entrada)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Salida)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fecha)
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end content-->
+        </div>
+        <!--  end card  -->
+    </div>
+    <!-- end col-md-12 -->
+</div>
+<!-- end row -->
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+
+            var table = $('#datatables').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+        });
+    </script>
+}
+

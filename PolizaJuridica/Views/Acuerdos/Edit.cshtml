@@ -1,0 +1,47 @@
+﻿@model PolizaJuridica.Data.Acuerdos
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Acuerdos</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Acuerdo" class="control-label"></label>
+                <input asp-for="Acuerdo" class="form-control" />
+                <span asp-validation-for="Acuerdo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Juicio" class="control-label"></label>
+                <input asp-for="Juicio" class="form-control" />
+                <span asp-validation-for="Juicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DetalleInvestigacionId" class="control-label"></label>
+                <select asp-for="DetalleInvestigacionId" class="form-control" asp-items="ViewBag.DetalleInvestigacionId"></select>
+                <span asp-validation-for="DetalleInvestigacionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

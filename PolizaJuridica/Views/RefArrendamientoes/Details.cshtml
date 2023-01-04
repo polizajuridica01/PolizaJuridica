@@ -1,0 +1,75 @@
+﻿@model PolizaJuridica.Data.RefArrendamiento
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>RefArrendamiento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RefArrenNombres)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RefArrenNombres)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RefArrenApePaterno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RefArrenApePaterno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RefArrenApeMaterno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RefArrenApeMaterno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RefArrenTelefono)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RefArrenTelefono)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RefArrenDomicilio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RefArrenDomicilio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RefArrenMonto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RefArrenMonto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RefArrenMotivoCambio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RefArrenMotivoCambio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FisicaMoral)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FisicaMoral.FisicaMoralId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RefArrendamientoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

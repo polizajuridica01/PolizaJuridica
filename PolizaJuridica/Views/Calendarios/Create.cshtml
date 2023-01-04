@@ -1,0 +1,62 @@
+﻿@model PolizaJuridica.Data.Calendario
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+<h4>Calendario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CalendarioFechaFirma" class="control-label"></label>
+                <input asp-for="CalendarioFechaFirma" class="form-control" />
+                <span asp-validation-for="CalendarioFechaFirma" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CalendarioUbicacion" class="control-label"></label>
+                <input asp-for="CalendarioUbicacion" class="form-control" />
+                <span asp-validation-for="CalendarioUbicacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CalendarioEstatus" class="control-label"></label>
+                <input asp-for="CalendarioEstatus" class="form-control" />
+                <span asp-validation-for="CalendarioEstatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CalendarioDescripcion" class="control-label"></label>
+                <input asp-for="CalendarioDescripcion" class="form-control" />
+                <span asp-validation-for="CalendarioDescripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsuariosId" class="control-label"></label>
+                <select asp-for="UsuariosId" class ="form-control" asp-items="ViewBag.UsuariosId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FisicaMoralId" class="control-label"></label>
+                <select asp-for="FisicaMoralId" class ="form-control" asp-items="ViewBag.FisicaMoralId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

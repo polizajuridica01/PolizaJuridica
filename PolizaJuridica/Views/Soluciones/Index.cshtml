@@ -1,0 +1,262 @@
+﻿@model IEnumerable<PolizaJuridica.Data.Soluciones>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Listado de Soluciones</h4>
+                <div class="toolbar" align="right">
+                    <a data-toggle="modal" data-target="#BuscarPoliza" class="btn btn-default pull-right">Nueva Solución</a>
+                </div>
+                <div class="material-datatables">
+                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Solución Id
+                                </th>
+                                <th>
+                                    Póliza Id
+                                </th>
+                                <th>
+                                    Solicitud Id
+                                </th>
+                                <th>
+                                    Póliza Anterior
+                                </th>
+                                <th>
+                                    Fecha
+                                </th>
+                                <th>
+                                    Arrendador
+                                </th>
+                                <th>
+                                    Arrendatario
+                                </th>
+                                <th>
+                                    Fiador
+                                </th>
+                                <th>
+                                    Usuario
+                                </th>
+                                <th>
+                                    Representación
+                                </th>
+                                <th>
+                                    Estatus
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SolucionesId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PolizaId)
+                                </td>
+                                @if (item.Poliza != null)
+                                {
+                                    <td>
+                                        @Html.ActionLink(item.Poliza.FisicaMoral.SolicitudId.ToString(), "Edit", "Solicituds", new { id = item.Poliza.FisicaMoral.SolicitudId })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                    </td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PolizaAnterior)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FechaCreacion)
+                                </td>
+                                @if (item.NombrePro == null)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Poliza.FisicaMoral.Solicitud.SolicitudNombreProp + " " + item.Poliza.FisicaMoral.Solicitud.SolicitudApePaternoProp)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Poliza.FisicaMoral.Solicitud.ArrendatarioNombre + " " + item.Poliza.FisicaMoral.Solicitud.ArrendatarioApePat)
+                                    </td>
+                                    <td>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NombrePro)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NombreArren)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NombreFiador)
+                                    </td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Usuario.UsuarioNomCompleto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Usuario.Representacion.RepresentacionNombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProcesoSoluciones.Descripcion)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.SolucionesId"><i class="material-icons">edit</i></a> |
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end content-->
+        </div>
+        <!--  end card  -->
+    </div>
+    <!-- end col-md-12 -->
+</div>
+
+<!--Pantalla Polizas-->
+<div class="modal fade" id="BuscarPoliza" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Ingresa el Id de la póliza generado por sistema</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group label-floating" id="BuscarPolizaIdError">
+                    <label class="control-label"><star>*</star>Póliza Id</label>
+                    <input name="BuscarPolizaId" class="form-control" type="text" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary pull-left" onclick="PolizaAnterior()">Póliza Anterior</button>
+                <button type="button" class="btn btn-success"  onclick="BuscarPoliza('Soluciones/BuscarPoliza')">Buscar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Pantalla Polizas-->
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+
+            var table = $('#datatables').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+        });
+
+        function BuscarPoliza(action) {
+            var PolizaId
+            PolizaId = $('input[name=BuscarPolizaId')[0].value;
+            console.log(PolizaId);
+            if (PolizaId != 0) {
+                window.location.href = "Create/" + PolizaId;
+            } else {
+
+            Mensaje("El valor no puede ser cero", "danger");
+            }
+            
+        }
+        function PolizaAnterior() {
+                window.location.href = "Create";
+        }
+
+        var objeto = @Html.Raw(Json.Serialize(@ViewBag.Error));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var o in obj) {
+
+                    switch (obj[o].tipo) {
+                        case 1://Error
+                            Mensaje(obj[o].mensaje, "danger");
+                            break;
+                        case 2://ErrorAtributos
+                            MensajeCampos(obj[o].mensaje);
+                            break;
+                        case 3://Exitoso
+                            Mensaje(obj[o].mensaje, "success");
+                            break;
+                        case 4://Informativo
+                            Mensaje(obj[o].mensaje, "info");
+                            break;
+                    }
+
+                }
+            }
+        }
+
+        function Mensaje(mensaje, tipo) {
+            $.notify({
+                icon: "add_alert",
+                message: mensaje
+
+            }, {
+                    type: tipo,
+                    timer: 10000,
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    }
+                });
+        }
+        function MensajeCampos(id) {
+            id = '#' + id;
+            $(id).addClass('has-error');
+        }
+    </script>
+}

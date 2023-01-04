@@ -1,0 +1,63 @@
+﻿@model PolizaJuridica.Data.Calendario
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>Calendario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CalendarioFechaFirma)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CalendarioFechaFirma)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CalendarioUbicacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CalendarioUbicacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CalendarioEstatus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CalendarioEstatus)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CalendarioDescripcion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CalendarioDescripcion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuarios)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usuarios.UsuariosId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FisicaMoral)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FisicaMoral.FisicaMoralId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CalendarioId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

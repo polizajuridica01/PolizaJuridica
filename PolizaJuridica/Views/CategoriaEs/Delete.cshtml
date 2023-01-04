@@ -1,0 +1,50 @@
+﻿@model PolizaJuridica.Data.CategoriaEs
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CategoriaEs</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Poliza)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Poliza)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoEs)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TipoEs)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaEspadre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaEspadre.Descripcion)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CategoriaEsid" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,672 @@
+﻿@model IEnumerable<PolizaJuridica.Data.Documentos>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                @if (@ViewBag.TipoRegimen == "1")
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Física</h4>
+                }
+                @if (@ViewBag.TipoRegimen == "2")
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Moral</h4>
+                }
+                <div>
+                    <div class="card">
+                        <div class="card-header card-header-tabs" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Datos:</span>
+
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="">
+                                            @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = ViewBag.Id, origen = 2 })
+                                        </li>
+                                        @if (@ViewBag.TipoRegimen == "1")
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Física", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Personas Ocuparán. Inmueble", "Index", "PersonasOcupanInms", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Documentos
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            @if (ViewBag.Fiador == true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (P. Física)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (P. Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+
+                                            }
+                                        }
+                                        @if (@ViewBag.TipoRegimen == "2")
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Moral", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Documentos
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            @if (ViewBag.Fiador == true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (P. Física)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (P. Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+
+                                            }
+                                        }
+                                        @if ("Procesos" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value || "Control y Calidad" == User.FindFirst("Area").Value)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Investigación", "Index", "Investigacions", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                            </li>
+
+                                        }
+                                        <li class="">
+                                            @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = ViewBag.Id })
+                                        </li>
+                                        <li class="">
+                                            @Html.ActionLink("Generar Solicitudes", "Index", "GenerarSolicitudes", new { id = ViewBag.Id })
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content">
+                                <!--Inicio de Secccion 1-->
+                                <div class="tab-pane active" id="2">
+                                    <!--INICIO Seccion dentro del tab-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 class="card-title">Listado de Documentos</h4>
+                                            <div class="toolbar" align="right">
+                                                <!--<a href="" data-toggle="modal" data-target="#CargaMasiva" class="btn btn-default btn-fill btn-red btn-wd">Carga Masiva</a>-->
+                                                <a href="" data-toggle="modal" data-target="#Create" class="btn btn-finish btn-fill btn-red btn-wd" id="Nuevo">Nuevo Documento</a>
+                                            </div>
+                                            <div class="material-datatables">
+                                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Descripción
+                                                            </th>
+                                                            <th>
+                                                                Tipo Documento
+                                                            </th>
+                                                            <th class="disabled-sorting text-right">Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.DocumentoDesc)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.TipoDocumento.TipoDocumentoDesc)
+                                                                </td>
+                                                                <td>
+                                                                    @if (ViewBag.Estatus != "Concluido")
+                                                                    {
+                                                                        <a href="" data-toggle="modal" data-target="#Delete" class="pull-right" onclick="getDataAjax('@item.DocumentosId','Documentos/EditAjax')"><i class="material-icons">close</i></a>
+                                                                    }
+                                                                    <a href="" data-toggle="modal" data-target="#Edit" class="pull-right" onclick="getDataAjax('@item.DocumentosId','Documentos/EditAjax')"><i class="material-icons">edit</i></a>
+                                                                    <a onclick="donwload('@item.DocumentoDesc', '@item.DocumentosImagen')" class="pull-right"><i class="material-icons">file_download</i></a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end col-md-12 -->
+                                    </div>
+                                    <!--FIN Seccion dentro del tab-->
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin de Seccion 1-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!--Seccion de Modal-->
+<!-- Modal -->
+<!--Create-->
+<div class="modal fade" id="Create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Crear Documento</h4>
+            </div>
+            <div class="modal-body">
+                <form id="idMyForm" name="idMyForm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <input for="DocumentosId" name="DocumentosId" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Descripcion</label>
+                        <input for="DocumentosDesc" name="DocumentosDesc" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo documento</label>
+                        <select name="TipoDocumentoId" class="form-control" asp-items="ViewBag.TipoDocumentoDesc"></select>
+                    </div>
+                    <!--Seccion de Carga imagen-->
+                    <div class=" row" align="center">
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                <img src="~/img/image_placeholder.jpg" alt="...">
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                            <div>
+                                <span class="btn btn-rose btn-round btn-file">
+                                    <span class="fileinput-new">Seleccionar Imagen</span>
+                                    <span class="fileinput-exists">Cambiar</span>
+                                    <input type="file" id="inputFileToLoad" />
+                                </span>
+                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Eliminar</a>
+                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin de seccion carga-->
+                    <div class="form-group" hidden>
+                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.Id" class="form-control">
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataDocumento('Documentos/Insertar')" id="Guardar" value='Guardar'>Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Create-->
+<!--Edit-->
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar Documento</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <input for="DocumentosIdEd" name="DocumentosIdEd" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Descripcion</label>
+                        <input for="DocumentosDescEd" name="DocumentosDescEd" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo documento</label>
+                        <select name="TipoDocumentoIdEd" class="form-control" asp-items="ViewBag.TipoDocumentoDesc"></select>
+                    </div>
+                    <!--Seccion de Carga imagen-->
+                    <div class=" row" align="center">
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                <img id="imagencargaEd" src="~/img/image_placeholder.jpg" alt="...">
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                            <div>
+                                <span class="btn btn-rose btn-round btn-file">
+                                    <span class="fileinput-new">Seleccionar Imagen</span>
+                                    <span class="fileinput-exists">Cambiar</span>
+                                    <input type="file" id="inputFileToLoadEd" />
+                                </span>
+                                <a class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> eliminar</a>
+                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin de seccion carga-->
+                    <div class="form-group" hidden>
+                        <input for="FisicaMoralId" name="FisicaMoralIdEd" value="@ViewBag.Id" class="form-control">
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataDocumentoEdita('Documentos/Editar')" id="GuardarEdit" value='GuardarEdit'>Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Edit-->
+<!--Delete-->
+<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Eliminar
+                    Referencia de Arrendamiento
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <input for="DocumentosIdEd" name="DocumentosIdEd" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Descripcion</label>
+                        <input for="DocumentosDescEd" name="DocumentosDescEd" class="form-control" disabled />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo documento</label>
+                        <select name="TipoDocumentoIdEd" class="form-control" asp-items="ViewBag.TipoDocumentoDesc" disabled></select>
+                    </div>
+                    <!--Seccion de Carga imagen-->
+                    <div class=" row" align="center" hidden>
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                <img id="imagencargaEliminar" src="~/img/image_placeholder.jpg" alt="...">
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+
+                        </div>
+                    </div>
+                    <!--Fin de seccion carga-->
+                    <div class="form-group" hidden>
+                        <input for="FisicaMoralId" name="FisicaMoralIdEd" value="@ViewBag.Id" class="form-control">
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="MensajeError()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Delete-->
+<!--CArga MAsiva-->
+<div class="modal fade" id="CargaMasiva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Carga Masiva de documentos
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div id="dropzone">
+                            <form action="../Upload" class="dropzone needsclick dz-clickable" id="objuploader">
+                                <div class="dz-message needsclick">
+                                    Drop files here or click to upload.<br>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin CArga Masiva-->
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Guardar').on('click',
+                function (event) {
+                    $('#Guardar').prop('disabled', true);
+                    $('#idMyForm').submit();
+                });
+
+
+            Dropzone.options.objuploader = {
+                paramName: "file", // The name that will be used to transfer the file
+                params: @ViewBag.Id,
+                maxFilesize: 2, // MB
+                accept: function (file, done) {
+                    if (file.name == "test.jpg") {
+                        alert("No se puede");
+                    }
+                    else {
+                        alert("Entro");
+
+                        done();
+                    }
+                }
+            };
+
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+
+            var table = $('#datatables').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+
+            //Si cambia
+            $("#inputFileToLoad").change(function () {
+                console.log("Entro");
+                var filesSelected = document.getElementById("inputFileToLoad").files;
+                console.log(filesSelected);
+                mensaje("info","Estamos cargando el archivo / imagen",true);
+            });
+
+        });
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+
+
+        function mensaje(tipo, msj,isprogress) {
+            $.notify({
+                icon: "notifications",
+                message: msj
+
+            }, {
+                type: tipo,
+                timer: 6000,
+                showProgressbar: isprogress,
+                placement: {
+                    from: top,
+                    align: "right"
+                }
+            });
+        }
+        var item;
+        var DocumentosId;
+        var DocumentosImagen;
+        var DocumentosDesc;
+        var TipoDocumentoId;
+        var FisicaMoralId;
+        var id;
+        /*Agregamos un registro*/
+        function setDataDocumento(action) {
+
+            DocumentosId = $('input[name=DocumentosId]')[0].value;
+            TipoDocumentoId = $('select[name=TipoDocumentoId]').val();
+            FisicaMoralId = $('input[name=FisicaMoralId]')[0].value;
+            var filesSelected = document.getElementById("inputFileToLoad").files;
+            console.log(filesSelected);
+            if (filesSelected.length > 0) {
+                DocumentoDesc = filesSelected[0].name;
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function (fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    DocumentosImagen = srcData;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "../../" + action,
+                        data: {
+                            DocumentosId, DocumentosImagen, DocumentoDesc, TipoDocumentoId, FisicaMoralId
+                        },
+                        success: function (response) {
+                            if (response == "Save") {
+                                window.location.reload(true);
+                            }
+                        }
+                    });
+                }
+                fileReader.readAsDataURL(fileToLoad);
+
+            } else {
+                //vamos a mandar un mensaje si no se a cargado aun la imagen
+                $.notify({
+                    icon: "notifications",
+                    message: "Error: Aun no se a cargado la imagen"
+
+                }, {
+                    type: "danger",
+                    timer: 3000,
+                    placement: {
+                        from: top,
+                        align: "right"
+                    }
+                });
+            }
+        }
+
+        function getDataAjax(id, action) {
+            limpiar();
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    onSuccess(response);
+                    console.log(response);
+                }
+            });
+        }
+        function onSuccess(response) {
+
+            item = response;
+            $('input[name=DocumentosIdEd').val(item[0].documentosId);
+            $('input[name=DocumentosDescEd').val(item[0].documentoDesc);
+            $('select[name=TipoDocumentoIdEd]').val(item[0].tipoDocumentoId);
+            $('input[name=FisicaMoralIdEd').val(item[0].fisicaMoralId);
+            document.getElementById("imagencargaEd").src = item[0].documentosImagen;
+            document.getElementById("imagencargaEliminar").src = item[0].documentosImagen;
+        }
+
+        /*Modificamos */
+        function setDataDocumentoEdita(action) {
+            let DocumentosId = $('input[name=DocumentosIdEd]')[0].value;
+            let TipoDocumentoId = $('select[name=TipoDocumentoIdEd]').val();
+            let FisicaMoralId = $('input[name=FisicaMoralIdEd]')[0].value;
+            var filesSelected = document.getElementById("inputFileToLoadEd").files;
+
+            if (filesSelected.length > 0) {
+                DocumentoDesc = filesSelected[0].name;
+                var fileToLoad = filesSelected[0];
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function (fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    var DocumentosImagen = srcData;
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "../../" + action,
+                        data: {
+                            DocumentosId, DocumentosImagen, DocumentoDesc, TipoDocumentoId, FisicaMoralId
+                        },
+                        success: function (response) {
+                            if (response == "Save") {
+                                window.location.reload(true);
+                            }
+                        }
+                    });
+
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+            else {
+                //vamos a mandar un mensaje si no se a cargado aun la imagen
+                $.notify({
+                    icon: "notifications",
+                    message: "Error: Aun no se a cargado la imagen"
+
+                }, {
+                    type: "danger",
+                    timer: 3000,
+                    placement: {
+                        from: top,
+                        align: "right"
+                    }
+                });
+            }
+        }
+        /*Eliminamos*/
+        function setDataDelete(action) {
+
+            id = $('input[name=DocumentosIdEd')[0].value;
+
+
+            $.each(item, function (idex, valor) {
+                valor.DocumentosId = id;
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        swal({
+                            title: 'Eliminado!',
+                            text: 'Su registro ha sido eliminado',
+                            type: 'success',
+                            confirmButtonClass: "btn btn-success",
+                            buttonsStyling: false
+                        })
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        }, 2000);
+                    }
+                }
+            });
+        }
+        function MensajeError() {
+            swal({
+                title: '¿Estas Seguro?',
+                text: "Se eliminara de forma permanente",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Si, Eliminarlo!',
+                buttonsStyling: false
+            }).then(function () {
+                setDataDelete('Documentos/DeleteConfirmed');
+            });
+        }
+        /*fin de eliminar*/
+        /*Limpiamos*/
+        function limpiar() {
+            item = "";
+            RefArrenNombres = "";
+            RefArrenApePaterno = "";
+            RefArrenApeMaterno = "";
+            RefArrenTelefono = "";
+            RefArrenDomicilio = "";
+            RefArrenMonto = "";
+            RefArrenMotivoCambio = "";
+            FisicaMoralId = "";
+            RefArrenId = "";
+            id = "";
+
+        }
+        function donwload(name,imagen) {
+            var a = document.createElement("a"); //Create <a>
+            a.href = imagen; //Image Base64 Goes here
+            a.download = name; //File name Here
+            a.click(); //Downloaded file
+        }
+    </script>
+
+}

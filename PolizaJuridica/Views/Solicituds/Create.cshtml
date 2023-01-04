@@ -1,0 +1,1502 @@
+﻿@model PolizaJuridica.Data.Solicitud
+
+<div class="row">
+    <!--      Wizard container        -->
+    <div class="wizard-container">
+        <div class="card wizard-card form" data-color="red" id="wizardProfile">
+            <form asp-controller="Solicituds" asp-action="Create">
+                <div align="center">
+                    <h3 class="wizard-title">
+                        Solicitud de Otorgamiento
+                    </h3>
+                    <!--<div class="row">-->
+                    <div class="radio" id="SolicitudTipoPolizaError">
+                        <label><star>*</star>Tipo de p&oacuteliza: </label>
+                        <label>
+                            <input asp-for="SolicitudTipoPoliza" type="radio" value="Tradicional">
+                            Tradicional
+                        </label>
+                        <label>
+                            <input asp-for="SolicitudTipoPoliza" type="radio" value="Plus">
+                            Plus
+                        </label>
+                    </div>
+                    <!--</div>-->
+                </div>
+                <div class="wizard-navigation">
+                    <ul>
+                        <li>
+                            <a href="#account" data-toggle="tab">Datos del Arrendador</a>
+                        </li>
+                        <li>
+                            <a href="#address" data-toggle="tab">Datos del Arrendamiento</a>
+                        </li>
+                        <li>
+                            <a href="#about" data-toggle="tab">Datos del Profesional inmobiliario</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane" id="about">
+
+                        @if (@ViewBag.Area != "Representante")
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating" hidden>
+                                        <label class="control-label">RepresentanteId</label>
+                                        <input asp-for="Representanteid" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Representante</label>
+                                            <input name="RepresentanteNombre" id="RepresentanteNombre" type="text" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Representación</label>
+                                            <input id="NombreRepresentacion" type="text" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a class="btn btn-fill btn-primary btn-wd" href="" data-toggle="modal" data-target="#Representantes"><i class="material-icons">search</i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                        @if (@ViewBag.Area != "Asesor")
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating" hidden>
+                                        <label class="control-label">Asesor</label>
+                                        <input asp-for="Asesorid" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Asesor</label>
+                                            <input id="AsesorNombre" name="AsesorNombre" type="text" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="control-label">Inmobiliaria</label>
+                                            <input asp-for="Inmobiliaria" type="text" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a class="btn btn-fill btn-primary btn-wd" href="" data-toggle="modal" data-target="#Asesor"><i class="material-icons">search</i></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Teléfono</label>
+                                            <input asp-for="SolicitudTelefono" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Celular</label>
+                                            <input asp-for="SolicitudCelular" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">E-mail</label>
+                                            <input asp-for="SolicitudEmail" type="email" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="checkbox">
+                                    <label>Es propietario: </label>
+                                    <label>
+                                        <input asp-for="SolicitudAdmiInmueble">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="checkbox">
+                                    <label>Es administrador de inmuebles: </label>
+                                    <label>
+                                        <input asp-for="SolicitudEsAdminInmueble">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="checkbox">
+                                    <label>Es renovación: </label>
+                                    <label>
+                                        <input asp-for="IsRenovacion">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" id="account">
+                        <!--//Inicion de Seccion 2-->
+                        <div class="row">
+                            <div class="cointerner">
+                                <div class="col-lg-12 col-md-6 col-sm-3" align="center">
+                                    <select asp-for="SolicitudTipoRegimen" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center" onChange="pagoOnChange(this)">
+                                        <option disabled selected>Seleccione Tipo Régimen</option>
+                                        <option value="1">Fisica</option>
+                                        <option value="2">Moral</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="Moral">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group label-floating" id="SolicitudRazonSocialError">
+                                            <label class="control-label">Razón Social</label>
+                                            <input asp-for="SolicitudRazonSocial" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group label-floating" id="SolicitudRfcError">
+                                            <label class="control-label">RFC</label>
+                                            <input asp-for="SolicitudRfc" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group label-floating" id="SolicitudRepresentanteLegalError">
+                                            <label class="control-label"><star>*</star>Nombre del Representante Legal</label>
+                                            <input asp-for="SolicitudRepresentanteLegal" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group label-floating" id="SolicitudApePaternoLegalError">
+                                            <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                            <input asp-for="SolicitudApePaternoLegal" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group label-floating" id="SolicitudApeMaternoLegalError">
+                                            <label class="control-label"><star>*</star>Apellido Materno</label>
+                                            <input asp-for="SolicitudApeMaternoLegal" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="Fisica">
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating" id="SolicitudNombrePropError">
+                                        <label class="control-label"><star>*</star>Nombre(s)</label>
+                                        <input asp-for="SolicitudNombreProp" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating" id="SolicitudApePaternoPropError">
+                                        <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                        <input asp-for="SolicitudApePaternoProp" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating" id="SolicitudApeMaternoPropError">
+                                        <label class="control-label"><star>*</star>Apellido Materno</label>
+                                        <input asp-for="SolicitudApeMaternoProp" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group label-floating" id="SolicitudDomicilioPropError">
+                                    <label class="control-label"><star>*</star>Domicilio Actual (Calle, No. Exterior y/o No. Interior)</label>
+                                    <input asp-for="SolicitudDomicilioProp" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="ColoniaActualError">
+                                    <label class="control-label"><star>*</star>Colonia</label>
+                                    <input asp-for="ColoniaActual" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="AlcaldiaMunicipioActualError">
+                                    <label class="control-label"><star>*</star>Alcaldía o Municipio</label>
+                                    <input asp-for="AlcaldiaMunicipioActual" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="CodigoPostalActualError">
+                                    <label class="control-label"><star>*</star>Código Postal</label>
+                                    <input asp-for="CodigoPostalActual" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="EstadoActualError">
+                                    <label class="control-label"><star>*</star>Estado</label>
+                                    <input asp-for="EstadoActual" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="SolicitudNacionalidadError">
+                                    <label class="control-label"><star>*</star>Nacionalidad</label>
+                                    <input asp-for="SolicitudNacionalidad" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Teléfono</label>
+                                    <input asp-for="SolicitudTelefonoProp" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="SolicitudCelularPropError">
+                                    <label class="control-label"><star>*</star>Celular</label>
+                                    <input asp-for="SolicitudCelularProp" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="SolicitudEmailPropError">
+                                    <label class="control-label">E-mail</label>
+                                    <input asp-for="SolicitudEmailProp" type="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="TipoIdentificacionError">
+                                    <label class="control-label">Tipo de Identificación</label>
+                                    <input asp-for="TipoIdentificacion" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="NumeroIdentificacionError">
+                                    <label class="control-label">Número de Identificación</label>
+                                    <input asp-for="NumeroIdentificacion" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Para el pago de rentas: </label>
+                                <div class="radio">
+                                    <label>
+                                        <input asp-for="SolicitudTipoDeposito" type="radio" value="1">
+                                        Depósito y/o transferencia bancaria
+                                    </label>
+                                    <label>
+                                        <input asp-for="SolicitudTipoDeposito" type="radio" value="2">
+                                        En el domicilio del arrendador y/o cobro en el inmueble
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="NombreCuenta">
+                            <div class="col-md-12">
+                                <div class="form-group label-floating" id="SolicitudNombreCuentaError">
+                                    <label class="control-label"><star>*</star>Titular de la cuenta</label>
+                                    <input asp-for="SolicitudNombreCuenta" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="DatosCuenta">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="SolicitudBancoError">
+                                    <label class="control-label"><star>*</star>Banco</label>
+                                    <input asp-for="SolicitudBanco" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="SolicitudCuentaError">
+                                    <label class="control-label"><star>*</star>No. Cuenta</label>
+                                    <input asp-for="SolicitudCuenta" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="SolicitudCLABEError">
+                                    <label class="control-label"><star>*</star>Clabe</label>
+                                    <input asp-for="SolicitudClabe" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group label-floating" id="SolicitudUbicacionArrendadoError">
+                                    <label class="control-label"><star>*</star>Domicilio del bien a ser arrendado (Calle, No. Exterior y/o No. Interior)</label>
+                                    <input asp-for="SolicitudUbicacionArrendado" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="ColoniaArrendarError">
+                                    <label class="control-label"><star>*</star>Colonia</label>
+                                    <input asp-for="ColoniaArrendar" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group label-floating" id="AlcaldiaMunicipioArrendarError">
+                                    <label class="control-label"><star>*</star>Alcaldía o Municipio</label>
+                                    <input asp-for="AlcaldiaMunicipioArrendar" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="CodigoPostalArrendarError">
+                                    <label class="control-label"><star>*</star>Código Postal</label>
+                                    <input asp-for="CodigoPostalArrendar" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <select asp-for="EstadosId" class="btn btn-primary btn-round" asp-items="ViewBag.EstadosId">
+                                    <option> (Seleccionar estado) </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            Tiene teléfono el inmueble
+                                            <input id="CheckTelefono" name="CheckTelefono" asp-for="SolicitudTelefonoInmueble">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="numero">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">N&uacutemero</label>
+                                        <input asp-for="SolicitudNumero" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div align="center">
+                            <h4>Arrendadores Adicionales (Opcional)</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="AlcaldiaMunicipioArrendarError">
+                                    <label class="control-label"><star>*</star>Nombre (s)</label>
+                                    <input asp-for="Nombre1" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="CodigoPostalArrendarError">
+                                    <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                    <input asp-for="ApePat1" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="AlcaldiaMunicipioArrendarError">
+                                    <label class="control-label">Apellido Materno</label>
+                                    <input asp-for="ApeMat1" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="AlcaldiaMunicipioArrendarError">
+                                    <label class="control-label">Tipo de Identificación</label>
+                                    <input asp-for="TipoIdent1" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="CodigoPostalArrendarError">
+                                    <label class="control-label">Numero de Identificación</label>
+                                    <input asp-for="NumIdent1" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div align="center">
+                            <h5>Arrendador 2 (Opcional)</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="AlcaldiaMunicipioArrendarError">
+                                    <label class="control-label"><star>*</star>Nombre (s)</label>
+                                    <input asp-for="Nombre2" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="CodigoPostalArrendarError">
+                                    <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                    <input asp-for="ApePat2" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="AlcaldiaMunicipioArrendarError">
+                                    <label class="control-label">Apellido Materno</label>
+                                    <input asp-for="ApeMat2" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="AlcaldiaMunicipioArrendarError">
+                                    <label class="control-label">Tipo de Identificación</label>
+                                    <input asp-for="TipoIdent2" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating" id="CodigoPostalArrendarError">
+                                    <label class="control-label">Numero de Identificación</label>
+                                    <input asp-for="NumIdent2" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <!--//Fin seccion uno-->
+                    </div>
+                    <div class="tab-pane" id="address">
+                        <div class="row" align="center">
+                            <div class="col-md-12">
+                                <h4>¿A quien se realiza el recibo de pago de p&oacuteliza?:</h4>
+                                <div class="radio">
+                                    <label>
+                                        <input asp-for="SolicitudRecibodePago" type="radio" value="Arrendador">
+                                        Propietario
+                                    </label>
+                                    <label>
+                                        <input asp-for="SolicitudRecibodePago" type="radio" value="Arrendatario">
+                                        Arrendatario
+                                    </label>
+                                    <label>
+                                        <input asp-for="SolicitudRecibodePago" type="radio" value="50% Arrendador y 50% Arrendatario">
+                                        50% Propietario y 50% Arrendatario
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group label-floating" id="SolicitudImporteMensualError">
+                                    <label class="control-label"><star>*</star>Importe mensual de renta</label>
+                                    <input asp-for="SolicitudImporteMensual" type="number" min="0" step="0.01" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating" id="SolicitudDepositoGarantia">
+                                    <label class="control-label"><star>*</star>Dep&oacutesito en garant&iacutea </label>
+                                    <input asp-for="SolicitudDepositoGarantia" type="number" min="0" step="0.01" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Cuota de mantenimiento</label>
+                                    <input asp-for="SolicitudCuotaMant" type="number" min="0" step="0.01" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            ¿Desea que se sume a la renta?
+                                            <input asp-for="SolicitudIncluidaRenta">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            Necesita pagarés
+                                            <input asp-for="SolicitudPagare">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            ¿Necesita fiador?
+                                            <input asp-for="SolicitudFiador">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            ¿Necesita inmueble en garantía?
+                                            <input asp-for="SolicitudInmuebleGaran">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            ¿Necesita carta Entrega?
+                                            <input asp-for="SolicitudCartaEntrega">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Vigencia de la Póliza del: </label>
+                                        <input asp-for="SolicitudVigenciaContratoI" class="form-control" value="@ViewBag.FechaInicial" type="date">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">Al: </label>
+                                        <input asp-for="SolicitudVigenciaContratoF" class="form-control" value="@ViewBag.FechaFinal" type="date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9 col-md-6 col-sm-3" align="center">
+                                    <select asp-for="TipoInmobiliarioId" class="btn btn-primary btn-round" asp-items="ViewBag.TipoInmobiliarioId">
+                                        <option> (Seleccionar Tipo Inmueble) </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            ¿Amueblado?
+                                            <input asp-for="EsAmueblado">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Observaciones</label>
+                                        <input asp-for="SolicitudObservaciones" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div align="center">
+                                <h4>Datos del Arrendatario (Son para contactarlo)</h4>
+                            </div>
+                            <div class="cointerner">
+                                <div class="col-lg-12 col-md-6 col-sm-3" align="center">
+                                    <select asp-for="TipoArrendatario" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center">
+                                        <option value="0" disabled selected>Seleccione Tipo régimen</option>
+                                        <option value="1">Fisica</option>
+                                        <option value="2">Moral</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating" id="ArrendatarioNombreError">
+                                        <label class="control-label"><star>*</star>Nombre(s)</label>
+                                        <input asp-for="ArrendatarioNombre" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating" id="ArrendatarioApePatError">
+                                        <label class="control-label"><star>*</star>Apellido Paterno</label>
+                                        <input asp-for="ArrendatarioApePat" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating" id="ArrendatarioApeMatError">
+                                        <label class="control-label">Apellido Materno</label>
+                                        <input asp-for="ArrendatarioApeMat" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating" id="ArrendatarioTelefonoError">
+                                        <label class="control-label"><star>*</star>Teléfono</label>
+                                        <input asp-for="ArrendatarioTelefono" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating" id="ArrendatarioCorreoError">
+                                        <label class="control-label">Email</label>
+                                        <input asp-for="ArrendatarioCorreo" type="email" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div align="center">
+                                <h4>¿Cuándo le gustaría que firmaramos?</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Firma</label>
+                                        <input asp-for="SolicitudFechaFirma" class="form-control" type="date">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Hora firma</label>
+                                        <input asp-for="SolicitudHoraFirma" type="text" class="form-control timepicker">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Lugar para firmar</label>
+                                        <input asp-for="SolicitudLugarFirma" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha de solicitud</label>
+                                        <input asp-for="SolicitudFechaSolicitud" type="datetime-local">
+                                    </div>
+                                </div>
+                            </div>
+                            <h5>NOTA: Esta fecha y hora son tentativas hasta que pase la investigaci&oacuten</h5>
+                            @*@if ("Procesos" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value || "Atención a clientes" == User.FindFirst("Area").Value)
+                                {*@
+                            <!--Sección de los datos de escritura-->
+                            <h5>Sección para datos de escrituras</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Número RPP constitutiva</label>
+                                        <input asp-for="NumRppcons" class="form-control" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Número de Escritura</label>
+                                        <input asp-for="EscrituraNumero" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Licenciado</label>
+                                        <input asp-for="Licenciado" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Número de Notaria</label>
+                                        <input asp-for="NumeroNotaria" class="form-control" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha de Registro Constitutiva RPP</label>
+                                        <input asp-for="FechaRppcons" type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Número de Escritura del Poder</label>
+                                        <input asp-for="NumEscPoder" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Titular de la notaria que emite el poder</label>
+                                        <input asp-for="TitularNotaPoder" class="form-control" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Número de la notaria</label>
+                                        <input asp-for="NumNotaria" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha en que se emite el Poder</label>
+                                        <input asp-for="FechaEmitePoder" type="date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha Constitutiva</label>
+                                        <input asp-for="FechaConstitutiva" type="date" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Fin Sección de los datos de escritura-->
+
+                            <div class="row" hidden>
+
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Observaciones</label>
+                                        <input asp-for="SolicitudEstatus" type="text" class="form-control" value="Recibida">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="wizard-footer">
+                        <div class="pull-right">
+                            <input type='button' class='btn btn-next btn-fill btn-red btn-wd' name='siguiente' value='siguiente' />
+                            <button type="submit" class='btn btn-finish btn-fill btn-red btn-wd'>Enviar</button>
+                        </div>
+                        <div class="pull-left">
+                            <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='Atras' value='Atras' />
+                            <button asp-action="Index" class='btn btn-fill btn-danger btn-wd'>Cancelar</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- wizard container -->
+</div>
+
+
+<!--Representantes-->
+<div class="modal fade" id="Representantes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Listado de Representantes</h4>
+            </div>
+            <div class="modal-body">
+                <div class="material-datatables">
+                    <table id="datatablesRepresentantes" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Representación
+                                </th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var u in ViewData["Representante"] as IList<Usuarios>)
+                            {
+                                <tr>
+                                    <td>
+                                        @u.UsuarioNomCompleto
+                                    </td>
+                                    <td>
+                                        @u.Representacion.RepresentacionNombre
+                                    </td>
+                                    <td>
+                                        <a href="#" onclick="DataRepresentacion('@u.UsuariosId','@u.UsuarioNomCompleto','@u.Representacion.RepresentacionNombre')"><i class="material-icons">done</i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Representantes-->
+<!--Asesor-->
+<div class="modal fade" id="Asesor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Listado de Asesores</h4>
+            </div>
+            <div class="modal-body">
+                <div class="material-datatables">
+                    <table id="datatablesAsesores" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Inmobiliaria
+                                </th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var u in ViewData["Asesor"] as IList<Usuarios>)
+                            {
+                                <tr>
+                                    <td>
+                                        @u.UsuarioNomCompleto
+                                    </td>
+                                    <td>
+                                        @u.UsuarioInmobiliaria
+                                    </td>
+                                    <td>
+                                        <a href="#" onclick="DataAsesor('@u.UsuariosId','@u.UsuarioNomCompleto','@u.UsuarioInmobiliaria','@u.UsuarioTelefono','@u.UsuarioCelular','@u.UsurioEmail   ')"><i class="material-icons">done</i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NuevoAsesor">Nuevo Asesor</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Asesor-->
+<!--Nuevo Asesor-->
+<div class="modal fade" id="NuevoAsesor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo Asesor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group label-floating" id="UsuarioNombreError">
+                    <label class="control-label"><star>*</star>Nombre (s)</label>
+                    <input name="UsuarioNombre" type="text" class="form-control">
+                </div>
+                <div class="form-group label-floating" id="UsuarioApellidoPaternoError">
+                    <label class="control-label"><star>*</star>Apellido Paterno</label>
+                    <input name="UsuarioApellidoPaterno" type="text" class="form-control">
+                </div>
+                <div class="form-group label-floating" id="UsuarioApellidoMaternoError">
+                    <label class="control-label">Apellido Materno</label>
+                    <input name="UsuarioApellidoMaterno" type="text" class="form-control">
+                </div>
+                <div class="form-group label-floating" id="UsuarioCelularError">
+                    <label class="control-label"><star>*</star>Celular</label>
+                    <input name="UsuarioCelular" type="tel" class="form-control">
+                </div>
+                <div class="form-group label-floating" id="UsuarioTelefonoError">
+                    <label class="control-label">Teléfono</label>
+                    <input name="UsuarioTelefono" type="tel" class="form-control">
+                </div>
+                <div class="form-group label-floating" id="UsurioEmailError">
+                    <label class="control-label"><star>*</star>Email</label>
+                    <input name="UsurioEmail" type="email" class="form-control">
+                </div>
+                <div class="form-group label-floating" id="UsuarioInmobiliariaError">
+                    <label class="control-label"><star>*</star>Inmobiliaria</label>
+                    <input name="UsuarioInmobiliaria" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataAdd('Usuarios/Insertar')">Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin NuevoAsesor-->
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Inicio datatablesRepresentantes
+            $('#datatablesRepresentantes').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+            var table = $('#datatablesRepresentantes').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+
+
+            $('.card .material-datatables label').addClass('form-group');
+            //Funcionees de datatablesRepresentantes
+
+            //Inicio datatablesAsesores
+            $('#datatablesAsesores').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "Todo"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+
+            var table = $('#datatablesAsesores').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+
+
+            $('.card .material-datatables label').addClass('form-group');
+            //Funcionees de datatablesAsesores
+
+            $('.fechasolcititud').datetimepicker({
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+
+
+            //Datepicker seccion
+            $('.datetimepicker1').datetimepicker({
+                format: "dd/mm/yyyy",
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+            //Datepicker seccion
+            $('.datetimepicker2').datetimepicker({
+                format: "dd/mm/yyyy",
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+            //Datepicker seccion
+            $('.datetimepicker3').datetimepicker({
+                format: "dd/mm/yyyy",
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+                }
+            });
+            //Time
+            $('.timepicker').datetimepicker({
+                //          format: 'H:mm',    // use this format if you want the 24hours timepicker
+                format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
+                icons:
+                {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove',
+                    inline: true
+
+                }
+            });
+
+
+            $('.wizard-card').bootstrapWizard({
+                'tabClass': 'nav nav-pills',
+                'nextSelector': '.btn-next',
+                'previousSelector': '.btn-previous',
+
+                onNext: function (tab, navigation, index) {
+                    var $valid = $('.wizard-card form').valid();
+                    if (!$valid) {
+                        $validator.focusInvalid();
+                        return false;
+                    }
+                },
+
+                onInit: function (tab, navigation, index) {
+
+                    //check number of tabs and fill the entire row
+                    var $total = navigation.find('li').length;
+                    $width = 100 / $total;
+                    var $wizard = navigation.closest('.wizard-card');
+
+                    $display_width = $(document).width();
+
+                    if ($display_width < 600 && $total > 3) {
+                        $width = 50;
+                    }
+
+                    navigation.find('li').css('width', $width + '%');
+                    $first_li = navigation.find('li:first-child a').html();
+                    $moving_div = $('<div class="moving-tab">' + $first_li + '</div>');
+                    $('.wizard-card .wizard-navigation').append($moving_div);
+                    refreshAnimation($wizard, index);
+                    $('.moving-tab').css('transition', 'transform 0s');
+                },
+
+                onTabClick: function (tab, navigation, index) {
+                    var $valid = $('.wizard-card form').valid();
+
+                    if (!$valid) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+
+                onTabShow: function (tab, navigation, index) {
+                    var $total = navigation.find('li').length;
+                    var $current = index + 1;
+
+                    var $wizard = navigation.closest('.wizard-card');
+
+                    // If it's the last tab then hide the last button and show the finish instead
+                    if ($current >= $total) {
+                        $($wizard).find('.btn-next').hide();
+                        $($wizard).find('.btn-finish').show();
+                    } else {
+                        $($wizard).find('.btn-next').show();
+                        $($wizard).find('.btn-finish').hide();
+                    }
+
+                    button_text = navigation.find('li:nth-child(' + $current + ') a').html();
+
+                    setTimeout(function () {
+                        $('.moving-tab').text(button_text);
+                    }, 150);
+
+                    var checkbox = $('.footer-checkbox');
+
+                    if (!index == 0) {
+                        $(checkbox).css({
+                            'opacity': '0',
+                            'visibility': 'hidden',
+                            'position': 'absolute'
+                        });
+                    }
+                    else {
+                        $(checkbox).css({
+                            'opacity': '1',
+                            'visibility': 'visible'
+                        });
+                    }
+
+                    refreshAnimation($wizard, index);
+                }
+            });
+
+
+            // Prepare the preview for profile picture
+            $("#wizard-picture").change(function () {
+                readURL(this);
+            });
+
+            $('[data-toggle="wizard-radio"]').click(function () {
+                wizard = $(this).closest('.wizard-card');
+                wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
+                $(this).addClass('active');
+                $(wizard).find('[type="radio"]').removeAttr('checked');
+                $(this).find('[type="radio"]').attr('checked', 'true');
+            });
+
+            $('[data-toggle="wizard-checkbox"]').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $(this).find('[type="checkbox"]').removeAttr('checked');
+                } else {
+                    $(this).addClass('active');
+                    $(this).find('[type="checkbox"]').attr('checked', 'true');
+                }
+            });
+
+            $('.set-full-height').css('height', 'auto');
+
+            //Function to show image before upload
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(window).resize(function () {
+                $('.wizard-card').each(function () {
+                    $wizard = $(this);
+                    index = $wizard.bootstrapWizard('currentIndex');
+                    refreshAnimation($wizard, index);
+
+                    $('.moving-tab').css({
+                        'transition': 'transform 0s'
+                    });
+                });
+            });
+
+            function refreshAnimation($wizard, index) {
+                total_steps = $wizard.find('li').length;
+                move_distance = $wizard.width() / total_steps;
+                step_width = move_distance;
+                move_distance *= index;
+
+                $current = index + 1;
+
+                if ($current == 1) {
+                    move_distance -= 8;
+                } else if ($current == total_steps) {
+                    move_distance += 8;
+                }
+
+                $wizard.find('.moving-tab').css('width', step_width);
+                $('.moving-tab').css({
+                    'transform': 'translate3d(' + move_distance + 'px, 0, 0)',
+                    'transition': 'all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)'
+
+                });
+            }
+
+
+            //Seccion de checkbox si tiene numero el inmueble
+            $("#CheckTelefono").on("change", function () {
+                if ($('input[name="CheckTelefono"]').is(':checked')) {
+                    divN = document.getElementById("numero");
+                    divN.style.display = "";
+                } else {
+                    divN = document.getElementById("numero");
+                    divN.style.display = "none";
+
+                }
+            });
+
+
+        });
+        //Seccion de la cuenta del inmueble
+        $("input[name='SolicitudTipoDeposito']").on("change", function () {
+            var deposito = $("input[name='SolicitudTipoDeposito']");
+            var valor1 = deposito.filter(':checked').val();
+            if (valor1 == "2") {
+                    divK = document.getElementById("NombreCuenta");
+                    divK.style.display = "none";
+                    divL = document.getElementById("DatosCuenta");
+                    divL.style.display = "none";
+                } else {
+                    divK = document.getElementById("NombreCuenta");
+                    divK.style.display = "";
+                    divL = document.getElementById("DatosCuenta");
+                    divL.style.display = "";
+            }
+        });
+
+        //Seccion de Ocultar y mostrar Campos de Persona Fisica y/o Moral
+        function pagoOnChange(sel) {
+            if (sel.value == "1") {
+                divC = document.getElementById("Fisica");
+                divC.style.display = "";
+
+                divT = document.getElementById("Moral");
+                divT.style.display = "none";
+            }
+            else {
+                if (sel.value == "2") {
+                    divC = document.getElementById("Fisica");
+                    divC.style.display = "none";
+
+                    divT = document.getElementById("Moral");
+                    divT.style.display = "";
+
+                }
+                else {
+                    divC = document.getElementById("Fisica");
+                    divC.style.display = "none";
+
+                    divT = document.getElementById("Moral");
+                    divT.style.display = "none";
+
+                }
+
+            }
+        }
+
+        function Ocultar() {
+            var regimen = $('select[name=SolicitudTipoRegimen')[0].value;
+            if (regimen == "1") {
+                divC = document.getElementById("Fisica");
+                divC.style.display = "";
+
+                divT = document.getElementById("Moral");
+                divT.style.display = "none";
+            }
+            else {
+                if (regimen == "2") {
+                    divC = document.getElementById("Fisica");
+                    divC.style.display = "none";
+
+                    divT = document.getElementById("Moral");
+                    divT.style.display = "";
+
+                }
+                else {
+                    divC = document.getElementById("Fisica");
+                    divC.style.display = "none";
+
+                    divT = document.getElementById("Moral");
+                    divT.style.display = "none";
+
+                }
+            }
+            //Seccion de si tiene telefono el inmueble
+            if ($('input[name="CheckTelefono"]').is(':checked')) {
+                divN = document.getElementById("numero");
+                divN.style.display = "";
+            } else {
+                divN = document.getElementById("numero");
+                divN.style.display = "none";
+            }
+
+            //Seccion de la cuenta
+            var deposito = $("input[name='SolicitudTipoDeposito']");
+            var valor1 = deposito.filter(':checked').val();
+            if (valor1 == "2") {
+                divK = document.getElementById("NombreCuenta");
+                divK.style.display = "none";
+                divL = document.getElementById("DatosCuenta");
+                divL.style.display = "none";
+            } else {
+                    divK = document.getElementById("NombreCuenta");
+                    divK.style.display = "";
+                    divL = document.getElementById("DatosCuenta");
+                    divL.style.display = "";
+            }
+            if (valor1 == undefined) {
+                divK = document.getElementById("NombreCuenta");
+                divK.style.display = "none";
+                divL = document.getElementById("DatosCuenta");
+                divL.style.display = "none";
+            }
+        }
+        Ocultar();
+        function Inicializa() {
+            var anos = $("input[name='SolicitudVigenciaContratoI']")[0].value;
+            if (anos == "") {
+                var fecha = new Date();
+                $('input[name=SolicitudVigenciaContratoI').val(fecha.getDate());
+                var Ano = fecha.getFullYear() + 1;
+                var dia = fecha.getDate()-1;
+                var mes = fecha.getMonth()+1;
+                var fechafinal = dia + "/" + mes + "/" + Ano;
+                $('input[name=SolicitudVigenciaContratoF').val(fechafinal);
+            }
+        }
+        function DataRepresentacion(id, nombre, representacion) {
+            $("#Representanteid").val(id);
+            $("#RepresentanteNombre").val(nombre);
+            $("#NombreRepresentacion").val(representacion);
+            $("#Representantes").modal('toggle');
+        }
+
+        function DataAsesor(id, nombre, inmboliaria, telefono, celular, email) {
+            $("#Asesorid").val(id);
+            $("#AsesorNombre").val(nombre);
+            $("#Inmobiliaria").val(inmboliaria);
+            $("#SolicitudTelefono").val(telefono);
+            $("#SolicitudCelular").val(celular);
+            $("#SolicitudEmail").val(email);
+            $("#Asesor").modal('toggle');
+        }
+
+        var UsuarioNombre;
+        var UsuarioApellidoPaterno;
+        var UsuarioApellidoMaterno;
+        var UsuarioCelular;
+        var UsuarioTelefono;
+        var UsurioEmail;
+        var UsuarioInmobiliaria;
+        var UsuarioIdR;
+        var ResesentanteId;
+        /*Insertamos un registro*/
+        function setDataAdd(action) {
+
+            UsuarioNombre = $('input[name=UsuarioNombre')[0].value;
+            UsuarioApellidoPaterno = $('input[name=UsuarioApellidoPaterno')[0].value;
+            UsuarioApellidoMaterno = $('input[name=UsuarioApellidoMaterno')[0].value;
+            UsuarioCelular = $('input[name=UsuarioCelular')[0].value;
+            UsuarioTelefono = $('input[name=UsuarioTelefono')[0].value;
+            UsurioEmail = $('input[name=UsurioEmail')[0].value;
+            UsuarioInmobiliaria = $('input[name=UsuarioInmobiliaria')[0].value;
+            //ResesentanteId = $('input[name=Representanteid')[0].value;
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    UsuarioNombre, UsuarioApellidoPaterno, UsuarioApellidoMaterno, UsuarioTelefono, UsurioEmail, UsuarioInmobiliaria, UsuarioCelular, ResesentanteId
+                },
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    for (var i in result) {
+
+                        switch (result[i].tipo) {
+                            case 1://Error
+                                Mensaje(result[i].mensaje, "danger");
+                                break;
+                            case 2://ErrorAtributos
+                                MensajeCampos(result[i].mensaje);
+                                break;
+                            case 3://Exitoso
+                                $("#NuevoAsesor").modal('toggle');
+                                Mensaje(result[i].mensaje, "success");
+                                var NombreCompleto = UsuarioNombre + " " + UsuarioApellidoPaterno + UsuarioApellidoMaterno;
+                                $("#Asesorid").val(response);
+                                $("#AsesorNombre").val(NombreCompleto);
+                                $("#Inmobiliaria").val(UsuarioInmobiliaria);
+                                $("#SolicitudTelefono").val(UsuarioTelefono);
+                                $("#SolicitudCelular").val(UsuarioCelular);
+                                $("#SolicitudEmail").val(UsurioEmail);
+                                $("#Asesor").modal('toggle');
+                                break;
+                            case 4://Informativo
+                                Mensaje(result[i].mensaje, "info");
+                                break;
+                        }
+
+                    }
+                }
+            });
+        }
+
+        var objeto = @Html.Raw(Json.Serialize(@ViewBag.Error));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var o in obj) {
+
+                    switch (obj[o].tipo) {
+                        case 1://Error
+                        Mensaje(obj[o].mensaje, "danger");
+                        break;
+                        case 2://ErrorAtributos
+                        MensajeCampos(obj[o].mensaje);
+                        break;
+                        case 3://Exitoso
+                        Mensaje(obj[o].mensaje, "success");
+                        break;
+                        case 4://Informativo
+                        Mensaje(obj[o].mensaje, "info");
+                        break;
+                    }
+
+                }
+            }
+        }
+
+    function Mensaje(mensaje, tipo) {
+    $.notify({
+            icon: "add_alert",
+        message: mensaje
+
+    }, {
+            type: tipo,
+            timer: 10000,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    }
+       function MensajeCampos(id) {
+           id = '#' + id;
+            $(id).addClass('has-error');
+        }
+
+
+        //Inicializa();
+    </script>
+}

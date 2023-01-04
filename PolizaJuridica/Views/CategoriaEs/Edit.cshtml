@@ -1,0 +1,63 @@
+﻿@model PolizaJuridica.Data.CategoriaEs
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>CategoriaEs</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CategoriaEsid" />
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Póliza</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Poliza)
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Cuentas X pagar</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.CuentasXpagar)
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriaEspadreId" class="control-label"></label>
+                <select asp-for="CategoriaEspadreId" class="form-control" asp-items="ViewBag.CategoriaEspadreId">
+                    <option value="0">Sín padre</option>
+                </select>
+                <span asp-validation-for="CategoriaEspadreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="TipoEs" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center">
+                    <option disabled selected>Seleccione Tipo de Flujo</option>
+                    <option value="0">N/A</option>
+                    <option value="1">Entrada</option>
+                    <option value="2">Salida</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

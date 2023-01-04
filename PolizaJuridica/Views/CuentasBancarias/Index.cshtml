@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PolizaJuridica.Data.CuentasBancarias>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Saldo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clabe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Banco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Saldo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clabe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Banco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estatus)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CuentaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CuentaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CuentaId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

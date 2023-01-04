@@ -1,0 +1,601 @@
+﻿@model IEnumerable<PolizaJuridica.Data.Calendario>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="red">
+                <i class="material-icons">perm_identity</i>
+            </div>
+            <div class="card-content">
+                @if (@ViewBag.TipoRegimen == 1)
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Fisica</h4>
+                }
+                @if (@ViewBag.TipoRegimen == 2)
+                {
+                    <h4 class="card-title">Seguimiento de Solicitud Persona Moral</h4>
+                }
+                <div>
+                    <div class="card">
+                        <div class="card-header card-header-tabs" data-background-color="red">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Datos:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        @if (@ViewBag.TipoRegimen == 1)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Fisica", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Personas que Ocuparan el Inmueble", "Index", "PersonasOcupanInms", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            @if (ViewBag.fiador = true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Fisíca)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+
+                                            }
+                                            <li class="">
+                                                @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Calendario
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (@ViewBag.TipoRegimen == 2)
+                                        {
+                                            <li class="">
+                                                @Html.ActionLink("Persona Moral", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="">
+                                                @Html.ActionLink("Documentos", "Index", "Documentos", new { id = ViewBag.Id })
+                                            </li>
+                                            @if (ViewBag.fiador = true)
+                                            {
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Fisíca)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                                                </li>
+                                                <li class="">
+                                                    @Html.ActionLink("Fiador (Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                                                </li>
+
+                                            }
+                                            <li class="">
+                                                @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+                                            </li>
+                                            <li class="active">
+                                                <a href="#1" data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i>
+                                                    Calendario
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content">
+                                <!--Inicio de Secccion 1-->
+                                <div class="tab-pane active" id="2">
+                                    <!--INICIO Seccion dentro del tab-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 class="card-title">Listado fechas para firma</h4>
+                                            <div class="toolbar">
+                                                <a href="" data-toggle="modal" data-target="#Create" class="pull-right">Nuevo fecha para firma</a>
+                                            </div>
+                                            <div class="material-datatables">
+                                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Fecha
+                                                            </th>
+                                                            <th>
+                                                                Ubicación
+                                                            </th>
+                                                            <th>
+                                                                Estatus
+                                                            </th>
+                                                            <th>
+                                                                Descripción
+                                                            </th>
+                                                            <th>
+                                                                Usuario
+                                                            </th>
+                                                            <th class="disabled-sorting text-right">Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.CalendarioFechaFirma)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.CalendarioUbicacion)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.CalendarioEstatus)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.CalendarioDescripcion)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Usuarios.UsuarioNombre)
+                                                                </td>
+                                                                <td>
+                                                                    <a href="" data-toggle="modal" data-target="#Delete" class="pull-right" onclick="getDataAjax('@item.CalendarioId','Calendarios/EditAjax')"><i class="material-icons">close</i></a>
+                                                                    <a href="" data-toggle="modal" data-target="#Edit" class="pull-right" onclick="getDataEditAjax('@item.CalendarioId','Calendarios/EditAjax')"><i class="material-icons">edit</i></a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end col-md-12 -->
+                                    </div>
+                                    <!--FIN Seccion dentro del tab-->
+                                    <div class="form-group">
+                                        <a asp-controller="GenerarContrato" asp-action="VistaPrevia" asp-route-id="@ViewBag.Id" class="btn btn-default pull-left">Atrás</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin de Seccion 1-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!--Seccion de Modal-->
+<!-- Modal -->
+<!--Create-->
+<div class="modal fade" id="Create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Crear fecha firma</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <input for="CalendarioId" name="CalendarioId" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioFechaFirma" class="control-label">Fecha</label>
+                        <input for="CalendarioFechaFirma" type="datetime" name="CalendarioFechaFirma" class="form-control datetimepicker" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioUbicación" class="control-label">Ubicación</label>
+                        <input for="CalendarioUbicación" name="CalendarioUbicación" class="form-control" />
+
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="CalendarioEstatus" class="control-label">Estatus</label>
+                        <input for="CalendarioEstatus" name="CalendarioEstatus" class="form-control" value="En proceso" />
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioDescripcion" class="control-label">Descripción</label>
+                        <input for="CalendarioDescripcion" name="CalendarioDescripcion" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo de Referencia Comercial</label>
+                        <select name="UsuariosId" class="form-control" asp-items="ViewBag.UsuarioNombre"></select>
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="FisicaMoralId" class="control-label"></label>
+                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.id" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setDataAdd('Calendarios/Insertar')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Create-->
+<!--Edit-->
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar fecha de firma</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <input for="CalendarioIdEdit" name="CalendarioIdEdit" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioFechaFirma" class="control-label">Fecha</label>
+                        <input for="CalendarioFechaFirmaEdit" name="CalendarioFechaFirmaEdit" class="form-control datetimepicker" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioUbicación" class="control-label">Ubicación</label>
+                        <input for="CalendarioUbicaciónEdit" name="CalendarioUbicaciónEdit" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <select for="CalendarioEstatusEdit" name="CalendarioEstatusEdit" class="btn btn-primary btn-round" title="Single Select" data-size="7" aling="center">
+                            <option disabled selected>Seleccione Estatus</option>
+                            <option value="Concluido ">Concluido </option>
+                            <option value="En proceso">En proceso</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioDescripcion" class="control-label">Descripción</label>
+                        <input for="CalendarioDescripcionEdit" name="CalendarioDescripcionEdit" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo de Referencia Comercial</label>
+                        <select name="UsuariosIdEdit" class="form-control" asp-items="ViewBag.UsuarioNombre"></select>
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="FisicaMoralId" class="control-label"></label>
+                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.id" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="setEdit('Calendarios/EditRefArrenAjax')">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Edit-->
+<!--Delete-->
+<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Eliminar
+                    Referencia de Arrendamiento
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <input for="CalendarioId" name="CalendarioId" class="form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioFechaFirma" class="control-label">Fecha</label>
+                        <input for="CalendarioFechaFirma" name="CalendarioFechaFirma" class="form-control" disabled/>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioUbicación" class="control-label">Ubicación</label>
+                        <input for="CalendarioUbicación" name="CalendarioUbicación" class="form-control" disabled/>
+
+                    </div>
+                    <div class="form-group" >
+                        <label for="CalendarioEstatus" class="control-label">Estatus</label>
+                        <input for="CalendarioEstatus" name="CalendarioEstatus" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="CalendarioDescripcion" class="control-label">Descripción</label>
+                        <input for="CalendarioDescripcion" name="CalendarioDescripcion" class="form-control" disabled/>
+
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="FisicaMoralId" class="control-label"></label>
+                        <input for="FisicaMoralId" name="FisicaMoralId" value="@ViewBag.id" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="MensajeError()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Delete-->
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Datepicker seccion
+            $('.datetimepicker').datetimepicker({
+                format: 'DD/MM/YYYY',
+                icons:
+                    {
+                        Default: false,
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-chevron-up",
+                        down: "fa fa-chevron-down",
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-screenshot',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-remove',
+                        inline: true
+                    }
+            });
+
+
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+
+            var table = $('#datatables').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+        });
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+        var item;
+        var CalendarioId;
+        var CalendarioFechaFirma;
+        var CalendarioUbicación;
+        var CalendarioEstatus;
+        var CalendarioDescripcion;
+        var UsuariosId;
+        var FisicaMoralId = @ViewBag.Id;
+
+        /*Insertamos un registro*/
+        function setDataAdd(action) {
+
+            CalendarioId = $('input[name=CalendarioId')[0].value;
+            CalendarioFechaFirma = $('input[name=CalendarioFechaFirma')[0].value;
+            CalendarioUbicación = $('input[name=CalendarioUbicación')[0].value;
+            CalendarioEstatus = $('input[name=CalendarioEstatus')[0].value;
+            CalendarioDescripcion = $('input[name=CalendarioDescripcion')[0].value;
+            UsuariosId = $('select[name=UsuariosId]').val();      
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    CalendarioId, CalendarioFechaFirma, CalendarioUbicación, CalendarioEstatus, CalendarioDescripcion, FisicaMoralId, UsuariosId
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        window.location.reload(true);
+                    }
+                    else {
+                        //Mesaje de error
+                        $.notify({
+                            icon: "notifications",
+                            message: "Error," + response
+
+                        }, {
+                                type: danger[red],
+                                timer: 3000,
+                                placement: {
+                                    from: top,
+                                    align: right
+                                }
+                            });
+                    }
+                }
+            });
+        }
+
+        function getDataAjax(id, action) {
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    console.log(response);
+                    onSuccess(response);
+                }
+            });
+        }
+        function onSuccess(response) {
+            item = response;
+            $.each(item, function (idex, valor) {
+                $('input[name=CalendarioId').val(valor.calendarioId);
+                $('input[name=CalendarioFechaFirma').val(valor.calendarioFechaFirma);
+                $('input[name=CalendarioUbicación').val(valor.calendarioUbicación);
+                $('input[name=CalendarioEstatus').val(valor.calendarioEstatus);
+                $('input[name=CalendarioDescripcion').val(valor.calendarioDescripcion);
+                $('input[name=FisicaMoralId').val(valor.fisicaMoralId);
+                $('select[name=UsuariosId]').val(valor.usuariosId);
+            });
+        }
+        function getDataEditAjax(id, action) {
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: { id },
+                success: function (response) {
+                    console.log(response);
+                    onSuccessEdit(response);
+                }
+            });
+        }
+        function onSuccessEdit(response) {
+            item = response;
+            $.each(item, function (idex, valor) {
+                $('input[name=CalendarioIdEdit').val(valor.calendarioId);
+                $('input[name=CalendarioFechaFirmaEdit').val(valor.calendarioFechaFirma);
+                $('input[name=CalendarioUbicaciónEdit').val(valor.calendarioUbicación);
+                $('select[name=CalendarioEstatusEdit]').val(valor.calendarioEstatus);
+                $('input[name=CalendarioDescripcionEdit').val(valor.calendarioDescripcion);
+                $('input[name=FisicaMoralIdEdit').val(valor.fisicaMoralId);
+                $('select[name=UsuariosIdEdit]').val(valor.usuariosId);
+            });
+        }
+        /*Modificamos Fiador*/
+        function setEdit(action) {
+
+            CalendarioId = $('input[name=CalendarioIdEdit')[0].value;
+            CalendarioFechaFirma = $('input[name=CalendarioFechaFirmaEdit')[0].value;
+            CalendarioUbicación = $('input[name=CalendarioUbicaciónEdit')[0].value;
+            CalendarioEstatus = $('select[name=CalendarioEstatusEdit').val();
+            CalendarioDescripcion = $('input[name=CalendarioDescripcionEdit')[0].value;
+            UsuariosId = $('select[name=UsuariosIdEdit]').val();
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    CalendarioId, CalendarioFechaFirma, CalendarioUbicación, CalendarioEstatus, CalendarioDescripcion, FisicaMoralId, UsuariosId
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        window.location.reload(true);
+                    }
+                    else {
+                        //Mesaje de error
+                        $.notify({
+                            icon: "notifications",
+                            message: "Error," + response
+
+                        }, {
+                                type: danger[red],
+                                timer: 3000,
+                                placement: {
+                                    from: top,
+                                    align: right
+                                }
+                            });
+                    }
+                }
+            });
+        }
+        /*Eliminamos*/
+        function setDataDeleteFiadorF(action) {
+
+            id = $('input[name=CalendarioId')[0].value;
+
+            $.ajax({
+                type: "POST",
+                url: "../../" + action,
+                data: {
+                    id
+                },
+                success: function (response) {
+                    if (response == "Save") {
+                        swal({
+                            title: 'Eliminado!',
+                            text: 'Su registro ha sido eliminado.',
+                            type: 'success',
+                            confirmButtonClass: "btn btn-success",
+                            buttonsStyling: false
+                        })
+                        setTimeout(function () {
+                            window.location.reload(true);
+                        }, 2000);
+                    }
+                    else {
+                        //Mesaje de error
+                        $.notify({
+                            icon: "notifications",
+                            message: "Error," + response
+
+                        }, {
+                                type: danger[red],
+                                timer: 3000,
+                                placement: {
+                                    from: top,
+                                    align: right
+                                }
+                            });
+                    }
+                }
+            });
+        }
+        function MensajeError() {
+            swal({
+                title: '¿Estas Seguro?',
+                text: "Se eliminara de forma permanente",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Si, Eliminarlo!',
+                buttonsStyling: false
+            }).then(function () {
+                setDataDeleteFiadorF('Calendarios/DeleteConfirmed');
+            });
+
+
+        }</script>
+}

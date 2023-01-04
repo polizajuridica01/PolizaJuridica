@@ -1,0 +1,89 @@
+﻿
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="">
+            @Html.ActionLink("Solicitud", "Edit", "Solicituds", new { id = ViewBag.Id, origen = 2 })
+        </li>
+        @if (@ViewBag.TipoRegimen == "1")
+        {
+            <li class="">
+                @Html.ActionLink("Persona Física", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+            </li>
+            <li class="">
+                @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+            </li>
+            <li class="">
+                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+            </li>
+            <li class="">
+                @Html.ActionLink("Referencias de Personales", "Index", "ReferenciaPersonals", new { id = ViewBag.Id })
+            </li>
+            <li class="">
+                @Html.ActionLink("Personas Ocuparán. Inmueble", "Index", "PersonasOcupanInms", new { id = ViewBag.Id })
+            </li>
+            <li class="active">
+                <a href="#1" data-toggle="tab">
+                    <i class="material-icons">bug_report</i>
+                    Documentos
+                    <div class="ripple-container"></div>
+                </a>
+            </li>
+            @if (ViewBag.Fiador == true)
+            {
+                <li class="">
+                    @Html.ActionLink("Fiador (P. Física)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                </li>
+                <li class="">
+                    @Html.ActionLink("Fiador (P. Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                </li>
+
+            }
+        }
+        @if (@ViewBag.TipoRegimen == "2")
+        {
+            <li class="">
+                @Html.ActionLink("Persona Moral", "Edit", "FisicaMorals", new { id = ViewBag.Id })
+            </li>
+            <li class="">
+                @Html.ActionLink("Arrendatarios", "Index", "Arrendatarios", new { id = ViewBag.Id })
+            </li>
+            <li class="">
+                @Html.ActionLink("Referencias de Arrendamiento", "Edit", "RefArrendamientoes", new { id = ViewBag.Id })
+            </li>
+            <li class="">
+                @Html.ActionLink("Referencias Comerciales", "Index", "ReferenciaComercials", new { id = ViewBag.Id })
+            </li>
+            <li class="active">
+                <a href="#1" data-toggle="tab">
+                    <i class="material-icons">bug_report</i>
+                    Documentos
+                    <div class="ripple-container"></div>
+                </a>
+            </li>
+            @if (ViewBag.Fiador == true)
+            {
+                <li class="">
+                    @Html.ActionLink("Fiador (P. Física)", "Index", "FiadorFs", new { id = ViewBag.Id })
+                </li>
+                <li class="">
+                    @Html.ActionLink("Fiador (P. Moral)", "Index", "FiadorMs", new { id = ViewBag.Id })
+                </li>
+
+            }
+        }
+        @if ("Procesos" == User.FindFirst("Area").Value || "Administración" == User.FindFirst("Area").Value)
+        {
+            <li class="">
+                @Html.ActionLink("Investigación", "Index", "Investigacions", new { id = ViewBag.Id })
+            </li>
+            <li class="">
+                @Html.ActionLink("Generar Contrato", "VistaPrevia", "GenerarContrato", new { id = ViewBag.Id })
+            </li>
+
+        }
+        <li class="">
+            @Html.ActionLink("Estatus", "Index", "UsuariosSolicituds", new { id = ViewBag.Id })
+        </li>
+        <li class="">
+            @Html.ActionLink("Generar Solicitudes", "Index", "GenerarSolicitudes", new { id = ViewBag.Id })
+        </li>
+    </ul>

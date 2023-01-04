@@ -1,0 +1,217 @@
+﻿@model IEnumerable<PolizaJuridica.Data.EventoUsuarios>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="purple">
+                <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Listado de los usuarios por evento</h4>
+                <div class="toolbar" align="right">
+                    <a href="" data-toggle="modal" data-target="#eventomasivo" class="btn btn-primary btn-fill">Notificación Masiva</a>
+                </div>
+                <div class="material-datatables">
+                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Correo
+                                </th>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Celular
+                                </th>
+                                <th>
+                                    Evento
+                                </th>
+                                <th>
+                                    Estado
+                                </th>
+                                <th>
+                                    Representante
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Correo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Celular)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Eventos.Descripcion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Estado.EstadoNombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Representante.UsuarioNomCompleto)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="material-icons">edit</i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="material-icons">closed</i></a>
+                                        <a asp-action="Send" asp-route-id="@item.Id"><i class="material-icons">send</i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end content-->
+        </div>
+        <!--  end card  -->
+    </div>
+    <!-- end col-md-12 -->
+</div>
+
+<!--eventomasivo-->
+<div class="modal fade" id="eventomasivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Notificar de forma masiva
+                </h4>
+            </div>
+            @using (Html.BeginForm("EnvioMasivo", "EventoUsuarios", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <select name="EventosId" class="btn btn-primary btn-round" asp-items="ViewBag.Evento">
+                            <option> (Seleccionar un evento) </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" class='btn btn-fill btn-primary btn-wd' value="Confirmar">
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+<!--Fin eventomasivo-->
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar",
+                }
+
+            });
+
+
+            var table = $('#datatables').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+
+            $('.card .material-datatables label').addClass('form-group');
+        });
+
+        function BuscarPoliza(action) {
+            var PolizaId
+            PolizaId = $('input[name=BuscarPolizaId')[0].value;
+            console.log(PolizaId);
+            if (PolizaId != 0) {
+                window.location.href = "Create/" + PolizaId;
+            } else {
+
+            Mensaje("El valor no puede ser cero", "danger");
+            }
+
+        }
+        function PolizaAnterior() {
+                window.location.href = "Create";
+        }
+
+        var objeto = @Html.Raw(Json.Serialize(@ViewBag.Error));
+        if (objeto != null) {
+            var obj = JSON.parse(objeto);
+            navegar(obj);
+        }
+
+        function navegar(obj) {
+
+            if (obj != null) {
+                for (var o in obj) {
+
+                    switch (obj[o].tipo) {
+                        case 1://Error
+                            Mensaje(obj[o].mensaje, "danger");
+                            break;
+                        case 2://ErrorAtributos
+                            MensajeCampos(obj[o].mensaje);
+                            break;
+                        case 3://Exitoso
+                            Mensaje(obj[o].mensaje, "success");
+                            break;
+                        case 4://Informativo
+                            Mensaje(obj[o].mensaje, "info");
+                            break;
+                    }
+
+                }
+            }
+        }
+
+        function Mensaje(mensaje, tipo) {
+            $.notify({
+                icon: "add_alert",
+                message: mensaje
+
+            }, {
+                    type: tipo,
+                    timer: 10000,
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    }
+                });
+        }
+        function MensajeCampos(id) {
+            id = '#' + id;
+            $(id).addClass('has-error');
+        }
+    </script>
+}

@@ -1,0 +1,66 @@
+﻿@model PolizaJuridica.Data.Parametros
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>Parametros</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ParametroNombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParametroNombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParametroValor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParametroValor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParametroValorNumerico)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParametroValorNumerico)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParametroValor1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParametroValor1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParametroValor2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParametroValor2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParametroValor3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParametroValor3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParametroValor4)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParametroValor4)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ParametrosId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>

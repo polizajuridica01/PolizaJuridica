@@ -1,0 +1,63 @@
+﻿@model PolizaJuridica.Data.Movimientos
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>Movimientos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cc.Ccid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cp.Cpid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DetallePoliza)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DetallePoliza.DetallePolizaId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dm.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdPadreNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdPadreNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mm.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>
