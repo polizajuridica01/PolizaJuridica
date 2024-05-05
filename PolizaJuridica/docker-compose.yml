@@ -1,0 +1,7 @@
+version: '3.4'
+services:
+  oldsispo:
+    restart: always
+    image: ${DOCKER_IMAGE}    
+    ports:
+      - ${PORTS}
