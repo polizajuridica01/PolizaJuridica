@@ -8,8 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:2.1 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["PolizaJuridica/PolizaJuridica.csproj", "PolizaJuridica/"]
-RUN dotnet restore "./PolizaJuridica/PolizaJuridica.csproj"
+COPY ["./PolizaJuridica.csproj", "PolizaJuridica/"]
+RUN dotnet restore "./PolizaJuridica.csproj"
 COPY . .
 WORKDIR "/src/PolizaJuridica"
 RUN dotnet build "./PolizaJuridica.csproj" -c $BUILD_CONFIGURATION -o /app/build
